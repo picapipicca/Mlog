@@ -1,0 +1,11 @@
+.wrap {
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+    padding: 1rem;
+    margin: 2rem;
+    font-weight: 700;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
