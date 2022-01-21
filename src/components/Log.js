@@ -1,9 +1,17 @@
 import React, {Fragment} from "react";
+import { Button } from "../element";
+import Bus from "./Bus";
+import classes from './Log.module.css';
 
 const Log = (props)=> {
+
+    const {history} = props;
     return(
         <Fragment>
-            방울모양의 내 일기가 적힌게 나오는공간
+            <section className={classes.wrap}>
+                <Bus width='70vw' height='24vh'/>
+            </section>
+            <button className={classes.btn} onClick={()=>{history.push('/postwrite')}}>입력</button>
         </Fragment>
     ); 
 };

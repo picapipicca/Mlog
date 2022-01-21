@@ -1,10 +1,13 @@
 import React,{ Fragment }  from 'react';
 import classes from "./Map.module.css"
+import Bus from '../components/Bus';
 
 const Map = (props) => {
     return (
         <Fragment>
-            첫화면/내 버스와 다른사람들 버스가 보이는 페이지!
+            <Bus height='8vh'/>
+            <Bus height='8vh' bg='black' carNumber='camel'/>
+            <Bus height='8vh' bg='yellow' carNumber='cat'/>
         </Fragment>
     );
 };
