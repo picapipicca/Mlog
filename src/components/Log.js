@@ -1,6 +1,6 @@
 import React, {Fragment} from "react";
 import { Button } from "../element";
-import Bus from "./Bus";
+import Bus from "./Bus/Bus";
 import classes from './Log.module.css';
 
 const Log = (props)=> {

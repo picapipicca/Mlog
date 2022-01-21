@@ -1,0 +1,12 @@
+.wrap{
+    align-items: center;
+    text-align: center;
+}
+.bus{
+    text-align: center;
+    margin: 0 30%;
+}
+.busframe{
+    height: 70vh;
+    border: 1px solid #000;
+}

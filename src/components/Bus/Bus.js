@@ -2,22 +2,23 @@ import React from "react";
 import styled from "styled-components";
 
 const Bus = (props) => {
-  const { carNumber, postId, bg, _onClick ,width,height, month } = props;
+  const { className,carNumber, postId, bg, _onClick ,width,height, month,children } = props;
 
-  const styles = { bg ,width, height};
+  const styles = { className,bg ,width, height};
 
   return (
       <BusBtn {...styles} onClick={_onClick}>
-        <p>{props.carNumber? props.carNumber : props.month}</p>
+        <p>{ carNumber ? carNumber : month+'월' }</p>
+        {children}
       </BusBtn>
   );
 };
 Bus.defaultProps = {
   _onClick: () => {},
-  carNumber: "sexy kingkong",
+  carNumber: false,
   postId: "10",
-  bg: "#CACACA",
-  month: '8월',
+  bg: false,
+  month: false,
 };
 const BusBtn = styled.div`
 
@@ -26,6 +27,7 @@ min-width: 10vw;
 cursor:pointer;
 padding: 10px;
 margin: 10px;
+${(props) => (props.className ? `className: ${props.className}` : "")};
 ${(props) => (props.width ? `width: ${props.width};` : "")}
 ${(props) => (props.height ? `height: ${props.height};` : "")}
 ${(props) => (props.bg ? `background-color: ${props.bg};` : "")}
