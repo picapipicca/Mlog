@@ -15,36 +15,36 @@ const Button = (props) => {
     opacity,
     color,
     className,
-    smallBtn,
-    floatBtn,
+    // smallBtn,
+    // floatBtn,
   } = props;
 
   const styles = {
-    margin: margin,
-    width: width,
-    padding: padding,
-    disabled: disabled,
-    radius: radius,
-    bgColor: bgColor,
-    opacity: opacity,
-    color: color,
-    className: className,
+    margin,
+    width,
+    padding,
+    disabled,
+    radius,
+    bgColor,
+    opacity,
+    color,
+    className,
   };
 
-  if (smallBtn) {
-    return (
-      <SmallBtn {...styles} onClick={_onClick}>
-        {text ? text : children}
-      </SmallBtn>
-    );
-  }
-  if (floatBtn) {
-    return (
-      <FloatButton {...styles} onClick={_onClick}>
-        {text ? text : children}
-      </FloatButton>
-    );
-  }
+  // if (smallBtn) {
+  //   return (
+  //     <SmallBtn {...styles} onClick={_onClick}>
+  //       {text ? text : children}
+  //     </SmallBtn>
+  //   );
+  // }
+  // if (floatBtn) {
+  //   return (
+  //     <FloatButton {...styles} onClick={_onClick}>
+  //       {text ? text : children}
+  //     </FloatButton>
+  //   );
+  // }
 
   return (
     <React.Fragment>
@@ -59,30 +59,6 @@ Button.defaultProps = {
   children: null,
   _onClick: () => {},
 };
-
-const SmallBtn = styled.button`
-  color: white;
-  background: orange;
-  font-weight: 800;
-  width: 4.5em;
-  margin-right: 1em;
-  border: none;
-  border-radius: 5px;
-`;
-
-const FloatButton = styled.button`
-  font-size: 30px;
-  width: 50px;
-  height: 50px;
-  background: orange;
-  border: none;
-  border-radius: 50%;
-  &:hover {
-    opacity: 0.9;
-    cursor: pointer;
-  }
-`;
-//---- 기본 return Button ----
 const ElButton = styled.button`
   width: ${(props) => props.width};
   padding: ${(props) => props.padding};
@@ -91,8 +67,36 @@ const ElButton = styled.button`
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
   position: ${(props) => (props.position ? `${props.position}` : "")};
   background-color: ${(props) => (props.bgColor ? `${props.bgColor}` : "")};
+  color: ${(props) => (props.color ? `${props.color}` : "")};
   ${(props) => (props.className ? `className: ${props.className}` : "")};
   cursor: pointer;
+  &:hover {
+    opacity: 0.8;
+    cursor:pointer;
+    }
 `;
+// const SmallBtn = styled.button`
+//   color: white;
+//   background: orange;
+//   font-weight: 800;
+//   width: 4.5em;
+//   margin-right: 1em;
+//   border: none;
+//   border-radius: 5px;
+// `;
+
+// const FloatButton = styled.button`
+//   font-size: 30px;
+//   width: 50px;
+//   height: 50px;
+//   background: orange;
+//   border: none;
+//   border-radius: 50%;
+//   &:hover {
+//     opacity: 0.9;
+//     cursor: pointer;
+//   }
+// `;
+
 
 export default Button;

@@ -2,8 +2,9 @@ import React, { Fragment } from "react";
 import "./App.css";
 
 import { BrowserRouter, Route } from "react-router-dom";
-import { ConnectedRouter } from 'connected-react-router';
+import { ConnectedRouter } from 'connected-react-router'
 import { history } from '../redux/configStore';
+
 import Map from "../pages/Map";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";

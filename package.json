@@ -13,7 +13,7 @@
     "@toast-ui/editor-plugin-uml": "^3.0.1",
     "@toast-ui/react-editor": "^3.1.2",
     "connected-react-router": "6.8.0",
-    "firebase": "^9.6.3",
+    "firebase": "^9.6.4",
     "history": "4.10.1",
     "immer": "^9.0.12",
     "moment": "^2.29.1",
