@@ -1,6 +1,6 @@
-
+import Grid from "./Grid";
 import Input from "./Input";
 import Button from "./Button";
 // import Spinner from "./Spinner";
 
-export {Input,Button};
+export {Grid,Input,Button};
