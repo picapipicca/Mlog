@@ -9,7 +9,7 @@ const Button = (props) => {
     margin,
     width,
     padding,
-    disabled,
+    _disabled,
     radius,
     bgColor,
     opacity,
@@ -23,7 +23,7 @@ const Button = (props) => {
     margin,
     width,
     padding,
-    disabled,
+    _disabled,
     radius,
     bgColor,
     opacity,
@@ -48,7 +48,7 @@ const Button = (props) => {
 
   return (
     <React.Fragment>
-      <ElButton {...styles} onClick={_onClick}>
+      <ElButton {...styles} onClick={_onClick} disabled={_disabled}>
         {text ? text : children}
       </ElButton>
     </React.Fragment>
@@ -58,6 +58,7 @@ const Button = (props) => {
 Button.defaultProps = {
   children: null,
   _onClick: () => {},
+  _disabled: false,
 };
 const ElButton = styled.button`
   width: ${(props) => props.width};
@@ -65,6 +66,7 @@ const ElButton = styled.button`
   box-sizing: border-box;
   border: none;
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
+  ${(props) => (props._disabled ? `background-color: #cad4c9`: "")};
   position: ${(props) => (props.position ? `${props.position}` : "")};
   background-color: ${(props) => (props.bgColor ? `${props.bgColor}` : "")};
   color: ${(props) => (props.color ? `${props.color}` : "")};

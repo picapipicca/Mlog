@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useCallback } from "react";
 import classes from "./Signup.module.css";
-import Modal from "../element/Modal";
+// import Modal from "../element/Modal";
 import { Input, Button } from "../element/index";
 import { useDispatch } from "react-redux";
 import { actionCreators as signupActions } from "../redux/modules/user";
@@ -13,101 +13,158 @@ const Signup = (props) => {
   const [pwd_confirm, setPwdConfirm] = useState("");
   const [user_nick, setUserNick] = useState("");
   //모달창
-  const [showModal, setShowModal] = useState();
+  // const [showModal, setShowModal] = useState();
 
   //오류메세지 상태저장
-  const [nickMessage, setNickMessage] = useState ("");
-  const [emailMessage, setEmailMessage] = useState ("");
-  const [passwordMessage, setPasswordMessage] = useState ("");
-  const [passwordConfirmMessage, setPasswordConfirmMessage] = useState ("");
+  const [nickMsg, setNickMsg] = useState("");
+  const [emailMsg, setEmailMsg] = useState("");
+  const [pwdMsg, setPwdMsg] = useState("");
+  const [pwdConfirmMsg, setPwdConfirmMsg] = useState("");
 
-  // // 유효성 검사
-  // const [isName, setIsName] = useState(false);
-  // const [isEmail, setIsEmail] = useState(false);
-  // const [isPassword, setIsPassword] = useState(false);
-  // const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+  // 유효성 검사
+  const [isNick, setIsNick] = useState(false);
+  const [isEmail, setIsEmail] = useState(false);
+  const [isPwd, setIsPwd] = useState(false);
+  const [isPwdConfirm, setIsPwdConfirm] = useState(false);
 
-  const userEmailHandler = (e) => {
-    const emailRegex =
-      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+  const userEmailHandler = useCallback((e) => {
+    const emailRegex =/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const emailCurrent = e.target.value;
     setEmail(emailCurrent);
-
     if (emailRegex.test(emailCurrent)) {
-      setEmailMessage('이메일 형식이 틀렸어요! 다시 확인해주세요 ㅠ.ㅠ')
-      // setIsEmail(false);
-    }else {
-      setEmailMessage('올바른 이메일 형식이에요 ;) ')
-      // setIsEmail(true);
+      setEmailMsg("올바른 이메일 형식이에요 ;) ");
+      setIsEmail(true);
+    } else {
+      setEmailMsg("이메일 형식이 틀렸어요! 다시 확인해주세요 ㅠ.ㅠ");
+      setIsEmail(false);
     }
-  };
-  const userPwdHandler = (e) => {
-    setPwd(e.target.value);
-  };
-  const userPwdConfirmHandler = (e) => {
-    setPwdConfirm(e.target.value);
-  };
-  const userNickHandler = (e) => {
+  }, []);
+
+
+  const userPwdHandler = useCallback((e) => {
+    const pwdRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    const pwdCurrent = e.target.value;
+    setPwd(pwdCurrent);
+    if (!pwdRegex.test(pwdCurrent)) {
+      setPwdMsg("숫자, 영문자, 특수문자 조합으로 8자리 이상 입력해주세요!");
+      setIsPwd(false);
+    } else {
+      setPwdMsg("안전한 비밀번호입니다 :)");
+      setIsPwd(true);
+    }
+  }, []);
+
+  const userPwdConfirmHandler = useCallback(
+    (e) => {
+      const pwdConfirmCurrnet = e.target.value;
+      setPwdConfirm(pwdConfirmCurrnet);
+
+      if (pwd === pwdConfirmCurrnet) {
+        setPwdConfirmMsg("비밀번호가 일치합니다!");
+        setIsPwdConfirm(true);
+      } else {
+        setPwdConfirmMsg("비밀번호가 틀려요. 다시 확인해 주세요");
+        setIsPwdConfirm(false);
+      }
+    },
+    [pwd]
+  );
+
+  const userNickHandler = useCallback((e) => {
     setUserNick(e.target.value);
-  };
-
-  const signup = () => {
-    if (
-      email.trim().length === 0 ||
-      pwd.trim().length === 0 ||
-      pwd.trim().length === 0
-    ) {
-      setShowModal({
-        title: "입력되지 않은곳이 있습니다",
-        message: "이메일, 비밀번호, 비밀번호 재입력칸을 확인해주세요!",
-      });
+    if (e.target.value.trim().length < 2 || e.target.value.trim().length > 10) {
+      setNickMsg("2글자 이상 9글자 미만으로 입력해주세요");
+      setIsNick(false);
+    } else {
+      setNickMsg("올바른 닉네임 형식입니다");
+      setIsNick(true);
     }
+  }, []);
 
-    if (pwd !== pwd_confirm) {
-      setShowModal({
-        title: "비밀번호 입력오류",
-        message: "비밀번호와 비밀번호 재입력값이 다릅니다!",
-      });
-    }
-
-    dispatch(signupActions.signupFirebase(email, pwd, user_nick));
-  };
-  const closeModalHandler = () => {
-    setShowModal(null);
-  };
+ 
 
   return (
     <Fragment>
-      {showModal && (
+      
+      {/* {showModal && (
         <Modal
           onCloseModal={closeModalHandler}
           title={showModal.title}
           message={showModal.message}
         />
-      )}
+      )} */}
+      
       <div className={classes.wrap}>
-        <Input
-          label="이메일"
-          placeholder="이메일을 입력해주세요"
-          type="text"
-          _onChange={userEmailHandler}
-        />
-        <Input
-          label="닉네임"
-          placeholder="활동은 닉네임으로 하게됩니다"
-          type="text"
-          _onChange={userNickHandler}
-        />
-        <Input
-          label="비밀번호"
-          placeholder="비밀번호를 입력해주세요"
-          _onChange={userPwdHandler}
-        />
-        <Input
-          placeholder="비밀번호를 다시 입력해주세요"
-          _onChange={userPwdConfirmHandler}
-        />
-        <Button text="가입하기" _onClick={signup}></Button>
+        <div className={classes.formbox}>
+          <Input
+            label="이메일"
+            placeholder="이메일을 입력해주세요"
+            type="text"
+            _onChange={userEmailHandler}
+          />
+          {email.length > 0 && (
+            <span
+              className={`${classes.message} ${ isEmail ? classes.success : classes.error}`}
+            >
+              {emailMsg}
+            </span>
+          )}
+        </div>
+        
+        <div>
+          <Input
+            label="닉네임"
+            placeholder="활동은 닉네임으로 하게됩니다"
+            type="text"
+            maxlength='9'
+            _onChange={userNickHandler}
+          />
+          {user_nick.length > 0 && (
+            <span
+              className={`${classes.message} ${ isNick ? classes.success : classes.error}`}
+            >
+              {nickMsg}
+            </span>
+          )}
+        </div>
+        <div>
+          <Input
+            label="비밀번호"
+            placeholder="비밀번호를 입력해주세요"
+            _onChange={userPwdHandler}
+            type="password"
+          />
+          {pwd.length > 0 && (
+            <span
+              className={`${classes.message} ${ isPwd ? classes.success : classes.error}`}
+            >
+              {pwdMsg}
+            </span>
+          )}
+        </div>
+        <div>
+          <Input
+            placeholder="비밀번호를 다시 입력해주세요"
+            type="password"
+            _onChange={userPwdConfirmHandler}
+          />
+          {pwd_confirm.length > 0 && (
+            <span
+              className={`${classes.message} ${ isPwdConfirm ? classes.success : classes.error}`}
+            >
+              {pwdConfirmMsg}
+            </span>
+          )}
+        </div>
+
+        <Button
+          text="가입하기"
+          _disabled={!(isNick && isEmail && isPwd && isPwdConfirm)}
+          _onClick={() => {
+            dispatch(signupActions.signupFirebase(email, pwd, user_nick));
+          }}
+        ></Button>
       </div>
     </Fragment>
   );
