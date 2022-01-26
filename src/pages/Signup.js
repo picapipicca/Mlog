@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useCallback } from "react";
 import classes from "./Signup.module.css";
-// import Modal from "../element/Modal";
 import { Input, Button } from "../element/index";
 import { useDispatch } from "react-redux";
 import { actionCreators as signupActions } from "../redux/modules/user";
@@ -12,8 +11,6 @@ const Signup = (props) => {
   const [pwd, setPwd] = useState("");
   const [pwd_confirm, setPwdConfirm] = useState("");
   const [user_nick, setUserNick] = useState("");
-  //모달창
-  // const [showModal, setShowModal] = useState();
 
   //오류메세지 상태저장
   const [nickMsg, setNickMsg] = useState("");
@@ -27,9 +24,8 @@ const Signup = (props) => {
   const [isPwd, setIsPwd] = useState(false);
   const [isPwdConfirm, setIsPwdConfirm] = useState(false);
 
-
   const userEmailHandler = useCallback((e) => {
-    const emailRegex =/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const emailCurrent = e.target.value;
     setEmail(emailCurrent);
     if (emailRegex.test(emailCurrent)) {
@@ -40,7 +36,6 @@ const Signup = (props) => {
       setIsEmail(false);
     }
   }, []);
-
 
   const userPwdHandler = useCallback((e) => {
     const pwdRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
@@ -82,19 +77,8 @@ const Signup = (props) => {
     }
   }, []);
 
- 
-
   return (
     <Fragment>
-      
-      {/* {showModal && (
-        <Modal
-          onCloseModal={closeModalHandler}
-          title={showModal.title}
-          message={showModal.message}
-        />
-      )} */}
-      
       <div className={classes.wrap}>
         <div className={classes.formbox}>
           <Input
@@ -105,24 +89,28 @@ const Signup = (props) => {
           />
           {email.length > 0 && (
             <span
-              className={`${classes.message} ${ isEmail ? classes.success : classes.error}`}
+              className={`${classes.message} ${
+                isEmail ? classes.success : classes.error
+              }`}
             >
               {emailMsg}
             </span>
           )}
         </div>
-        
+
         <div>
           <Input
             label="닉네임"
             placeholder="활동은 닉네임으로 하게됩니다"
             type="text"
-            maxlength='9'
+            maxlength="9"
             _onChange={userNickHandler}
           />
           {user_nick.length > 0 && (
             <span
-              className={`${classes.message} ${ isNick ? classes.success : classes.error}`}
+              className={`${classes.message} ${
+                isNick ? classes.success : classes.error
+              }`}
             >
               {nickMsg}
             </span>
@@ -137,7 +125,9 @@ const Signup = (props) => {
           />
           {pwd.length > 0 && (
             <span
-              className={`${classes.message} ${ isPwd ? classes.success : classes.error}`}
+              className={`${classes.message} ${
+                isPwd ? classes.success : classes.error
+              }`}
             >
               {pwdMsg}
             </span>
@@ -151,7 +141,9 @@ const Signup = (props) => {
           />
           {pwd_confirm.length > 0 && (
             <span
-              className={`${classes.message} ${ isPwdConfirm ? classes.success : classes.error}`}
+              className={`${classes.message} ${
+                isPwdConfirm ? classes.success : classes.error
+              }`}
             >
               {pwdConfirmMsg}
             </span>

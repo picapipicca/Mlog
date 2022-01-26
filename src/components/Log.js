@@ -9,13 +9,18 @@ const Log = (props)=> {
     const {history} = props;
     return(
         <Fragment>
-            <section className={classes.wrap}>
-                <Bus width='70vw' height='24vh'/>
+            {/* <section className={classes.wrap}>
+                <Bus carNumber='로그인해주세요!' bg='#bab8e6' width='70vw' height='24vh' _onClick={()=>{history.push('/login')}}/>
             </section>
+            <Button text='입력' className={classes.btn} _onClick={()=>{history.push('/login')}}/> */}
+
             <Permit>
+            <section className={classes.wrap}>
+                <Bus width='70vw' height='24vh' _onClick={()=>{history.push('/postlist')}}/>
+            </section>
               <Button text='입력' className={classes.btn} _onClick={()=>{history.push('/postwrite')}}/>
             </Permit>
-            <Button text='입력' className={classes.btn} _onClick={()=>{history.push('/login')}}/>
+            
         </Fragment>
     ); 
 };

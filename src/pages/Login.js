@@ -5,6 +5,7 @@ import Modal from "../element/Modal";
 
 import { actionCreators as userActions } from '../redux/modules/user';
 import { useDispatch } from 'react-redux';
+import { emailCheck } from '../shared/regEx';
 
 
 
@@ -16,10 +17,19 @@ const Login = (props) => {
     const [showModal,setShowModal] = useState();
 
    const login = () => {
-       if(email.trim().length ===0 || pwd.trim().length === 0){
+
+
+       if(email === "" || pwd.trim().length === 0){
            setShowModal({
                title: '잘못입력하셨습니다',
-               message: "이메일과 비밀번호를 다시 확인해주세요!"})}
+               message: "이메일 혹은 비밀번호가 공란입니다! 입력해주세요 "})}
+
+       if(!emailCheck(email)){
+           setShowModal({
+               title:'잘못입력하셨습니다',
+               message:'이메일을 다시 확인해주세요!',
+           })
+       }        
        dispatch(userActions.loginFirebase(email,pwd));
    };
 
