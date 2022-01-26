@@ -16,6 +16,7 @@ const firebaseConfig = {
 //초기화해주기
   firebase.initializeApp(firebaseConfig);
   
+  const apiKey = firebaseConfig.apiKey;
   const auth = firebase.auth();
 
-  export {auth};
+  export {auth,apiKey};

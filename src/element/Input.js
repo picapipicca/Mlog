@@ -3,7 +3,8 @@ import styled from "styled-components";
 
 const Input = (props) => {
 
-  const { label, type, placeholder, _onChange} = props;
+  const { label, type, placeholder, _onChange, length} = props;
+  const styles = {length};
 
   const classes = props.className
 
@@ -11,6 +12,7 @@ const Input = (props) => {
     <div className= {classes} >
       {label && <p margin="0px">{label}</p>}
       <InputTag
+      {...styles}
         type={type}
         // value={value}
         placeholder={placeholder}
@@ -30,6 +32,7 @@ Input.defaultProps = {
 
 const InputTag = styled.input`
 /* ${(props) => (props.className ? `className: ${props.className};` : "")} */
+   /* ${(props) => (props.length ? `maxLength: ${props.length};` : "")} */
   margin : 1rem auto;
   padding: 1rem;
   width : 90%;
