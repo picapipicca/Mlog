@@ -21,6 +21,7 @@ const Input = (props) => {
   if (bottomLined) {
     return (
       <div className={classes}>
+        {label && <p margin="0px">{label}</p>}
         <Underlined
           {...styles}
           type={type}
@@ -50,6 +51,7 @@ Input.defaultProps = {
   type: "text",
   value: "",
   _onChange: () => {},
+  width: '100%',
 };
 
 const InputTag = styled.input`
@@ -58,7 +60,7 @@ const InputTag = styled.input`
   /* ${(props) => (props.length ? `maxLength: ${props.length};` : "")} */
   margin: 1rem auto;
   padding: 1rem;
-  width: 90%;
+  width: ${(props)=> props.width};
   max-width: 40rem;
   border: 1px solid #212121;
   box-sizing: border-box;
@@ -80,7 +82,7 @@ width: 90vw;
 `;
 const TextareaTag = styled.textarea`
   border: 1px solid #212121;
-  width: 100%;
+  width:${(props)=> props.width};
   padding: 12px 4px;
   box-sizing: border-box;
 `;

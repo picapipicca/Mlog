@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { apiKey } from "./firebase";
 
+import Post from '../components/Log/Post';
 import Map from "../pages/Map";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
@@ -16,6 +17,7 @@ import Header from "../navBar/Header";
 import Log from "../components/Log";
 import PostWrite from "../pages/PostWrite";
 import PostList from "../pages/PostList";
+import PostDetail from '../pages/PostDetail';
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +43,8 @@ function App() {
           <Route path="/signup" exact component={Signup} />
           <Route path="/write" exact component={PostWrite} />
           <Route path="/list" exact component={PostList} />
+          <Route path="/post/:id" exact component={PostDetail} />
+          <Route path="/post" exact component={Post} />
         </div>
       </ConnectedRouter>
     </Fragment>

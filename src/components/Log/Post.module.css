@@ -1,0 +1,19 @@
+img {
+  --size: 60px;
+  width: var(--size);
+  height: var(--size);
+  border-radius: var(--size);
+  background-size: cover;
+  margin: 4px;
+}
+.circle {
+  align-items: center;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  vertical-align:middle;
+}
+/* .content {
+    position: relative;
+    margin: 0;
+} */
