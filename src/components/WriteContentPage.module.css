@@ -1,8 +1,24 @@
-.submitBtn{
-padding: 10px;
-margin: 10px;
+.headline {
+  padding: 10px;
+  display: flex;
+  align-items: center;
 }
-.cancelBtn{
-    padding: 10px;
-    margin: 10px;
+.submitBtn {
+  padding: 10px;
+  margin: 10px;
 }
+.cancelBtn {
+  padding: 10px;
+  margin: 10px;
+}
+.title {
+  line-height: 32px;
+  font-weight: 700;
+  font-size: 18px;
+  width: 50px;
+}
+@media (max-width: 1183px) {
+    .title {
+     display: none;
+    }
+  }

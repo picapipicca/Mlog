@@ -39,8 +39,8 @@ function App() {
           <Route path="/log" exact component={Log}/>
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
-          <Route path="/postwrite" exact component={PostWrite} />
-          <Route path="/postlist" exact component={PostList} />
+          <Route path="/write" exact component={PostWrite} />
+          <Route path="/list" exact component={PostList} />
         </div>
       </ConnectedRouter>
     </Fragment>

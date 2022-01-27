@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 
+import Permit from "../shared/Permit";
 import Bus from "../components/Bus/Bus";
 import classes from "./PostList.module.css";
 import BusChart from '../components/Bus/BusChart';
@@ -9,14 +10,16 @@ import SelectDate from "../components/selectDate/SelectDate";
 const PostList = (props) => {
   return (
     <Fragment>
-      <section className={classes.wrap}>
+      <Permit>
+         <section className={classes.wrap}>
         <h1>차고지</h1>
         <SelectDateFilter/>
-        <SelectDate/>
+        {/* <SelectDate/> */}
         <div className={classes.bus}>
           <Bus bg='transparent' month={8} className={classes.busframe}><BusChart/></Bus>
         </div>
       </section>
+      </Permit>
     </Fragment>
   );
 };

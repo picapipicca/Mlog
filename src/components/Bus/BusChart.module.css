@@ -23,6 +23,7 @@
 }
 .wrap {
     display: flex;
+    justify-content: center;
   }
 .main_box {
   margin: 0 30px;
