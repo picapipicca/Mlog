@@ -43,7 +43,7 @@ const Login = (props) => {
         <Fragment>
             {showModal && <Modal onCloseModal={closeModalHandler} title={showModal.title} message={showModal.message}/>}
             <div className={classes.wrap}>
-                <Input label='아이디' placeholder='아이디를 입력해주세요' _onChange={(e)=>{setEmail(e.target.value);}}/>
+                <Input label='이메일' placeholder='이메일을 입력해주세요' _onChange={(e)=>{setEmail(e.target.value);}}/>
                 <Input label='비밀번호' placeholder='비밀번호를 입력해주세요' type='password' _onChange={(e)=>{setPwd(e.target.value)}}/>
                 <Button _onClick={()=>{console.log('로그인했어'); login();}}>로그인</Button>
                 <Button>카카오 로그인</Button>

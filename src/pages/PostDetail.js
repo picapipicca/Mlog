@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import classes from "./PostDetail.module.css";
+// import classes from "./PostDetail.module.css";
 
 import Post from '../components/Log/Post';
 import CommentList from '../components/Log/CommentList';
