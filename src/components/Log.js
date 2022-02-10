@@ -16,9 +16,9 @@ const Log = (props)=> {
 
             <Permit>
             <section className={classes.wrap}>
-                <Bus width='70vw' height='24vh' _onClick={()=>{history.push('/postlist')}}/>
+                <Bus carNumber='sexyking_kong' width='70vw' height='24vh' _onClick={()=>{history.push('/list')}}/>
             </section>
-              <Button text='입력' className={classes.btn} _onClick={()=>{history.push('/postwrite')}}/>
+              <Button text='입력' className={classes.btn} _onClick={()=>{history.push('/write')}}/>
             </Permit>
             
         </Fragment>

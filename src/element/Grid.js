@@ -41,7 +41,7 @@ Grid.defaultProps = {
   bg: false,
   center: false,
   _onClick: () => {},
-  size:false,
+  size:36,
 };
 const Circle = styled.div`
  text-align: center;

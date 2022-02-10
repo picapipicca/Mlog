@@ -1,4 +1,4 @@
-import React, { Fragment, useState,useEffect } from "react";
+import React, { Fragment,useEffect } from "react";
 import { Grid, Button } from "../element/index";
 import { useSelector,useDispatch } from "react-redux";
 import { actionCreators as LogActions } from "../redux/modules/log";
@@ -32,10 +32,11 @@ import SelectDateFilter from "../components/selectDate/SelectDateFilter";
 const PostList = (props) => {
 
   const dispatch = useDispatch();
-  const [showList, setShowList] = useState(true);
+
+  const [showList, setShowList] = React.useState(true);
   const post_list = useSelector((state)=> state.log.post_list);
 
-  useEffect(()=>{
+  React.useEffect(()=> {
     dispatch(LogActions.getPostFirebase());
   },[])
 
@@ -69,7 +70,6 @@ const PostList = (props) => {
               <BusChart data={DUMMY_DATA_2}/>
             </Bus>
           </div>  }
-         
          
         </section>
       </Permit>

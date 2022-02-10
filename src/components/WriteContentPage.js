@@ -1,4 +1,4 @@
-import React, { Fragment, createRef, useState } from "react";
+import React, { Fragment, createRef, useState,useEffect } from "react";
 import { Button,Input } from "../element";
 import classes from "./WriteContentPage.module.css";
 // TOAST UI Editor import
@@ -20,6 +20,8 @@ import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 //chart
 import '@toast-ui/chart/dist/toastui-chart.css';
 import chart from '@toast-ui/editor-plugin-chart';
+// lodash 부르기
+import _ from "lodash"; 
 
 const WriteContentPage = (props) => {
   const editorRef = createRef();
@@ -29,28 +31,32 @@ const WriteContentPage = (props) => {
   // const onChangeEditorTextHandler = () => {
   //   console.log(editorRef.current.getInstance().getMarkdown());
   // };
+  const debounce = _.debounce((k)=> console.log('디바운스! :::', k),2000);
+  const keyPress = React.useCallback(debounce,[]);
+
+  useEffect(()=>{
+    props.onAddContent(title,content);
+  },[title,content])
+
+  const onSaveTitleHandler = (e) => {
+    const d_title = keyPress(e.target.value);
+    setTitle(d_title);
+    console.log(d_title);
+  }
   const onSaveContentHandler = () => {
    const content_wrote=  editorRef.current.getInstance().getMarkdown();
-   setContent(content_wrote);
-    console.log(content_wrote);
+   const d_content = keyPress(content_wrote);
+   setContent(d_content);
   };
-  const onSaveTitleHandler = (e) => {
-    setTitle(e.target.value);
-    console.log(e.target.value);
-  }
-  const onSaveHandler=()=>{
-    if(content.trim().length ===0 && title.trim().length === 0){
-      alert('제목 또는 내용 중 한곳은 적어주세요!')
-      editorRef.current.focus();
-    }
-    props.onAddContent(title,content);
-  }
+
+
+
   return (
     <Fragment>
       <div>
         <div className={classes.headline}>
         <p className={classes.title}>제목</p>
-        <Input className={classes.input} _onChanage={onSaveTitleHandler} bottomLined label='제목' placeholder='제목을 입력해주세요'/>
+        <Input className={classes.input} _onChange ={onSaveTitleHandler} bottomLined  placeholder='제목을 입력해주세요'/>
         </div>
         <Editor
           previewStyle="vertical"
@@ -62,24 +68,9 @@ const WriteContentPage = (props) => {
           plugins={[colorSyntax,chart, [codeSyntaxHighlight, { highlighter: Prism }]]}
           onChange={onSaveContentHandler}
         />
-
-        <Button
-          bgColor="#CACACA"
-          type="submit"
-          _onClick={onSaveHandler}
-          className={classes.submitBtn}
-        >
-          작성하기
-        </Button>
-        <Button bgColor="#CACACA" className={classes.cancelBtn}>
-          취소하기
-        </Button>
-      </div>
-      <div>
-        <h1>result</h1>
-        <textarea readOnly='readOnly' value={content}></textarea>
       </div>
     </Fragment>
+    
   );
 };
 
