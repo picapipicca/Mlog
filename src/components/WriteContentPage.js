@@ -1,5 +1,5 @@
-import React, { Fragment, createRef, useState,useEffect } from "react";
-import { Button,Input } from "../element";
+import React, { Fragment, createRef, useState, useEffect } from "react";
+import { Button, Input } from "../element";
 import classes from "./WriteContentPage.module.css";
 // TOAST UI Editor import
 import "@toast-ui/editor/dist/toastui-editor.css";
@@ -18,45 +18,56 @@ import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-sy
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 
 //chart
-import '@toast-ui/chart/dist/toastui-chart.css';
-import chart from '@toast-ui/editor-plugin-chart';
+import "@toast-ui/chart/dist/toastui-chart.css";
+import chart from "@toast-ui/editor-plugin-chart";
 // lodash 부르기
-import _ from "lodash"; 
+import _ from "lodash";
 
 const WriteContentPage = (props) => {
   const editorRef = createRef();
-  const [content,setContent] = useState('');
-  const [title,setTitle] = useState('');
+  const [content, setContent] = useState("");
+  const [title, setTitle] = useState("");
+  const [imageURL, setImageURL] = useState("");
 
-  // const onChangeEditorTextHandler = () => {
-  //   console.log(editorRef.current.getInstance().getMarkdown());
-  // };
-  const debounce = _.debounce((k)=> console.log('디바운스! :::', k),2000);
-  const keyPress = React.useCallback(debounce,[]);
+  const debounce = _.debounce((e) => {
+    console.log('debounce :::',e.target.value);}, 1000);
+  const keyPress = React.useCallback(debounce, []);
 
-  useEffect(()=>{
-    props.onAddContent(title,content);
-  },[title,content])
+  useEffect(() => {
+    props.onAddContent(title, content,imageURL);
+  }, []);
 
-  const onSaveTitleHandler = (e) => {
-    const d_title = keyPress(e.target.value);
-    setTitle(d_title);
-    console.log(d_title);
-  }
-  const onSaveContentHandler = () => {
-   const content_wrote=  editorRef.current.getInstance().getMarkdown();
-   const d_content = keyPress(content_wrote);
-   setContent(d_content);
+  const onChangeTitle = (e) => {
+    keyPress(e);
+    setTitle(e.target.value);
+    
   };
 
-
+  const onSaveContentHandler = () => {
+    const contentHTML = editorRef.current.getInstance().getHTML();
+    const contentMarkdown = editorRef.current.getInstance().getMarkdown();
+    const imageUrl = contentHTML.split("=")[1]?.split('"')[1];
+    const content_wrote = contentMarkdown.replaceAll("#", "").split("!")[0];
+    console.log(content_wrote);
+  
+    //  const d_content = keyPress(content_wrote);
+    keyPress(content_wrote);
+    setContent(content_wrote);
+    setImageURL(imageUrl);
+  };
 
   return (
     <Fragment>
       <div>
         <div className={classes.headline}>
-        <p className={classes.title}>제목</p>
-        <Input className={classes.input} _onChange ={onSaveTitleHandler} bottomLined  placeholder='제목을 입력해주세요'/>
+          <p className={classes.title}>제목</p>
+          <Input
+            className={classes.input}
+            _onChange={onChangeTitle}
+            bottomLined
+            
+            placeholder="제목을 입력해주세요"
+          />
         </div>
         <Editor
           previewStyle="vertical"
@@ -65,12 +76,15 @@ const WriteContentPage = (props) => {
           initialValue="내용을 입력하세요"
           useCommandShortcut={true}
           ref={editorRef}
-          plugins={[colorSyntax,chart, [codeSyntaxHighlight, { highlighter: Prism }]]}
+          plugins={[
+            colorSyntax,
+            chart,
+            [codeSyntaxHighlight, { highlighter: Prism }],
+          ]}
           onChange={onSaveContentHandler}
         />
       </div>
     </Fragment>
-    
   );
 };
 

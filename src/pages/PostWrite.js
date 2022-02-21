@@ -1,18 +1,47 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useRef } from "react";
+import { storage } from "../shared/firebase";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as logActions } from "../redux/modules/log";
+import { actionCreators as imageActions } from "../redux/modules/image";
+
+// TOAST UI Editor import
+import "@toast-ui/editor/dist/toastui-editor.css";
+import { Editor } from "@toast-ui/react-editor";
+//plugin
+import Prism from "prismjs";
+import "prismjs/themes/prism.css";
+
+//code-syntax-highlight
+import "@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css";
+import codeSyntaxHighlight from "@toast-ui/editor-plugin-code-syntax-highlight";
+
+//color-syntax
+import "tui-color-picker/dist/tui-color-picker.css";
+import "@toast-ui/editor-plugin-color-syntax/dist/toastui-editor-plugin-color-syntax.css";
+import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
+
+//chart
+import "@toast-ui/chart/dist/toastui-chart.css";
+import chart from "@toast-ui/editor-plugin-chart";
 
 import classes from "./PostWrite.module.css";
-import { Button, Grid } from "../element/index";
+import { Button, Grid, Input } from "../element/index";
 import moment from "moment";
 import "moment/locale/ko";
-import WriteContentPage from "../components/WriteContentPage";
 
 const PostWrite = (props) => {
+  const editorRef = useRef();
   const { history } = props;
   const is_login = useSelector((state) => state.user.is_login);
-  const [contentList, setContentList] = useState([]);
+  const post_list = useSelector((state) => state.log.list);
+  const [title, setTitle] = useState("");
+
   const dispatch = useDispatch();
+
+  const post_id = props.match.params.id;
+  const is_edit = post_id ? true : false;
+
+  const _post = is_edit ? post_list.find((p) => p.id === post_id) : null;
 
   const date = new Date();
   const year = date.getFullYear();
@@ -20,21 +49,40 @@ const PostWrite = (props) => {
   const day = date.toLocaleString("ko-KR", { day: "2-digit" });
   const time = moment().format("LT");
 
-  const onSavecontentHandler = (title, content) => {
-    setContentList((prevContentList) => {
-      return [...prevContentList, { title: title, content: content }];
-    });
-  };
-  console.log(contentList);
+  React.useEffect(() => {
+    if (is_edit && !_post) {
+      console.log("로그 정보가 없어요!");
+      history.goBack();
+      return;
+    }
+    if (editorRef.current) {
+      props.image_url && uploadImage();
+    }
+  }, [editorRef]);
 
-  const onSaveHandler = () => {
-    // if (
-    //   contentList.content.trim().length === 0 &&
-    //   contentList.title.trim().length === 0
-    // ) {
-    //   alert("제목 또는 내용 중 한곳은 적어주세요!");
-    // }
-    dispatch(logActions.addPostFirebase(contentList));
+  const uploadImage = (blob, callback) => {
+    console.log("uploadImage");
+   
+    const fileName = blob?.name;
+    console.log(fileName);
+    dispatch(imageActions.uploadImageFirebase(fileName,blob,callback));
+  };
+
+  const titleChangeHandler = (e) => {
+    setTitle(e.target.value);
+  };
+  const onAddPostHandler = () => {
+    const contentHTML = editorRef.current.getInstance().getHTML();
+    // const contentMarkdown = editorRef.current.getInstance().getMarkdown();
+    const content = editorRef.current.getInstance().getMarkdown();
+    const image_url = contentHTML.split("=")[1]?.split('"')[1];
+
+    console.log(image_url);
+    // const content = contentMarkdown.replaceAll("#", "").split("!")[0];
+    // const content = editorRef.current.getInstance().getHTML();
+
+    dispatch(logActions.addPostFirebase(content, title, image_url));
+    console.log(contentHTML);
   };
   if (!is_login) {
     return (
@@ -55,7 +103,11 @@ const PostWrite = (props) => {
   return (
     <Fragment>
       <section className={classes["post-write__header"]}>
-        <h1>오늘의 무드 기록하기</h1>
+        {!is_edit ? (
+          <h1>오늘의 무드 기록하기</h1>
+        ) : (
+          <h1>오늘의 무드 수정하기</h1>
+        )}
         <div className={classes["post-write__date"]}>
           Today is
           <span className={classes.moment}>
@@ -65,17 +117,49 @@ const PostWrite = (props) => {
         </div>
       </section>
       <div className={classes["post-write__content"]}>
-        <WriteContentPage onAddContent={onSavecontentHandler} />
+        <div className={classes.headline}>
+          <p className={classes.title}>제목</p>
+          <Input
+            className={classes.input}
+            _onChange={titleChangeHandler}
+            bottomLined
+            placeholder="제목을 입력해주세요"
+          />
+        </div>
+        <Editor
+          height="80vh"
+          previewStyle="vertical"
+          placeholder="내용을 입력해주세요"
+          initialEditType="markdown"
+          initialValue=""
+          useCommandShortcut={true}
+          usageStatistics={false}
+          ref={editorRef}
+          plugins={[
+            colorSyntax,
+            chart,
+            [codeSyntaxHighlight, { highlighter: Prism }],
+          ]}
+          hooks={{
+            addImageBlobHook: uploadImage,
+          }}
+        />
       </div>
       <Button
         bgColor="#CACACA"
         type="submit"
-        _onClick={onSaveHandler}
+        _onClick={onAddPostHandler}
         className={classes.submitBtn}
       >
         작성하기
       </Button>
-      <Button bgColor="#CACACA" className={classes.cancelBtn}>
+      <Button
+        bgColor="#CACACA"
+        className={classes.cancelBtn}
+        _onClick={() => {
+          history.goBack();
+        }}
+      >
         취소하기
       </Button>
     </Fragment>

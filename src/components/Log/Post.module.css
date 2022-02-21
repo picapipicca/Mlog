@@ -1,19 +1,30 @@
+
 img {
-  --size: 60px;
-  width: var(--size);
-  height: var(--size);
-  border-radius: var(--size);
+  width:100%;
+  height: 100%;
   background-size: cover;
-  margin: 4px;
+}
+.inserted-img{
+  width:30%;
+  height: 30%;
+  background-size: cover;
+}
+.title{
+  margin: 30px;
+  font-size: 30px;
+  font-weight: 700;
 }
 .circle {
   align-items: center;
-  font-weight: 700;
-  display: flex;
-  justify-content: center;
-  vertical-align:middle;
+  width:80vw;
+  padding: 10px;
+  box-sizing: border-box;
+  font-weight: 500;
+  flex-direction: column;
+  /* vertical-align:middle; */
+  margin: 0 auto;
 }
-/* .content {
+.content {
     position: relative;
     margin: 0;
-} */
+}

@@ -1,8 +1,8 @@
 import React, {Fragment} from "react";
-import { Button } from "../element";
-import Bus from "./Bus/Bus";
+import { Button } from "../../element";
+import Bus from "../Bus/Bus";
 import classes from './Log.module.css';
-import Permit from "../shared/Permit";
+import Permit from "../../shared/Permit";
 
 const Log = (props)=> {
 
@@ -18,7 +18,7 @@ const Log = (props)=> {
             <section className={classes.wrap}>
                 <Bus carNumber='sexyking_kong' width='70vw' height='24vh' _onClick={()=>{history.push('/list')}}/>
             </section>
-              <Button text='입력' className={classes.btn} _onClick={()=>{history.push('/write')}}/>
+              <Button text='입력' width='100px' className={classes.btn} _onClick={()=>{history.push('/write')}}/>
             </Permit>
             
         </Fragment>

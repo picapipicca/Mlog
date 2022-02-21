@@ -1,9 +1,9 @@
 import React, { Fragment } from 'react';
 // import classes from "./PostDetail.module.css";
 
-import Post from '../components/Log/Post';
-import CommentList from '../components/Log/CommentList';
-import CommentWrite from '../components/Log/CommentWrite';
+import Post from '../components/log/Post';
+import CommentList from '../components/log/CommentList';
+import CommentWrite from '../components/log/CommentWrite';
 
 const PostDetail = (props) => {
     return (

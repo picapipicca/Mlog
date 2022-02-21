@@ -26,3 +26,14 @@ font-size: 32px;
 font-weight: 500;
 font-size: 20px;
 }
+.place-image-out{
+    width: 100%;
+    min-width: 250px;
+}
+.place-image-in{
+    position: relative;
+    padding-top: 75%;
+    overflow: hidden;
+    /* background-image: url("${(props) => props.src}"); */
+    background-size: cover;
+}

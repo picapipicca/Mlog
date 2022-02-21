@@ -40,7 +40,7 @@ const Header = (props) => {
             <a href="/mypage"><img src={mypageIcon} alt="" /></a>
             </HeaderAlarmButton>
             <HeaderAlarmButton>
-            <a href="/alarm"><img src={alarmIcon} alt="" /></a>
+            <a href="/noti"><img src={alarmIcon} alt="" /></a>
             </HeaderAlarmButton>
             <Button margin='auto' _onClick={logOut}>로그아웃</Button>
           </div>

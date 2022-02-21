@@ -1,33 +1,52 @@
 import React, { Fragment } from "react";
 import classes from "./Post.module.css";
-import { Grid } from "../../element/index";
+import { Grid, Button } from "../../element/index";
+import { history } from "../../redux/configStore";
+// import Viewer from "@toast-ui/editor/dist/toastui-editor-viewer";
+import { Viewer } from "@toast-ui/react-editor";
 
 const Post = (props) => {
+  // const markup = () => {
+  //   return {__html : props.title}
+  // }
+
   return (
     <Fragment>
       <Grid>
-        <Grid padding="10px" is_flex>
+        <Grid padding="16px" is_flex>
           <Grid is_flex width="auto">
-            <img alt="사용자 이미지" src={props.user_info.user_profile} />
+          <div className={classes.title}> 로그기록 : {props.content}</div>
+            {/* <img alt="사용자 이미지" src={props.user_info.user_profile} /> */}
             <p>{props.user_info.user_nick}</p>
           </Grid>
-          <Grid is_flex width="auto">
+          <Grid is_flex width="auto" padding='16px'>
             <p>{props.insert_dt}</p>
+            {!props.is_me && (
+              <Button
+                width="auto"
+                padding="4px"
+                margin="4px"
+                _onClick={() => {
+                  history.push(`/write/${props.id}`);
+                }}
+              >
+                수정
+              </Button>
+            )}
           </Grid>
         </Grid>
       </Grid>
-      <Grid
-        padding="10px"
-        circle
-        bg="green"
-        size="400"
-        className={classes.circle}
-      >
-        <Grid is_flex padding="10px">
-          <p className={classes.content}>{props.content}</p>
+      <div className={classes.circle}>
+        
+        <Grid padding="10px">
+          {/* <img
+            className={classes["inserted-img"]}
+            src={props.image_url}
+            alt="삽입 이미지"
+          ></img> */}
+          <Viewer initialValue={props.title} height="600px"/>
         </Grid>
-      </Grid>
-
+      </div>
       <Grid padding="10px">
         <p>댓글 {props.comment_count}개</p>
       </Grid>
@@ -46,5 +65,6 @@ Post.defaultProps = {
   content: "우울이 인사이드아웃에 나와용 내기분이그래",
   comment_count: 10,
   insert_dt: "2021-02-27 10:00:00",
+  is_me: false,
 };
 export default Post;

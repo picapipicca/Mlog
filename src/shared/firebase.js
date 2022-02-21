@@ -3,7 +3,6 @@ import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import "firebase/compat/storage";
 
-
 //firebase config 변수 만들기
 
 const firebaseConfig = {

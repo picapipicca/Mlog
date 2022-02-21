@@ -9,15 +9,16 @@ import { useDispatch } from "react-redux";
 import { actionCreators as userActions } from "../redux/modules/user";
 import { apiKey } from "./firebase";
 
-import Post from '../components/Log/Post';
+import Post from '../components/log/Post';
 import Map from "../pages/Map";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Header from "../navBar/Header";
-import Log from "../components/Log";
+import Log from "../components/log/Log";
 import PostWrite from "../pages/PostWrite";
 import PostList from "../pages/PostList";
 import PostDetail from '../pages/PostDetail';
+import Notification from "../pages/Notification";
 
 function App() {
   const dispatch = useDispatch();
@@ -41,10 +42,14 @@ function App() {
           <Route path="/log" exact component={Log}/>
           <Route path="/login" exact component={Login} />
           <Route path="/signup" exact component={Signup} />
+          {/* 작성 */}
           <Route path="/write" exact component={PostWrite} />
+          {/* 수정 */}
+          <Route path="/write/:id" exact component={PostWrite} />
           <Route path="/list" exact component={PostList} />
           <Route path="/post/:id" exact component={PostDetail} />
           <Route path="/post" exact component={Post} />
+          <Route path="/noti" exact component={Notification} />
         </div>
       </ConnectedRouter>
     </Fragment>
