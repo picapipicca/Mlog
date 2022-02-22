@@ -21,20 +21,13 @@ const initialState = {
 };
 //Post 하나에 기본적으로 들어가있어야 할 initialState
 const initialPost = {
-  //user정보는 user 안에있다
-  // id: 0,
-  // user_info: {
-  //   user_nick: "sexyking_kong",
-  //   user_profile:
-  //     "https://media.comicbook.com/uploads1/2015/02/insideout-123439.jpg",
-  // },
+  
   image_url:
     "https://media.comicbook.com/uploads1/2015/02/insideout-123439.jpg",
   title:'안녕',
   content: "우울이 인사이드아웃에 나와용 내기분이그래",
   comment_count: 0,
   insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
-  // insert_dt: "2021-02-27 10:00:00",
 };
 
 const editPostFirebase = (post_id=null, post={})=> {
@@ -55,11 +48,11 @@ const addPostFirebase = (title='',content='',image_url='') => {
   return function (dispatch, getState, { history }) {
     const postDB = firestore.collection("post");
 
-    const getUserInfo = getState().user.user;
+    const _user = getState().user.user;
     const user_info = {
-      user_email: getUserInfo.email,
-      user_id: getUserInfo.uid,
-      user_profile: getUserInfo.user_profile,
+      user_email: _user.email,
+      user_id: _user.uid,
+      user_profile: _user.user_profile,
     };
 
     const _post = {

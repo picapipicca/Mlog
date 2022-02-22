@@ -38,10 +38,13 @@ const PostWrite = (props) => {
 
   const dispatch = useDispatch();
 
+  console.log(props.match.params.id)
+
   const post_id = props.match.params.id;
   const is_edit = post_id ? true : false;
 
-  const _post = is_edit ? post_list.find((p) => p.id === post_id) : null;
+  let _post = is_edit? post_list.find((p) => p.id === post_id) : null
+  console.log(_post);
 
   const date = new Date();
   const year = date.getFullYear();
@@ -50,11 +53,11 @@ const PostWrite = (props) => {
   const time = moment().format("LT");
 
   React.useEffect(() => {
-    if (is_edit && !_post) {
-      console.log("로그 정보가 없어요!");
-      history.goBack();
-      return;
-    }
+    // if (is_edit && !_post) {
+    //   console.log("로그 정보가 없어요!");
+    //   history.goBack();
+    //   return;
+    // }
     if (editorRef.current) {
       props.image_url && uploadImage();
     }
@@ -103,11 +106,12 @@ const PostWrite = (props) => {
   return (
     <Fragment>
       <section className={classes["post-write__header"]}>
-        {!is_edit ? (
+      <h1>오늘의 무드 기록하기</h1>
+        {/* {!is_edit ? (
           <h1>오늘의 무드 기록하기</h1>
         ) : (
           <h1>오늘의 무드 수정하기</h1>
-        )}
+        )} */}
         <div className={classes["post-write__date"]}>
           Today is
           <span className={classes.moment}>
