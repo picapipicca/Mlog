@@ -42,7 +42,7 @@ const Header = (props) => {
             <HeaderAlarmButton>
             <a href="/noti"><img src={alarmIcon} alt="" /></a>
             </HeaderAlarmButton>
-            <Button margin='auto' _onClick={logOut}>로그아웃</Button>
+            <Button margin='auto' width='auto' _onClick={logOut}>로그아웃</Button>
           </div>
         </header>
       </Permit>

@@ -28,11 +28,11 @@ import SelectDateFilter from "../components/selectDate/SelectDateFilter";
 const PostList = (props) => {
 
   const dispatch = useDispatch();
+  const {history} = props;
 
   const [listType, setListType] = React.useState(true);
   const post_list = useSelector((state)=> state.log.post_list);
   const user_info = useSelector((state)=> state.user.user);
-
   
   React.useEffect(()=> {
     if(post_list.length === 0){
@@ -47,7 +47,7 @@ const PostList = (props) => {
           <h1>차고지</h1>
 
           <Grid is_flex>
-            {/* 리스트 받아옴 */}
+            {/* 리스트 받아옴 */}  
             <Button _onClick={() => { setListType(true); }} text="리스트"/>
             <Button _onClick={() => { setListType(false); }} text="버스"/>
           </Grid>
@@ -57,11 +57,12 @@ const PostList = (props) => {
           {listType ?  
           <div> {post_list.map((p,idx)=>{
             if(p.user_info.user_id === user_info?.uid){
-              return <Post key={p.id} {...p} its_me/>;
+              return (<Grid key={p.id} _onClick={()=>{history.push(`/post/${p.id}`)}}> <Post key={p.id} {...p} its_me/> </Grid>) 
+              
             }else{
-                return <Post key={p.id} {...p}/>;
+                return (<Grid key={p.id} _onClick={()=>{history.push(`/post/${p.id}`)}}><Post key={p.id} {...p}/>;</Grid>)
               }
-            })}</div>
+             })}</div>
              : 
              <div className={classes.bus}>
             <Bus bg="transparent" month={8} className={classes.busframe}>

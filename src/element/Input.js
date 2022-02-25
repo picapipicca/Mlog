@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const Input = (props) => {
-  const { label, type, placeholder,multiLine, _onChange, length, bottomLined } = props;
+  const { label, type, placeholder,multiLine, _onChange, length, bottomLined,value} = props;
   const styles = { length };
 
   const classes = props.className;
@@ -38,6 +38,7 @@ const Input = (props) => {
       <InputTag
         {...styles}
         type={type}
+        value={value}
         placeholder={placeholder}
         onChange={_onChange}
       />

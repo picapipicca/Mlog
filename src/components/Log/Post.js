@@ -7,29 +7,28 @@ import { Viewer } from "@toast-ui/react-editor";
 const Post = (props) => {
   return (
     <div className={classes.wrap}>
-      
+      <div className={classes["top-header"]}>
+        <Image circle src={props.user_info.user_profile} />
+        <p>{props.user_info.user_nick}</p>
         {props.its_me && (
           <button
             className={classes["btn-edit"]}
             onClick={() => {
-              history.push(`/write/${props.id}`);
-            }}
-          >
-            수정{" "}
-          </button>
-        )}
-        <div className={classes.header}>
-          <div className={classes["header-is-closed"]}>
-            <div> 로그기록 : {props.content}</div>
-            <Image circle src={props.user_info.user_profile} />
-            <p>{props.user_info.user_nick}</p>
-          </div>
+              history.push(`/write/${props.id}`);}}>
+                수정</button>)}
+      </div>
+
+      <div className={classes.header}>
+        <div className={classes["header-is-closed"]}>
+          <div> 로그기록 : {props.title}</div>
         </div>
-      
+      </div>
 
       <div className={classes.body}>
-        <div className={classes.viewer}><Viewer initialValue={props.title} height="auto"/></div>
-      
+        <div className={classes.viewer}>
+          <Viewer initialValue={props.content} height="auto" />
+        </div>
+
         <div className={classes["body-footer"]}>
           <hr style={{ opacity: "0.8", borderColor: "#EF5A31" }} />
           <Grid is_flex width="auto">

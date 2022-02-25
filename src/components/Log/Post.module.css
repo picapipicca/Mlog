@@ -9,7 +9,16 @@
   overflow: hidden;
   display: inline-block;
 }
-
+.top-header{
+  width: auto;
+  justify-content: space-between;
+  display: flex;
+  margin: 5px;
+}
+.top-header p{
+  font-style: italic;
+  margin: 10px;
+}
 .header {
   display: flex;
   position: sticky;
