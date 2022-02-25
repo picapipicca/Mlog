@@ -56,6 +56,8 @@ const Button = (props) => {
 };
 
 Button.defaultProps = {
+  margin:false,
+  width: '100%',
   children: null,
   _onClick: () => {},
   _disabled: false,

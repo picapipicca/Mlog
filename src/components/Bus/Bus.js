@@ -8,7 +8,7 @@ const Bus = (props) => {
 
   return (
       <BusBtn {...styles} onClick={_onClick}>
-        <p>{ carNumber ? carNumber : month+'월' }</p>
+        <p> { carNumber ? carNumber : month+'월' }</p>
         {children}
       </BusBtn>
   );

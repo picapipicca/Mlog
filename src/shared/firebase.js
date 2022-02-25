@@ -1,6 +1,7 @@
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
-
+import "firebase/compat/firestore";
+import "firebase/compat/storage";
 
 //firebase config 변수 만들기
 
@@ -18,5 +19,7 @@ const firebaseConfig = {
   
   const apiKey = firebaseConfig.apiKey;
   const auth = firebase.auth();
+  const firestore = firebase.firestore();
+  const storage = firebase.storage();
 
-  export {auth,apiKey};
+  export {auth,apiKey,firestore,storage};
