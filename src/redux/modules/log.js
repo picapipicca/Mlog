@@ -7,6 +7,7 @@ import moment from "moment";
 const SET_POST = "SET_POST"; //목록 가지고와서 리덕스에 넣어주는애
 const ADD_POST = "ADD_POST"; //이미있는 리덕스 데이터에 하나 추가하기
 const EDIT_POST = "EDIT_POST";
+const LOADING = "LOADING";
 
 //action creator
 const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
@@ -15,12 +16,14 @@ const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
   post,
 }));
+const Loading = createAction(LOADING,(is_loading)=>({is_loading}));
 
 //initialState(기본상태값) : 배열 (포스트목록)
 
 //이 reducer가 사용할 initialState
 const initialState = {
   post_list: [],
+  is_loading:false,
 };
 //Post 하나에 기본적으로 들어가있어야 할 initialState
 const initialPost = {
@@ -79,9 +82,10 @@ const editPostFirebase = (post_id = null, post = {}) => {
 
                   history.replace("/list");
                 });
-            }).catch((err)=>{
-              window.alert('이미지 업로드에 문제가 있습니다!');
-              console.log('이미지 업로드에 문제가 있습니다!',err);
+            })
+            .catch((err) => {
+              window.alert("이미지 업로드에 문제가 있습니다!");
+              console.log("이미지 업로드에 문제가 있습니다!", err);
             });
         })
         .catch((err) => {
@@ -168,13 +172,41 @@ const getPostFirebase = () => {
     });
   };
 };
+//post 1개 가지고오기
+const getOnePostFirebase = (id) => {
+  return function (dispatch, getState, { history }) {
+    const postDB = firestore.collection("post");
+    postDB
+      .doc(id)
+      .get()
+      .then((doc) => {
+        console.log(doc);
+        console.log(doc.data());
 
+        let all_data = doc.data();
+        let post = Object.keys(all_data).reduce(
+          (acc, cur) => {
+            if (cur.indexOf("user_") !== -1) {
+              return {
+                ...acc,
+                user_info: { ...acc.user_info, [cur]: all_data[cur] },
+              };
+            }
+            return { ...acc, [cur]: all_data[cur] };
+          },
+          { id: doc.id, user_info: {} }
+        );
+        dispatch(setPost([post]));
+      });
+  };
+};
 //reducer
 export default handleActions(
   {
     [SET_POST]: (state, action) =>
       produce(state, (draft) => {
-        draft.post_list = action.payload.post_list;
+        draft.post_list.push(...action.payload.post_list);
+        draft.is_loading = false;
       }),
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {

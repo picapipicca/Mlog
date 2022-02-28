@@ -14,12 +14,12 @@ import Map from "../pages/Map";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Header from "../navBar/Header";
-import Log from "../components/log/Log";
+import Log from "../components/Log/Log";
 import PostWrite from "../pages/PostWrite";
 import PostList from "../pages/PostList";
 import PostDetail from "../pages/PostDetail";
 import Notification from "../pages/Notification";
-import Post from '../components/log/Post';
+import Post from "../components/Log/Post";
 
 function App() {
   const dispatch = useDispatch();

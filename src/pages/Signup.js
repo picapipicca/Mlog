@@ -82,6 +82,7 @@ const Signup = (props) => {
       <div className={classes.wrap}>
         <div className={classes.formbox}>
           <Input
+          value={email}
             label="이메일"
             placeholder="이메일을 입력해주세요"
             type="text"
@@ -100,6 +101,7 @@ const Signup = (props) => {
 
         <div>
           <Input
+          value={user_nick}
             label="닉네임"
             placeholder="활동은 닉네임으로 하게됩니다"
             type="text"
@@ -118,6 +120,7 @@ const Signup = (props) => {
         </div>
         <div>
           <Input
+          value={pwd}
             label="비밀번호"
             placeholder="비밀번호를 입력해주세요"
             _onChange={userPwdHandler}
@@ -135,6 +138,7 @@ const Signup = (props) => {
         </div>
         <div>
           <Input
+          value={pwd_confirm}
             placeholder="비밀번호를 다시 입력해주세요"
             type="password"
             _onChange={userPwdConfirmHandler}

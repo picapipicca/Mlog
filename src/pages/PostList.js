@@ -4,7 +4,7 @@ import { useSelector,useDispatch } from "react-redux";
 import { actionCreators as LogActions } from "../redux/modules/log";
 
 import Bus from "../components/Bus/Bus";
-import Post from "../components/log/Post";
+import Post from "../components/Log/Post";
 import classes from "./PostList.module.css";
 import BusChart from "../components/Bus/BusChart";
 import SelectDateFilter from "../components/selectDate/SelectDateFilter";

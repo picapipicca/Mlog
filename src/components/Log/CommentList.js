@@ -20,8 +20,8 @@ export const CommentItem = (props) => {
   const { user_nick, user_profile, email, post_id, insert_dt, content } = props;
   //유저정보,게시물정보,코멘트내용,작성시간
   return (
-    <Grid is_flex>
-      <Grid is_flex width='auto'>
+    <Grid is_flex padding='0 40px'>
+      <Grid is_flex width='auto' >
         <Grid circle>
           <img alt="profile example" src={user_profile} />
         </Grid>
