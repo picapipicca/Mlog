@@ -28,14 +28,37 @@ const initialState = {
   is_loading: false,
 };
 
-const getCommentFirebase = (post_id) => {
-  return function (dispatch, getState, { history }) {};
+const getCommentFirebase = (post_id = null) => {
+  return function (dispatch, getState, { history }) {
+    if (!post_id) {
+      return;
+    }
+
+    const commentDB = firestore.collection("comment");
+    commentDB
+      .where("post_id", "==", post_id)
+      .orderBy("insert_dt", "desc")
+      .get()
+      .then((docs) => {
+        let list = [];
+        docs.forEach((doc) => {
+          list.push({ ...doc.data(), id: doc.id });
+        });
+        dispatch(setComment(post_id, list));
+      })
+      .catch((error) => {
+        console.log("댓글을 가져올수가 없습니다!", error);
+      });
+  };
 };
 
 //reducer
 export default handleActions(
   {
-    [SET_COMMENT]: (state, action) => produce(state, (draft) => {}),
+    [SET_COMMENT]: (state, action) => produce(state, (draft) => {
+      //let data = {[post_id]: comment_list,...}
+      draft.list[action.payload.post_id] =  action.payload.comment_list;
+    }),
     [ADD_COMMENT]: (state, action) => produce(state, (draft) => {}),
     [LOADING]: (state, action) =>
       produce(state, (draft) => {

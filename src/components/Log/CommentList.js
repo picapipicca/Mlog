@@ -1,35 +1,52 @@
 import React, { Fragment } from "react";
 import { Grid } from "../../element/index";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as commentActions } from "../../redux/modules/comment";
 
 const CommentList = (props) => {
+  const { post_id } = props;
+
+  const comment_list = useSelector((state) => state.comment.list);
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    if (!comment_list[post_id]) {
+      dispatch(commentActions.getCommentFirebase(post_id));
+    }
+  }, []);
+
+  if (!comment_list[post_id] || !post_id) {
+    return null;
+  }
   return (
     <Fragment>
       <Grid padding="10px">
-        <CommentItem />
-        <CommentItem />
-        <CommentItem />
-        <CommentItem />
+        {comment_list[post_id].map((c) => {
+          return <CommentItem key={c.id} {...c} />;
+        })}
       </Grid>
     </Fragment>
   );
 };
-
+CommentList.defaultProps = {
+  post_id: null,
+};
 export default CommentList;
 
 export const CommentItem = (props) => {
   const { user_nick, user_profile, email, post_id, insert_dt, content } = props;
   //유저정보,게시물정보,코멘트내용,작성시간
   return (
-    <Grid is_flex padding='0 40px'>
-      <Grid is_flex width='auto' >
+    <Grid is_flex padding="0 40px">
+      <Grid is_flex width="auto">
         <Grid circle>
-          <img alt="profile example" src={user_profile} />
+          <img alt="" src={user_profile} />
         </Grid>
-        <p style={{fontWeight:'700'}}>{user_nick}</p>
+        <p style={{ fontWeight: "700" }}>{user_nick}</p>
       </Grid>
-      <Grid is_flex margin='0px 10px'>
-        <p style={{margin:'0'}}>{content}</p>
-        <p style={{margin:'0'}}>{insert_dt}</p>
+      <Grid is_flex margin="0px 10px">
+        <p style={{ margin: "0" }}>{content}</p>
+        <p style={{ margin: "0" }}>{insert_dt}</p>
       </Grid>
     </Grid>
   );
