@@ -35,7 +35,7 @@ const PostList = (props) => {
   const user_info = useSelector((state)=> state.user.user);
   
   React.useEffect(()=> {
-    if(post_list.length === 0){
+    if(post_list.length < 2 ){
       dispatch(LogActions.getPostFirebase());
     }
   },[])
