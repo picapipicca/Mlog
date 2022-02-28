@@ -181,7 +181,7 @@ const getOnePostFirebase = (id) => {
       .get()
       .then((doc) => {
         console.log(doc);
-        console.log(doc.data());
+        // console.log(doc.data());
 
         let all_data = doc.data();
         let post = Object.keys(all_data).reduce(
@@ -206,7 +206,18 @@ export default handleActions(
     [SET_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.post_list.push(...action.payload.post_list);
+
+        draft.post_list = draft.post_list.reduce((acc,cur) => {
+          if(acc.findIndex(a => a.id === cur.id) === -1){
+            return [...acc,cur];
+          }else{
+            acc[acc.findIndex((a) => a.id === cur.id)] = cur;
+            return acc;
+          }
+        },[])
+
         draft.is_loading = false;
+        
       }),
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
@@ -235,6 +246,7 @@ const actionCreators = {
   getPostFirebase,
   addPostFirebase,
   editPostFirebase,
+  getOnePostFirebase,
 };
 
 export { actionCreators };
