@@ -13,7 +13,9 @@ const Input = (props) => {
     bottomLined,
     value,
     is_submit,
+    onEnterSubmit,
   } = props;
+
   const styles = { length, width };
 
   const classes = props.className;
@@ -27,6 +29,11 @@ const Input = (props) => {
             rows={2}
             placeholder={placeholder}
             onChange={_onChange}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                onEnterSubmit(e);
+              }
+            }}
           ></TextareaTag>
         ) : (
           <TextareaTag
@@ -43,36 +50,54 @@ const Input = (props) => {
     return (
       <div className={classes}>
         {label && <p margin="0px">{label}</p>}
-      {is_submit?   <Underlined
-          {...styles}
-          type={type}
-          value={value}
-          placeholder={placeholder}
-          onChange={_onChange}
-        />:  <Underlined
-        {...styles}
-        type={type}
-        placeholder={placeholder}
-        onChange={_onChange}
-      />}
+        {is_submit ? (
+          <Underlined
+            {...styles}
+            type={type}
+            value={value}
+            placeholder={placeholder}
+            onChange={_onChange}
+            onKeyPress={(e) => {
+              if (e.key === "Enter") {
+                onEnterSubmit(e);
+              }
+            }}
+          />
+        ) : (
+          <Underlined
+            {...styles}
+            type={type}
+            placeholder={placeholder}
+            onChange={_onChange}
+          />
+        )}
       </div>
     );
   }
   return (
     <div className={classes}>
       {label && <p margin="0px">{label}</p>}
-     {is_submit?  <InputTag
-        {...styles}
-        type={type}
-        value={value}
-        placeholder={placeholder}
-        onChange={_onChange}
-      />:  <InputTag
-      {...styles}
-      type={type}
-      placeholder={placeholder}
-      onChange={_onChange}
-    /> }
+      {is_submit ? (
+        <InputTag
+          {...styles}
+          type={type}
+          value={value}
+          placeholder={placeholder}
+          onChange={_onChange}
+          onKeyPress={(e) => {
+            if (e.key === "Enter") {
+              onEnterSubmit(e);
+            }
+          }}
+        />
+      ) : (
+        <InputTag
+          {...styles}
+          type={type}
+          placeholder={placeholder}
+          onChange={_onChange}
+        />
+      )}
     </div>
   );
 };
@@ -85,8 +110,9 @@ Input.defaultProps = {
   type: "text",
   value: "",
   // className:false,
-  is_submit:false,
+  is_submit: false,
   _onChange: () => {},
+  onEnterSubmit: () => {},
 };
 
 const InputTag = styled.input`

@@ -6,13 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 const CommentWrite = (props) => {
   const dispatch = useDispatch();
   const [comment_txt, setCommentText] = React.useState();
-  const {post_id} = props;
+  const { post_id } = props;
 
   const saveCommentHandler = (e) => {
     setCommentText(e.target.value);
   };
   const writeCommentHandler = () => {
-    dispatch(commentActions.addCommentFirebase(post_id,comment_txt));
+    dispatch(commentActions.addCommentFirebase(post_id, comment_txt));
     setCommentText("");
   };
 
@@ -25,6 +25,7 @@ const CommentWrite = (props) => {
           is_submit
           _onChange={saveCommentHandler}
           placeholder="댓글을 작성해주세요 (:"
+          onEnterSubmit={writeCommentHandler}
         />
         <Button
           width="60px"
