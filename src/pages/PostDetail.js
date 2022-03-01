@@ -6,6 +6,8 @@ import { Viewer } from "@toast-ui/react-editor";
 
 import CommentList from "../components/Log/CommentList";
 import CommentWrite from "../components/Log/CommentWrite";
+import Permit from "../shared/Permit";
+
 import { useSelector, useDispatch } from "react-redux";
 
 import { actionCreators as logActions } from "../redux/modules/log";
@@ -70,6 +72,7 @@ const PostDetail = (props) => {
                 style={{
                   opacity: "0.8",
                   borderColor: "#CACACA",
+                  width: "80vw",
                   margin: "0 80px",
                 }}
               />
@@ -77,7 +80,9 @@ const PostDetail = (props) => {
           </div>{" "}
         </div>
       )}
-      <CommentWrite post_id={id} />
+      <Permit>
+        <CommentWrite post_id={id} />
+      </Permit>
       <CommentList post_id={id} />
     </Fragment>
   );
