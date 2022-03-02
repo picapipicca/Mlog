@@ -1,9 +1,11 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { firestore, storage } from "../../shared/firebase";
+import { firestore, realtime } from "../../shared/firebase";
 import "moment";
 import moment from "moment";
+
 import firebase from "firebase/compat/app";
+
 import { actionCreators as logActions } from "./log";
 
 //action type
@@ -94,6 +96,27 @@ const addCommentFirebase = (post_id, content) => {
                 comment_count: parseInt(post.comment_count) + 1,
               })
             );
+            const noti_item = realtime
+              .ref(`noti/${post.user_info.user_id}/list`)
+              .push();
+            noti_item.set(
+              { post_title: post.title,
+                post_id: post.id,
+                user_nick: comment.user_nick,
+                image_url: post.image_url,
+                insert_dt: comment.insert_dt,
+              },
+              (err) => {
+                if (err) {
+                  console.log("알림 저장에 실패했어요!");
+                }else{
+                  const notiDB = realtime.ref(`noti/${post.user_info.user_id}`)
+                  notiDB.update({read:false});
+                }
+              }
+            );
+
+            
           }
         });
     });
@@ -108,9 +131,10 @@ export default handleActions(
         //let data = {[post_id]: comment_list,...}
         draft.list[action.payload.post_id] = action.payload.comment_list;
       }),
-    [ADD_COMMENT]: (state, action) => produce(state, (draft) => {
-      draft.list[action.payload.post_id].unshift(action.payload.comment);
-    }),
+    [ADD_COMMENT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list[action.payload.post_id].unshift(action.payload.comment);
+      }),
     [LOADING]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
@@ -121,6 +145,11 @@ export default handleActions(
 
 //action creator export
 
-const actionCreators = { setComment, addComment, getCommentFirebase,addCommentFirebase, };
+const actionCreators = {
+  setComment,
+  addComment,
+  getCommentFirebase,
+  addCommentFirebase,
+};
 
 export { actionCreators };
