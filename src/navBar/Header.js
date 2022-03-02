@@ -4,6 +4,7 @@ import { Grid, Button } from "../element/index";
 import HeaderAlarmButton from "./HeaderAlarmButton";
 import { licenseIcon, alarmIcon, mapIcon, mypageIcon } from "../assets/index";
 import Permit from "../shared/Permit";
+import NotiBadge from "./NotiBadge";
 
 import { actionCreators as userActions } from "../redux/modules/user";
 import { useSelector, useDispatch } from "react-redux";
@@ -31,18 +32,33 @@ const Header = (props) => {
           <h1>Mlog</h1>
           <div className={classes["icon-box"]}>
             <HeaderAlarmButton>
-              <a href="/"><img src={mapIcon} alt="" /></a>
+              <a href="/">
+                <img src={mapIcon} alt="" />
+              </a>
             </HeaderAlarmButton>
             <HeaderAlarmButton>
-            <a href="/log"><img src={licenseIcon} alt="" /></a>
+              <a href="/log">
+                <img src={licenseIcon} alt="" />
+              </a>
             </HeaderAlarmButton>
             <HeaderAlarmButton>
-            <a href="/mypage"><img src={mypageIcon} alt="" /></a>
+              <a href="/mypage">
+                <img src={mypageIcon} alt="" />
+              </a>
             </HeaderAlarmButton>
             <HeaderAlarmButton>
+              <NotiBadge
+                _onClick={() => {
+                  history.push("/noti");
+                }}
+              />
+            </HeaderAlarmButton>
+            {/* <HeaderAlarmButton>
             <a href="/noti"><img src={alarmIcon} alt="" /></a>
-            </HeaderAlarmButton>
-            <Button margin='auto' width='auto' _onClick={logOut}>로그아웃</Button>
+            </HeaderAlarmButton>*/}
+            <Button margin="auto" width="auto" _onClick={logOut}>
+              로그아웃
+            </Button>
           </div>
         </header>
       </Permit>
