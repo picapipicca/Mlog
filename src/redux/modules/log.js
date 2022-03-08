@@ -10,20 +10,24 @@ const EDIT_POST = "EDIT_POST";
 const LOADING = "LOADING";
 
 //action creator
-const setPost = createAction(SET_POST, (post_list) => ({ post_list }));
+const setPost = createAction(SET_POST, (post_list, paging) => ({
+  post_list,
+  paging,
+}));
 const addPost = createAction(ADD_POST, (post) => ({ post }));
 const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
   post,
 }));
-const Loading = createAction(LOADING,(is_loading)=>({is_loading}));
+const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 //initialState(기본상태값) : 배열 (포스트목록)
 
 //이 reducer가 사용할 initialState
 const initialState = {
   post_list: [],
-  is_loading:false,
+  paging: { start: null, next: null, size: 3 },
+  is_loading: false,
 };
 //Post 하나에 기본적으로 들어가있어야 할 initialState
 const initialPost = {
@@ -127,51 +131,65 @@ const addPostFirebase = (content = "", title = "", image_url = "") => {
 };
 
 //post가지고오기
-const getPostFirebase = () => {
+const getPostFirebase = (start = null, size = 6) => {
   return function (dispatch, getState, { history }) {
+
+    let _paging = getState().log.paging;
+
+    if (_paging.start && !_paging.next) {
+      return;
+    }
+
+    dispatch(loading(true));
     const postDB = firestore.collection("post");
 
-    postDB.get().then((docs) => {
-      let post_list = [];
+    let query = postDB.orderBy("insert_dt", "desc");
 
-      docs.forEach((d) => {
-        let all_data = d.data();
+    if (start) {
+      query = query.startAt(start);
+    }
 
-        let post = Object.keys(all_data).reduce(
-          (acc, cur) => {
-            if (cur.indexOf("user_") !== -1) {
-              return {
-                ...acc,
-                user_info: { ...acc.user_info, [cur]: all_data[cur] },
-              };
-            }
-            return { ...acc, [cur]: all_data[cur] };
-          },
-          { id: d.id, user_info: {} }
-        );
-        post_list.push(post);
+    query
+      .limit(size + 1)
+      .get()
+      .then((docs) => {
+        let post_list = [];
 
-        // let all_data = {id:d.id,...d.data()};
-        // let post ={
-        //   id: d.id,
-        //   user_info:{
-        //     user_nick:all_data.user_nick,
-        //     user_profile:all_data.user_profile,
-        //     user_email : all_data.email,
-        //   },
-        //   comment_count:all_data.comment_count,
-        //   image_url: all_data.image_url,
-        //   content : all_data.content,
-        //   insert_dt: all_data.insert_dt,
-        // };
-        // post_list.push(post);
+        let paging = {
+          start: docs.docs[0],
+          next:
+            docs.docs.length === size + 1
+              ? docs.docs[docs.docs.length - 1]
+              : null,
+          size: size,
+        };
+
+        docs.forEach((d) => {
+          let all_data = d.data();
+
+          //['comment_count','contents', ..]
+          let post = Object.keys(all_data).reduce(
+            (acc, cur) => {
+              if (cur.indexOf("user_") !== -1) {
+                return {
+                  ...acc,
+                  user_info: { ...acc.user_info, [cur]: all_data[cur] },
+                };
+              }
+              return { ...acc, [cur]: all_data[cur] };
+            },
+            { id: d.id, user_info: {} }
+          );
+          post_list.push(post);
+        });
+        //4개 넘어 갔으니까 마지막꺼 하나 없애기
+        post_list.pop();
+
+        dispatch(setPost(post_list, paging));
       });
-      console.log(post_list);
-
-      dispatch(setPost(post_list));
-    });
   };
 };
+
 //post 1개 가지고오기
 const getOnePostFirebase = (id) => {
   return function (dispatch, getState, { history }) {
@@ -207,17 +225,17 @@ export default handleActions(
       produce(state, (draft) => {
         draft.post_list.push(...action.payload.post_list);
 
-        draft.post_list = draft.post_list.reduce((acc,cur) => {
-          if(acc.findIndex(a => a.id === cur.id) === -1){
-            return [...acc,cur];
-          }else{
+        draft.post_list = draft.post_list.reduce((acc, cur) => {
+          if (acc.findIndex((a) => a.id === cur.id) === -1) {
+            return [...acc, cur];
+          } else {
             acc[acc.findIndex((a) => a.id === cur.id)] = cur;
             return acc;
           }
-        },[])
+        }, []);
 
         draft.is_loading = false;
-        
+        draft.paging = action.payload.paging;
       }),
     [ADD_POST]: (state, action) =>
       produce(state, (draft) => {
@@ -233,6 +251,10 @@ export default handleActions(
           ...draft.post_list[idx],
           ...action.payload.post,
         };
+      }),
+    [LOADING]: (state, action) =>
+      produce(state, (draft) => {
+        draft.is_loading = action.payload.is_loading;
       }),
   },
   initialState
