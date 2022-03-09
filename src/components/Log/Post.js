@@ -4,6 +4,7 @@ import { Grid, Button, Image } from "../../element/index";
 import { history } from "../../redux/configStore";
 import { Viewer } from "@toast-ui/react-editor";
 
+
 const Post = React.memo((props) => {
     
     return (
@@ -41,6 +42,8 @@ const Post = React.memo((props) => {
       </div>
     );
   });
+      
+    
 Post.defaultProps = {
   user_info: {
     user_email: "sexy@sexy.com",

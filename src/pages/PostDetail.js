@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 
 import classes from "./PostDetail.module.css";
-import { Image, Grid } from "../element/index";
+import { Image, Grid,Spinner } from "../element/index";
 import { Viewer } from "@toast-ui/react-editor";
 
 import CommentList from "../components/Log/CommentList";
@@ -34,6 +34,7 @@ const PostDetail = (props) => {
 
   return (
     <Fragment>
+        {!post && <Spinner size='200' is_dim type='page'/>}
       {post && (
         <div>
           <div className={classes.wrap}>
