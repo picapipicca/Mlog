@@ -3,13 +3,14 @@ import { Grid, Button } from "../element/index";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as logActions } from "../redux/modules/log";
 
-import Bus from "../components/Bus/Bus";
-import Post from "../components/Log/Post";
 import classes from "./PostList.module.css";
+import InfinityScroll from "../shared/InfinityScroll";
+
 import BusChart from "../components/Bus/BusChart";
 import SelectDateFilter from "../components/selectDate/SelectDateFilter";
-import InfinityScroll from "../shared/InfinityScroll";
-import MonthButton from "../components/selectDate/MonthButton";
+import Bus from "../components/Bus/Bus";
+import Post from "../components/Log/Post";
+import LogChart from '../components/selectDate/LogChart';
 
 const DUMMY_DATA_2 = [
   {
@@ -44,12 +45,11 @@ const PostList = (props) => {
   const selectYear = (selectedYear)=>{
     setYearFilter(selectedYear);
   };
-  
+
   //년도에 따라 필터
     const filteredYearList = post_list.filter((p)=> {
       return p.insert_dt.split('-')[0] === yearFilter;
       });
-      console.log(filteredYearList)
   
   React.useEffect(() => {
     if (post_list.length < 2) {
@@ -81,7 +81,7 @@ const PostList = (props) => {
         </Grid>
 
         <SelectDateFilter selected={yearFilter} onSelectYearFilter={selectYear}/>
-
+        <LogChart filtered ={filteredYearList}/>
         {/* <SelectDate/> */}
         {listType ? (
           <InfinityScroll
@@ -92,7 +92,7 @@ const PostList = (props) => {
             loading={is_loading}
           >
             <div className={classes.display}>
-            {filteredYearList.length === 0 ? <h2>로그 기록이 없습니다! </h2> : null}
+            {filteredYearList.length === 0 ? <h2 className={classes.none}> 로그 기록이 없습니다! </h2> : null}
               {filteredList.map((p, idx) => {
                 if (p.user_info.user_id === user_info?.uid) {
                   return (
