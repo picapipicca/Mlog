@@ -20,6 +20,7 @@ import PostList from "../pages/PostList";
 import PostDetail from "../pages/PostDetail";
 import Notification from "../pages/Notification";
 import Post from "../components/Log/Post";
+import Mypage from "../pages/Mypage";
 
 function App() {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ function App() {
           <Route path='/post' exact component={Post}/>
           <Route path="/post/:id" exact component={PostDetail} />
           <Route path="/noti" exact component={Notification} />
+          <Route path="/mypage" exact component={Mypage} />
         </div>
       </ConnectedRouter>
     </Fragment>
