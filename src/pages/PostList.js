@@ -9,6 +9,7 @@ import classes from "./PostList.module.css";
 import BusChart from "../components/Bus/BusChart";
 import SelectDateFilter from "../components/selectDate/SelectDateFilter";
 import InfinityScroll from "../shared/InfinityScroll";
+import MonthButton from "../components/selectDate/MonthButton";
 
 const DUMMY_DATA_2 = [
   {
@@ -39,11 +40,24 @@ const PostList = (props) => {
   const paging = useSelector((state) => state.log.paging);
   const user_info = useSelector((state) => state.user.user);
 
+  const [yearFilter,setYearFilter] = React.useState('2022');
+  const selectYear = (selectedYear)=>{
+    setYearFilter(selectedYear);
+  };
+  
+  //년도에 따라 필터
+    const filteredYearList = post_list.filter((p)=> {
+      return p.insert_dt.split('-')[0] === yearFilter;
+      });
+      console.log(filteredYearList)
+  
   React.useEffect(() => {
     if (post_list.length < 2) {
       dispatch(logActions.getPostFirebase());
     }
-  }, []);
+    }, []);
+
+  const filteredList = (filteredYearList ? filteredYearList : post_list)
 
   return (
     <React.Fragment>
@@ -65,17 +79,21 @@ const PostList = (props) => {
             text="버스"
           />
         </Grid>
-        <SelectDateFilter />
+
+        <SelectDateFilter selected={yearFilter} onSelectYearFilter={selectYear}/>
+
         {/* <SelectDate/> */}
-          {listType ? (
-              <InfinityScroll
-              callNext={()=>{dispatch(logActions.getPostFirebase(paging.next))}}
-              is_next={paging.next? true : false }
-              loading={is_loading}
-              >
+        {listType ? (
+          <InfinityScroll
+            callNext={() => {
+              dispatch(logActions.getPostFirebase(paging.next));
+            }}
+            is_next={paging.next ? true : false}
+            loading={is_loading}
+          >
             <div className={classes.display}>
-              {" "}
-              {post_list.map((p, idx) => {
+            {filteredYearList.length === 0 ? <h2>로그 기록이 없습니다! </h2> : null}
+              {filteredList.map((p, idx) => {
                 if (p.user_info.user_id === user_info?.uid) {
                   return (
                     <Grid
@@ -102,23 +120,15 @@ const PostList = (props) => {
                 }
               })}
             </div>
-            </InfinityScroll>
-          ) : (
-            <div className={classes.bus}>
-              <Bus bg="transparent" month={8} className={classes.busframe}>
-                <BusChart data={DUMMY_DATA_2} />
-              </Bus>
-            </div>
-          )}
-        
+          </InfinityScroll>
+        ) : (
+          <div className={classes.bus}>
+            <Bus bg="transparent" month={8} className={classes.busframe}>
+              <BusChart data={DUMMY_DATA_2} />
+            </Bus>
+          </div>
+        )}
       </section>
-      {/* <button
-        onClick={() => {
-          dispatch(logActions.getPostFirebase(paging.next));
-        }}
-      >
-        추가로드
-      </button> */}
     </React.Fragment>
   );
 };
