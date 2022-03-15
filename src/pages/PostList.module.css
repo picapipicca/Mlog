@@ -3,9 +3,8 @@
     text-align: center;
 }
 .display{
-    /* border: 1px solid green; */
     display: grid;
-    margin: 20px;
+    margin: 0px 0px 0px 20px;
     grid-template-columns: repeat(3,1fr);
 }
 .bus{
@@ -15,4 +14,11 @@
 .busframe{
     height: 70vh;
     border: 1px solid #000;
+}
+.stickybox{
+    font-weight: 700;
+    font-size: large;
+    margin: -400px 20px 0px 0px;
+    position: sticky;
+    top: 200px;
 }

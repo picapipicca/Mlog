@@ -1,0 +1,17 @@
+
+.box {
+  position: sticky;
+  position: -webkit-sticky;
+  top:0;
+  display: flex;
+  flex-direction: column;
+  width: 40px;
+  margin-left: 5rem;
+  border-left: 2px solid #cacaca;
+  padding: 0.25rem 0.75rem;
+  color: #000;
+  line-height: 1.5;
+  font-size: 0.875rem;
+  max-height: calc(100vh - 128px);
+  overflow: hidden auto;
+}

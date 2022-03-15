@@ -131,7 +131,7 @@ const addPostFirebase = (content = "", title = "", image_url = "") => {
 };
 
 //post가지고오기
-const getPostFirebase = (start = null, size = 6) => {
+const getPostFirebase = (start = null, size = 9) => {
   return function (dispatch, getState, { history }) {
 
     let _paging = getState().log.paging;
