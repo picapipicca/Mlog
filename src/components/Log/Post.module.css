@@ -1,6 +1,6 @@
 .wrap {
   margin: 5px 20px 20px 0px;
-  width: 30vw;
+  width: 29vw;
   height: 50vh;
   border-radius: 15px;
   margin-bottom: 20px;
@@ -58,7 +58,7 @@
 .body-footer {
   position: absolute;
   margin-top: 10px;
-  margin-bottom: 6px;
+  margin-bottom: 12px;
   bottom: 0;
   width: 90%;
   font-size: 14px;

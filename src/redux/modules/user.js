@@ -66,7 +66,7 @@ const loginFirebase = (email, pwd) => {
         .catch((error) => {
           var errorCode = error.code;
           var errorMessage = error.message;
-
+          window.alert('회원정보가 잘못되었습니다!')
           console.log(errorCode, errorMessage);
         });
     });

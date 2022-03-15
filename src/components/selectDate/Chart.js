@@ -22,7 +22,8 @@ const Chart = (props) => {
 };
 
 const ChartEl = styled.div`
-  margin: 20px 80px;
+  margin: 0px 100px 20px 20px;
+  width : 87vw;
   padding: 1rem;
   border-radius: 12px;
   background-color: #f8dfff;
