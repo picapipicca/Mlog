@@ -6,36 +6,15 @@ import { actionCreators as logActions } from "../redux/modules/log";
 import classes from "./PostList.module.css";
 import InfinityScroll from "../shared/InfinityScroll";
 
-import BusChart from "../components/Bus/BusChart";
 import SelectDateFilter from "../components/selectDate/SelectDateFilter";
-import Bus from "../components/Bus/Bus";
 import Post from "../components/Log/Post";
 import LogChart from "../components/selectDate/LogChart";
 import MonthSideBar from "../components/selectDate/MonthSideBar";
-
-const DUMMY_DATA_2 = [
-  {
-    price: 23,
-    name: "asdf",
-    day: 20,
-  },
-  {
-    price: 23,
-    name: "hjgh",
-    day: 28,
-  },
-  {
-    price: 23,
-    name: "klkjlj",
-    day: 18,
-  },
-];
 
 const PostList = (props) => {
   const dispatch = useDispatch();
   const { history } = props;
 
-  const [listType, setListType] = React.useState(true);
   // const { post_list, is_loading, paging } = useSelector((state) => state.log);
   const post_list = useSelector((state) => state.log.post_list);
   const is_loading = useSelector((state) => state.log.is_loading);
@@ -64,31 +43,14 @@ const PostList = (props) => {
       <Grid is_flex>
         <Grid>
           <section className={classes.wrap}>
-            <h1>차고지</h1>
-
-            <Grid is_flex>
-              {/* 리스트 받아옴 */}
-              <Button
-                _onClick={() => {
-                  setListType(true);
-                }}
-                text="리스트"
-              />
-              <Button
-                _onClick={() => {
-                  setListType(false);
-                }}
-                text="버스"
-              />
-            </Grid>
+            <h1>~~ 로그 기록 ~~</h1>
 
             <SelectDateFilter
               selected={yearFilter}
-              onSelectYearFilter={selectYear}
-            />
+              onSelectYearFilter={selectYear}/>
+
             <LogChart filtered={filteredYearList} />
             {/* <SelectDate/> */}
-            {listType ? (
               <InfinityScroll
                 callNext={() => {
                   dispatch(logActions.getPostFirebase(paging.next));
@@ -128,13 +90,6 @@ const PostList = (props) => {
                   })}
                 </div>
               </InfinityScroll>
-            ) : (
-              <div className={classes.bus}>
-                <Bus bg="transparent" month={8} className={classes.busframe}>
-                  <BusChart data={DUMMY_DATA_2} />
-                </Bus>
-              </div>
-            )}
           </section>
         </Grid>
         <div className={classes.stickybox}>

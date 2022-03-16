@@ -75,7 +75,7 @@
     -o-transition: .2s ease-in-out; /*오페라*/
     transition : .2s ease-in-out;
     overflow: hidden;
-	height: 230px;
+	height: 86%;
 	/* margin: 5px 20px; */
 }
 .wrap:hover .viewer{
