@@ -1,4 +1,13 @@
-.wrap {
+@import url("https://fonts.googleapis.com/css2?family=B612+Mono:wght@400;700&family=DM+Serif+Display&family=East+Sea+Dokdo&family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&family=Permanent+Marker&family=Playfair+Display:wght@400;500;700;900&display=swap");
+.wrap{
+    padding: 10px 45px 0px 45px;
+    width: auto;
+    font-family: 'Permanent Marker', cursive;
+    font-size: large;
+    text-align: center;
+    
+}
+/* .wrap {
   border-radius: 10px;
   background: #fff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
@@ -8,10 +17,17 @@
   text-align: center;
   display: flex;
   flex-direction: column;
-}
-.formbox {
-  position: relative;
-  margin-bottom: 20px;
+} */
+.box {
+  font-size: larger;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  /* border: 1px solid #000; */
+  transition: 0.3s ease all;
+  height: 100vh;
+  width: 40vw;
+  margin: auto;
 }
 .message {
     font-weight: 500;
@@ -25,4 +41,15 @@
   }
   .error {
     color: #ff2727;
+  }
+  .button{
+    margin: 15px 0;
+    align-self: center;
+    font-family: 'Permanent Marker', cursive;
+    font-size: large;
+    border-radius: 30px;
+    color: #000;
+  }
+  span{
+    font-family: 'Gowun Batang', serif;
   }

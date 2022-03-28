@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
 
+
 const Input = (props) => {
   const {
     width,
@@ -116,6 +117,8 @@ Input.defaultProps = {
 };
 
 const InputTag = styled.input`
+@import url('https://fonts.googleapis.com/css2?family=B612+Mono:wght@400;700&display=swap');
+font-family:'B612 Mono', monospace;
   ${(props) => (props.className ? `className: ${props.className};` : "")}
   /* ${(props) => (props.length ? `maxLength: ${props.length};` : "")} */
   margin: 1rem auto;

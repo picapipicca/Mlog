@@ -1,0 +1,100 @@
+@import url("https://fonts.googleapis.com/css2?family=B612+Mono:wght@400;700&family=DM+Serif+Display&family=East+Sea+Dokdo&family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&family=Permanent+Marker&family=Playfair+Display:wght@400;500;700;900&display=swap");
+.wrap {
+  font-family: "B612 Mono", monospace;
+  padding: 10px 60px;
+  min-width: 30vw;
+  text-align: left;
+}
+.content {
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+  grid-template-rows: auto auto 2fr 1fr;
+  gap: 15px;
+}
+
+h2 {
+  margin: 0;
+  grid-column-start: span 2;
+}
+.ptag {
+  margin: 0;
+  padding: 0;
+  grid-column-start: span 2;
+}
+.image {
+  padding: 30px 0;
+  width: 80%;
+  border-top: 1px solid #cacaca;
+  margin-top: 20px;
+  grid-row: span 2;
+}
+.user__info {
+  
+  font-family: "B612 Mono", monospace;
+  margin-top: 20px;
+  padding: 30px 20px;
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  border-top: 1px solid #cacaca;
+  grid-row: span 2;
+  flex-wrap: wrap;
+}
+.btn__edit{
+    width: 13vw;
+    padding: 15px;
+    border: transparent;
+    justify-self: end;
+    cursor: pointer;
+    border-radius: 5px;
+    font-family: "B612 Mono", monospace;
+}
+.btn__edit:hover{
+background-color: #CACACA;
+font-family: "B612 Mono", monospace;
+}
+@media screen and (max-width: 720px) {
+  .btn__edit{
+    width: 100%;
+    padding: 15px;
+    border: transparent;
+    justify-self: center;
+    cursor: pointer;
+    
+    border-radius: 5px;
+  }
+  .content {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto auto 2fr 1fr;
+    gap: 15px;
+    justify-content: center;
+  }
+  .image {
+    width: 90%;
+    border-top: 1px solid #cacaca;
+    margin-top: 20px;
+    grid-row: span 2;
+    grid-column: span 2;
+  }
+
+  .user__info {
+    width: 90%;
+    margin-top: 20px;
+    padding: 20px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    border-top: 1px solid #cacaca;
+    grid-row: span 2;
+    flex-wrap: wrap;
+  }
+  
+}
+/* .profile__img {
+  background-color: aqua;
+  grid-column: span 1;
+  grid-row: span 3;
+}
+.account__info {
+  border: 1px solid #000;
+  
+} */

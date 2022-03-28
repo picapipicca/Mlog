@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=B612+Mono:wght@400;700&family=DM+Serif+Display&family=East+Sea+Dokdo&family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&family=Permanent+Marker&family=Playfair+Display:wght@400;500;700;900&display=swap');
+.footer {
+  background-image: repeating-linear-gradient(
+      -74deg,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2) 1px,
+      transparent 0,
+      transparent 4px
+    ),
+    repeating-linear-gradient(
+      -74deg,
+      rgba(0, 0, 0, 0.2),
+      rgba(0, 0, 0, 0.2) 1px,
+      transparent 0,
+      transparent 4px
+    );
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  background-position: 0 0, 0 100%;
+  background-size: 100% 12px, 100% 12px;
+  -webkit-animation: none;
+  animation: none;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 30% 30% 30%;
+  grid-template-columns: 30% 30% 30%;
+  -ms-grid-rows: 30vh auto;
+  grid-template-rows: 30vh auto;
+  margin-bottom: 32px;
+  padding: 60px 0px;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.footer a {
+  padding: 16px;
+  text-align: center;
+  text-decoration: none;
+  background-image: -webkit-gradient(
+      linear,
+      left top,
+      right top,
+      color-stop(50%, #000),
+      color-stop(0, transparent)
+    ),
+    -webkit-gradient(linear, left top, right top, color-stop(50%, #000), color-stop(0, transparent)),
+    -webkit-gradient(linear, left top, left bottom, color-stop(50%, #000), color-stop(0, transparent)),
+    -webkit-gradient(linear, left top, left bottom, color-stop(50%, #000), color-stop(0, transparent));
+  background-image: linear-gradient(90deg, #000 50%, transparent 0),
+    linear-gradient(90deg, #000 50%, transparent 0),
+    linear-gradient(180deg, #000 50%, transparent 0),
+    linear-gradient(180deg, #000 50%, transparent 0);
+  background-position: 0 0, 0 100%, 0 0, 100% 0;
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  background-size: 30px 1px, 30px 1px, 1px 30px, 1px 30px;
+  -webkit-animation: 0.4s infinite normal move;
+  animation: 0.4s infinite normal move;
+  -webkit-animation-timing-function: linear;
+  animation-timing-function: linear;
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+  position: relative;
+}
+
+.footer a div {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 50% 50%;
+  grid-template-rows: 50% 50%;
+  height: 100%;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.footer a div:nth-child(1) {
+  color: #1d1d1d;
+  font-size: 32px;
+  font-family:'Permanent Marker', cursive;
+}
+
+.footer a div img {
+  margin: auto;
+}
+
+.footer a:hover {
+  -webkit-animation-play-state: running;
+  animation-play-state: running;
+}
+
+@-webkit-keyframes move {
+  0% {
+    background-position: 0 0, 0 100%, 0 0, 100% 0;
+  }
+  100% {
+    background-position: 30px 0, -30px 100%, 0 -30px, 100% 30px;
+  }
+}
+
+@keyframes move {
+  0% {
+    background-position: 0 0, 0 100%, 0 0, 100% 0;
+  }
+  100% {
+    background-position: 30px 0, -30px 100%, 0 -30px, 100% 30px;
+  }
+}

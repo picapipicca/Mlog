@@ -1,7 +1,8 @@
+@import url("https://fonts.googleapis.com/css2?family=B612+Mono:wght@400;700&family=DM+Serif+Display&family=East+Sea+Dokdo&family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&family=Permanent+Marker&family=Playfair+Display:wght@400;500;700;900&display=swap");
 .expenses-filter {
     color: white;
     padding: 0 1rem;
-    margin: 20px 30px;
+    margin: 0px 0px 40px 0px;
 
   }
   
@@ -10,7 +11,7 @@
     width: 100%;
     align-items: center;
     justify-content: space-between;
-    margin: 1rem 0;
+    /* margin: 1rem 0; */
   }
   
   .expenses-filter label {
@@ -19,9 +20,10 @@
   }
   
   .expenses-filter select {
-    font: inherit;
-    padding: 0.5rem 3rem;
+    font-family: 'B612 Mono', monospace;
+    font-size: large;
+    padding: 0.6rem 2.5rem;
     font-weight: bold;
-    border-radius: 6px;
+    /* border-radius: 6px; */
   }
   

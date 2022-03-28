@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import styled from "styled-components";
 
 const Grid = (props) => {
-  const { size,circle,is_flex, width, margin, padding, bg, children, center, _onClick } =
+  const { size,circle,is_flex, width, margin, padding, bg, children, center, _onClick,className } =
     props;
 
   const styles = {
@@ -13,6 +13,7 @@ const Grid = (props) => {
     bg: bg,
     center: center,
     size,
+    className,
   };
   if (circle) {
       return(
@@ -52,6 +53,7 @@ const Circle = styled.div`
   height: var(--size);
   border-radius: var(--size);
   font-weight: 700;
+  ${(props) => (props.className ? `className: ${props.className}` : "")};
 `;
 const GridBox = styled.div`
   width: ${(props) => props.width};
@@ -65,6 +67,7 @@ const GridBox = styled.div`
       ? `display: flex; align-items: center; justify-content: space-between;`
       : ""}
     ${(props) => (props.center ? `text-align : center;` : "")}
+    ${(props) => (props.className ? `className: ${props.className}` : "")};
 `;
 
 export default Grid;

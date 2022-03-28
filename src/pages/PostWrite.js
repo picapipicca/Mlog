@@ -34,6 +34,7 @@ const PostWrite = (props) => {
   const { history } = props;
   const is_login = useSelector((state) => state.user.is_login);
   const post_list = useSelector((state) => state.log.post_list);
+  const image_url = useSelector((state)=> state.image.image_url);
   const dispatch = useDispatch();
 
   const post_id = props.match.params.id;
@@ -63,6 +64,7 @@ const PostWrite = (props) => {
   const uploadImage = (blob, callback) => {
     const fileName = blob?.name;
     dispatch(imageActions.uploadImageFirebase(fileName, blob, callback));
+    
   };
 
   const titleChangeHandler = (e) => {
@@ -78,7 +80,7 @@ const PostWrite = (props) => {
 
   const contentHTML = editorRef.current.getInstance().getHTML();
   const content = editorRef.current.getInstance().getMarkdown();
-  const image_url = contentHTML.split("=")[1]?.split('"')[1];
+  // const image_url = contentHTML.split("=")[2]?.split('"')[1];
     // const contentMarkdown = editorRef.current.getInstance().getMarkdown();
     // const content = contentMarkdown.replaceAll("#", "").split("!")[0];
     // const content = editorRef.current.getInstance().getHTML();
@@ -87,8 +89,9 @@ const PostWrite = (props) => {
   const onEditPostHandler = () => {
   const contentHTML = editorRef.current.getInstance().getHTML();
   const content = editorRef.current.getInstance().getMarkdown();
-  const image_url = contentHTML.split("=")[1]?.split('"')[1];
-    dispatch(logActions.editPostFirebase(post_id,{title:title,content:content,image_url:image_url}))
+
+  // const image_url = contentHTML.split("=")[1]?.split('"')[1];
+    dispatch(logActions.editPostFirebase(post_id,{title:title,content:content,image_url}))
   };
 
   if (!is_login) {

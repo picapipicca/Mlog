@@ -1,11 +1,12 @@
-
+/* @import url('https://fonts.googleapis.com/css2?family=B612+Mono:wght@400;700&family=DM+Serif+Display&family=East+Sea+Dokdo&family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&family=Permanent+Marker&family=Playfair+Display:wght@400;500;700;900&display=swap'); */
 .box {
   position: sticky;
   position: -webkit-sticky;
   top:0;
+  right: 0;
   display: flex;
   flex-direction: column;
-  width: 40px;
+  /* font-family: 'Permanent Marker', cursive; */
   margin-left: 5rem;
   border-left: 2px solid #cacaca;
   padding: 0.25rem 0.75rem;

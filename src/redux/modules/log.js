@@ -104,6 +104,7 @@ const addPostFirebase = (content = "", title = "", image_url = "") => {
 
     const _user = getState().user.user;
     const user_info = {
+      user_nick:_user.user_nick,
       user_email: _user.email,
       user_id: _user.uid,
       user_profile: _user.user_profile,

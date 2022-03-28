@@ -5,13 +5,14 @@ import { realtime } from "../shared/firebase";
 import { useSelector } from "react-redux";
 
 const NotiBadge = (props) => {
+  const { _onClick } = props;
   const [is_read, setIsRead] = React.useState(true);
   const user_id = useSelector((state) => state.user.user.uid);
 
   const notiCheck = () => {
     const notiDB = realtime.ref(`noti/${user_id}`);
     notiDB.update({read:true});
-    props._onClick();
+    _onClick();
   };
 
   //realtime database 구독 DB.on() / 구독해지 DB.off()
@@ -30,7 +31,7 @@ const NotiBadge = (props) => {
     return () => notiDB.off();
   }, []);
 
-  const { _onClick } = props;
+  
   return (
     <Fragment>
       <Badge
