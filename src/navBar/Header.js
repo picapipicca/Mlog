@@ -5,6 +5,7 @@ import HeaderAlarmButton from "./HeaderAlarmButton";
 import { licenseIcon, alarmIcon, mapIcon, mypageIcon } from "../assets/index";
 import Permit from "../shared/Permit";
 import NotiBadge from "./NotiBadge";
+import { RiLogoutCircleRLine } from "react-icons/ri";
 
 import { actionCreators as userActions } from "../redux/modules/user";
 import { useSelector, useDispatch } from "react-redux";
@@ -21,75 +22,72 @@ const Header = (props) => {
   const logOut = () => {
     dispatch(userActions.logoutFirebase());
   };
-
-  //if(is_login && is_session ){ return(
-  //   );}
-
+ 
+  if (is_login && is_session) {
+    return (
+      
+        <div className={classes.wrap}>
+          <header className={classes.header}>
+            <div className={classes.header__nav}>
+              <ul>
+                <li>
+                  <a href="/">Mood Log</a>{" "}
+                  <RiLogoutCircleRLine style={{cursor:'pointer'}} onClick={logOut} />
+                </li>
+                <li className={classes.fixed}>
+                  <a href="/">Home</a>
+                </li>
+                <li className={classes.fixed}>
+                  <a href="/log">Log</a>
+                </li>
+                <li className={classes.fixed}>
+                  {" "}
+                  <a href="/mypage">Mypage</a>
+                </li>
+                <li className={classes.fixed}>
+                  {" "}
+                  <a href="/noti">
+                    Alarm
+                    <NotiBadge _onClick={() => { history.push('/noti')}}/>
+                  </a>
+                </li>
+              </ul>
+            </div>
+            {/* <div className={classes.header__toggle}>
+            <BiMenuAltRight />
+          </div> */}
+          </header>
+        </div>
+      
+    );
+  }
+else{
   return (
     <Fragment>
-      <Permit>
-        <header className={classes.header}>
-          <h1>Mlog</h1>
-          <div className={classes["icon-box"]}>
-            <HeaderAlarmButton>
-              <a href="/">
-                <img src={mapIcon} alt="" />
-              </a>
-            </HeaderAlarmButton>
-            <HeaderAlarmButton>
-              <a href="/log">
-                <img src={licenseIcon} alt="" />
-              </a>
-            </HeaderAlarmButton>
-            <HeaderAlarmButton>
-              <a href="/mypage">
-                <img src={mypageIcon} alt="" />
-              </a>
-            </HeaderAlarmButton>
-            <HeaderAlarmButton>
-              <NotiBadge
-                _onClick={() => {
-                  history.push("/noti");
-                }}
-              />
-            </HeaderAlarmButton>
-            {/* <HeaderAlarmButton>
-            <a href="/noti"><img src={alarmIcon} alt="" /></a>
-            </HeaderAlarmButton>*/}
-            <Button margin="auto" width="auto" _onClick={logOut}>
-              로그아웃
-            </Button>
-          </div>
-        </header>
-      </Permit>
-      <Grid is_flex padding="4px 10px">
-        <Grid>
-          <h1>Mlog</h1>
-        </Grid>
-        <Grid>
-          <Button
-            width="10vw"
-            height="5vh"
-            bgColor="#72acdb"
-            color="#080538"
-            text="로그인"
-            _onClick={() => {
-              history.push("/login");
-            }}
-          ></Button>
-          <Button
-            width="10vw"
-            bgColor="#2ba677"
-            color="#080538"
-            text="회원가입"
-            _onClick={() => {
-              history.push("/signup");
-            }}
-          ></Button>
-        </Grid>
-      </Grid>
+      <div className={classes.wrap}>
+          <header className={classes.header}>
+            <div className={classes.header__nav}>
+              <ul>
+                <li>
+                  <a href="/">Mood Log</a>{" "}
+                  
+                </li>
+                <li className={classes.login}>
+                  <a href="/login">LogIn</a>
+                </li>
+                <li className={classes.signup}>
+                  <a href="/signup">Signup</a>
+                </li>
+              </ul>
+            </div>
+            {/* <div className={classes.header__toggle}>
+            <BiMenuAltRight />
+          </div> */}
+          </header>
+        </div>
     </Fragment>
   );
+}
 };
 
 export default Header;

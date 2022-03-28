@@ -1,0 +1,229 @@
+/* @import url("https://fonts.googleapis.com/css2?family=B612+Mono:wght@400;700&family=DM+Serif+Display&family=East+Sea+Dokdo&family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&family=Permanent+Marker&family=Playfair+Display:wght@400;500;700;900&display=swap");
+* {
+  box-sizing: border-box;
+}
+.wrap {
+    font-family: 'DM Serif Display', serif;
+    padding: 45px;
+}
+main{
+   
+}
+main h1{
+    font-size: 50px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+main h6{
+    font-size: 15px;
+    font-family: 'Gowun Batang', serif;
+    letter-spacing: 0.5px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+.swiper{
+    display: grid;
+  grid-template-rows: 50vh;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 50px;
+  
+}
+.swiper__content {
+    grid-column: 2/4;
+    background-color: #000;
+    border: 1px solid #000;
+  }
+  .logs {
+    h4 {
+      font-size: 32px;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+    &__wrapper {
+      border: 1px solid #000;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 60vh auto;
+      background-color: #000;
+      gap: 1px;
+      margin-bottom: 10vh;
+      .log,
+      .log__intro {
+        background-color: $light;
+      }
+      .log__intro {
+        font-family: 'Gowun Batang', serif;
+        grid-column: span 4;
+        text-align: center;
+        padding: 20px 0px;
+        font-size: 18px;
+      }
+      .log {
+        padding: 32px;
+        display: grid;
+        grid-template-rows: 80% auto auto;
+        gap: 16px;
+        &__photo {
+          background-color: #000;
+        }
+        &__title {
+          font-family: $Dokdo;
+          font-size: 25px;
+          grid-template-rows: auto;
+          @include ellipsis(1, 1.3em);
+        }
+        &__content {
+          font-family: $Marker;
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+  } */
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=B612+Mono:wght@400;700&family=DM+Serif+Display&family=East+Sea+Dokdo&family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&family=Permanent+Marker&family=Playfair+Display:wght@400;500;700;900&display=swap");
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.wrap {
+  font-family: "DM Serif Display", serif;
+  padding: 45px;
+}
+
+main h1,
+main h6 {
+  text-align: center;
+}
+
+main h1 {
+  font-size: 50px;
+  margin-bottom: 20px;
+}
+
+main h6 {
+  font-size: 15px;
+  font-family: "Gowun Batang", serif;
+  letter-spacing: 0.5px;
+  margin-bottom: 60px;
+}
+/* swiper */
+.swiper {
+  margin: auto;
+  width: 60vw;
+  height: 60vh;
+  /* grid-template-rows: 50vh;
+  grid-template-columns: repeat(4, 1fr); */
+  margin-bottom: 60px;
+  justify-content: center;
+}
+
+.swiper__content {
+  height: 100%;
+  background-color: #fff;
+  /* border: 1px solid #e61502; */
+}
+.swiper {
+  position:relative;
+  overflow: hidden;
+  width: 70vw;
+  height: 100vh;
+}
+.swiper img {
+  width: 100%;
+  height: 95vh;
+  object-fit: cover;
+}
+.swiper__left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 95vh;
+  background-color: transparent;
+  z-index: 21;
+  cursor: w-resize;
+}
+.swiper__right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 95%;
+  background-color: transparent;
+  z-index: 21;
+  cursor: e-resize;
+}
+/* main page */
+.logs h4 {
+  font-size: 32px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.logs__wrapper {
+  border: 1px solid #1d1d1d;
+  display: -ms-grid;
+  display: grid;
+  /* -ms-grid-columns: (1fr) [4]; */
+  grid-template-columns: repeat(4, 1fr);
+  -ms-grid-rows: 60vh auto;
+  grid-template-rows: 60vh auto;
+  background-color: #1d1d1d;
+  gap: 1px;
+  margin-bottom: 10vh;
+}
+
+.logs__wrapper .log,
+.logs__wrapper .log__intro {
+  background-color: #fff;
+}
+
+.logs__wrapper .log__intro {
+  font-family: "Gowun Batang", serif;
+  grid-column: span 4;
+  text-align: center;
+  padding: 20px 0px;
+  font-size: 18px;
+}
+
+.logs__wrapper .log {
+  padding: 32px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 80% auto auto;
+  grid-template-rows: 80% auto auto;
+  gap: 16px;
+}
+
+.logs__wrapper .log__photo {
+  background-color: #1d1d1d;
+}
+
+.logs__wrapper .log__title {
+  font-family: "East Sea Dokdo", cursive;
+  font-size: 25px;
+  -ms-grid-rows: auto;
+  grid-template-rows: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  /* 라인수 */
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  line-height: 1.3em;
+  height: 1.3em;
+  /* line-height 가 1.2em 이고 3라인을 자르기 때문에 height는 1.2em * 3 = 3.6em */
+}
+
+.logs__wrapper .log__content {
+  font-family: "Permanent Marker", cursive;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}

@@ -40,62 +40,41 @@ const PostList = (props) => {
   const filteredList = filteredYearList ? filteredYearList : post_list;
 
   return (
-      <Grid is_flex>
-        <Grid>
-          <section className={classes.wrap}>
-            <h1>~~ 로그 기록 ~~</h1>
-
-            <SelectDateFilter
-              selected={yearFilter}
-              onSelectYearFilter={selectYear}/>
-
-            <LogChart filtered={filteredYearList} />
-            {/* <SelectDate/> */}
-              <InfinityScroll
-                callNext={() => {
-                  dispatch(logActions.getPostFirebase(paging.next));
-                }}
-                is_next={paging.next ? true : false}
-                loading={is_loading}
-              >
-                <div className={classes.display}>
-                  {filteredYearList.length === 0 ? (
-                    <h2 className={classes.none}> 로그 기록이 없습니다! </h2>
-                  ) : null}
-                  {filteredList.map((p, idx) => {
-                    if (p.user_info.user_id === user_info?.uid) {
-                      return (
-                        <Grid
-                          key={p.id}
-                          _onClick={() => {
-                            history.push(`/post/${p.id}`);
-                          }}
-                        >
-                          {" "}
-                          <Post key={p.id} {...p} its_me />{" "}
-                        </Grid>
-                      );
-                    } else {
-                      return (
-                        <Grid
-                          key={p.id}
-                          _onClick={() => {
-                            history.push(`/post/${p.id}`);
-                          }}
-                        >
-                          <Post key={p.id} {...p} />;
-                        </Grid>
-                      );
-                    }
-                  })}
-                </div>
-              </InfinityScroll>
-          </section>
-        </Grid>
-        <div className={classes.stickybox}>
-          <MonthSideBar month={filteredYearList}/>
-        </div>
+    <>
+      <Grid>
+        <SelectDateFilter
+          selected={yearFilter}
+          onSelectYearFilter={selectYear}
+        />
       </Grid>
+
+      <section className={classes.wrap}>
+        <InfinityScroll
+          callNext={() => {
+            dispatch(logActions.getPostFirebase(paging.next));
+          }}
+          is_next={paging.next ? true : false}
+          loading={is_loading}
+        >
+          <div className={classes.display}>
+            {filteredYearList.length === 0 ? (
+              <h2 className={classes.none}> 로그 기록이 없습니다! </h2>
+            ) : null}
+            {filteredList.map((p, idx) => {
+              if (p.user_info.user_id === user_info?.uid) {
+                return <Post key={p.id} {...p} its_me />;
+              } else {
+                return <Post key={p.id} {...p} />;
+              }
+            })}
+          </div>
+        </InfinityScroll>
+        {/* <div className={classes.stickybox}>
+            <MonthSideBar month={filteredYearList} />
+          </div> */}
+      </section>
+      <LogChart filtered={filteredYearList} />
+    </>
   );
 };
 

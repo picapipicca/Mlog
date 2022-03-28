@@ -68,7 +68,7 @@ const ElButton = styled.button`
   box-sizing: border-box;
   border: none;
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
-  ${(props) => (props._disabled ? `background-color: #cad4c9`: "")};
+  ${(props) => (props._disabled ? `background-color: #fc4e5d`: "")};
   position: ${(props) => (props.position ? `${props.position}` : "")};
   background-color: ${(props) => (props.bgColor ? `${props.bgColor}` : "")};
   color: ${(props) => (props.color ? `${props.color}` : "")};

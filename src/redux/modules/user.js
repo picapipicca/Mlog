@@ -14,7 +14,7 @@ const user_initial = {
   email: "asdf@gmail.com",
   pwd: "12341234",
   pwd_confirm: "12341234",
-  user_nick: "sexykingkong",
+  user_nick: "sexyking",
 };
 
 //action
@@ -66,7 +66,7 @@ const loginFirebase = (email, pwd) => {
         .catch((error) => {
           var errorCode = error.code;
           var errorMessage = error.message;
-          window.alert('회원정보가 잘못되었습니다!')
+          email.length !== 0 && pwd.length !== 0 && window.alert('회원정보가 잘못되었습니다!')
           console.log(errorCode, errorMessage);
         });
     });

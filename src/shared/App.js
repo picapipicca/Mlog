@@ -51,6 +51,7 @@ function App() {
           <Route path="/post/:id" exact component={PostDetail} />
           <Route path="/noti" exact component={Notification} />
           <Route path="/mypage" exact component={Mypage} />
+          <Route path="/mypage/:id" exact component={Mypage} />
         </div>
       </ConnectedRouter>
     </Fragment>

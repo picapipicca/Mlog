@@ -11,7 +11,7 @@ const SelectDateFilter = (props) => {
 
   return (
     <Fragment>
-      <Grid is_flex>
+      <Grid padding='0 30px' is_flex>
         <div className={classes["expenses-filter"]}>
           <div className={classes["expenses-filter__control"]}>
             <select value={props.selected} onChange={selectYearHandler}>

@@ -59,7 +59,7 @@ const Signup = (props) => {
         setPwdConfirmMsg("비밀번호가 일치합니다!");
         setIsPwdConfirm(true);
       } else {
-        setPwdConfirmMsg("비밀번호가 틀려요. 다시 확인해 주세요");
+        setPwdConfirmMsg("비밀번호가 일치하지 않습니다. 다시 확인해 주세요");
         setIsPwdConfirm(false);
       }
     },
@@ -80,10 +80,11 @@ const Signup = (props) => {
   return (
     <Fragment>
       <div className={classes.wrap}>
-        <div className={classes.formbox}>
+        <div className={classes.box}>
           <Input
-          value={email}
-            label="이메일"
+            width="30vw"
+            value={email}
+            label="Email"
             placeholder="이메일을 입력해주세요"
             type="text"
             _onChange={userEmailHandler}
@@ -97,12 +98,11 @@ const Signup = (props) => {
               {emailMsg}
             </span>
           )}
-        </div>
 
-        <div>
           <Input
-          value={user_nick}
-            label="닉네임"
+            width="30vw"
+            value={user_nick}
+            label="Nickname"
             placeholder="활동은 닉네임으로 하게됩니다"
             type="text"
             maxlength="9"
@@ -117,11 +117,11 @@ const Signup = (props) => {
               {nickMsg}
             </span>
           )}
-        </div>
-        <div>
+
           <Input
-          value={pwd}
-            label="비밀번호"
+            width="30vw"
+            value={pwd}
+            label="Password"
             placeholder="비밀번호를 입력해주세요"
             _onChange={userPwdHandler}
             type="password"
@@ -135,10 +135,10 @@ const Signup = (props) => {
               {pwdMsg}
             </span>
           )}
-        </div>
-        <div>
+
           <Input
-          value={pwd_confirm}
+            width="30vw"
+            value={pwd_confirm}
             placeholder="비밀번호를 다시 입력해주세요"
             type="password"
             _onChange={userPwdConfirmHandler}
@@ -152,15 +152,19 @@ const Signup = (props) => {
               {pwdConfirmMsg}
             </span>
           )}
-        </div>
 
-        <Button
-          text="가입하기"
-          _disabled={!(isNick && isEmail && isPwd && isPwdConfirm)}
-          _onClick={() => {
-            dispatch(signupActions.signupFirebase(email, pwd, user_nick));
-          }}
-        ></Button>
+          <Button
+            width="30vw"
+            padding="15px"
+            
+            className={classes.button}
+            text="Enter"
+            _disabled={!(isNick && isEmail && isPwd && isPwdConfirm)}
+            _onClick={() => {
+              dispatch(signupActions.signupFirebase(email, pwd, user_nick));
+            }}
+          ></Button>
+        </div>
       </div>
     </Fragment>
   );

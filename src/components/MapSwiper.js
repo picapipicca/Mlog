@@ -1,65 +1,64 @@
-import React, { Fragment } from "react";
-import styled from "styled-components";
-import img_1 from '../assets/1.jpeg';
-import img_2 from '../assets/2.jpeg';
-import img_3 from '../assets/3.jpeg';
+import React, { Fragment,useRef } from "react";
 
-import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import classes from '../pages/Map.module.css';
+import img_1 from "../assets/1.jpeg";
+import img_2 from "../assets/2.jpeg";
+import img_3 from "../assets/3.jpeg";
+import img_4 from "../assets/4.jpeg";
+import img_5 from "../assets/5.jpeg";
+
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Autoplay ,Keyboard,A11y} from "swiper"; 
 
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
-const MapSwiper = (props) => {
+const MapSwiper = () => {
+ const buttonRight=useRef(null);
+ const buttonLeft=useRef(null);
+
   return (
-    <Fragment>
-      <SwiperSpace>
       <Swiper
-        className='swiper'
-        slidesOffsetBefore={24}
-        slidesOffsetAfter={24}
-        slidesPerView={1}
-        spaceBetween={30}
-        autoplay={{
-          'delay': 2000,
-          'disableOnInteraction': false
-        }}
-        initialSlide={1}
-        centeredSlides={true}
-        navigation={true}
-        pagination={{
-          clickable: true,
-        }}
-        scrollbar={{ draggable: true, dragSize: 24 }}
-        breakpoints={{
-          0: {
-            slidesOffsetBefore: 0,
-            slidesPerView: 1,
-            spaceBetween: 8,
-            centeredSlides: true,
-          },
-          500: {
-            slidesOffsetBefore: 16,
-            slidesPerView: 1,
-            spaceBetween: 8,
-            centeredSlides: true,
-          },
-        }}
-      >
-          <SwiperSlide> <img style={{objectFit:'contain' ,width:'60vw',height:'40vh'}} src={img_1} alt='img'/></SwiperSlide>
-          <SwiperSlide>  <img style={{objectFit:'contain' ,width:'60vw',height:'40vh'}} src={img_2} alt='img'/></SwiperSlide>
-          <SwiperSlide>  <img style={{objectFit:'contain' ,width:'60vw',height:'40vh'}} src={img_3} alt='img'/></SwiperSlide>
-          <SwiperSlide>  <img style={{objectFit:'contain' ,width:'60vw',height:'40vh'}} src={img_1} alt='img'/></SwiperSlide>
-        </Swiper>
-      </SwiperSpace>
-    </Fragment>
+      className={classes.swiper}
+      modules={[Navigation, Pagination, Autoplay, A11y]}
+      spaceBetween={50}
+      slidesPerView={1}
+      navigation={{
+        nextEl:buttonRight.current,
+        prevEl:buttonLeft.current,
+      }}
+      loop={true}
+      pagination={{ clickable: true}}
+      // autoplay={{ delay: 3000 }}
+      grabCursor={true}
+  
+      onSwiper={(swiper) =>{
+        // Delay execution for the refs to be defined
+        setTimeout(() => {
+          // Override prevEl & nextEl now that refs are defined
+          swiper.params.navigation.prevEl = buttonLeft.current
+          swiper.params.navigation.nextEl = buttonRight.current
+
+          // Re-init navigation
+          // swiper.navigation.destroy()
+          swiper.navigation.init()
+          // swiper.navigation.update()
+        })
+      }}
+    >
+      <div ref={buttonLeft} className={classes.swiper__left}></div>
+      <div ref={buttonRight} className={classes.swiper__right}></div>
+      <SwiperSlide><img alt='' src={img_1}/></SwiperSlide>
+      <SwiperSlide><img alt='' src={img_2}/></SwiperSlide>
+      <SwiperSlide><img alt='' src={img_3}/></SwiperSlide>
+      <SwiperSlide><img alt='' src={img_4}/></SwiperSlide>
+      <SwiperSlide><img alt='' src={img_5}/></SwiperSlide>
+      
+
+    </Swiper>
   );
 };
-const SwiperSpace = styled.div`
-width: 40vw;
-margin:auto;
-height:40vh;
-`;
+
 export default MapSwiper;
