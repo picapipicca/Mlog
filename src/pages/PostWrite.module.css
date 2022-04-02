@@ -1,39 +1,74 @@
-.post-write__header{
-    width: 100%;
-    text-align: center;
+@import url("https://fonts.googleapis.com/css2?family=B612+Mono:wght@400;700&family=DM+Serif+Display&family=East+Sea+Dokdo&family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&family=Permanent+Marker&family=Playfair+Display:wght@400;500;700;900&display=swap");
+.post-write__header {
+  width: 100%;
+  text-align: center;
 }
 
-.post-write__date{
-    font-weight: 700;
-    padding: 10px;
-    
+.post-write__date {
+  font-weight: 700;
+  padding: 10px;
 }
 .moment {
-    margin-left: 10px;
-    padding: 10px;
-    border-radius: 20px;
-    background: aliceblue;
+  margin-left: 10px;
+  padding: 10px;
+  border-radius: 20px;
+  background: aliceblue;
 }
 
-.post-write__content{
-    padding: 1rem;
+.post-write__content {
+  padding: 10px 47px;
+  margin-bottom: 20px;
 }
-.headline{
-font-weight: 700;
-font-size: 32px;
+.headline {
+  font-weight: 700;
+  font-size: 32px;
 }
-.explain{
-font-weight: 500;
-font-size: 20px;
+.explain {
+  font-weight: 500;
+  font-size: 20px;
 }
-.place-image-out{
-    width: 100%;
-    min-width: 250px;
+.place-image-out {
+  width: 100%;
+  min-width: 250px;
 }
-.place-image-in{
-    position: relative;
-    padding-top: 75%;
-    overflow: hidden;
-    /* background-image: url("${(props) => props.src}"); */
-    background-size: cover;
+.place-image-in {
+  position: relative;
+  padding-top: 75%;
+  overflow: hidden;
+  /* background-image: url("${(props) => props.src}"); */
+  background-size: cover;
+}
+.input {
+  font-size: 1rem;
+  font-family: "Gowun Batang", serif;
+}
+h1 {
+  font-family: "Gowun Batang", serif;
+  font-weight: 700;
+}
+.btn {
+  display: flex;
+  padding: 0 45px;
+}
+.submitBtn {
+  border: 1px solid #000;
+  font-size: large;
+  float: right;
+  margin-right: 10px 50px;
+  font-family: "Permanent Marker", cursive;
+  margin-bottom: 40px;
+  border-left: transparent;
+}
+.submitBtn:hover {
+  background-color: #ede9e8;
+}
+.cancelBtn {
+  margin-bottom: 40px;
+  margin-left: 10px 50px;
+  border: 1px solid #000;
+  font-size: large;
+  font-family: "Permanent Marker", cursive;
+}
+.cancelBtn:hover {
+  background-color: #ede9e8;
 }

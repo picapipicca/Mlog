@@ -15,11 +15,12 @@ const Input = (props) => {
     value,
     is_submit,
     onEnterSubmit,
+    className,
   } = props;
 
   const styles = { length, width };
 
-  const classes = props.className;
+  const classes = className;
 
   if (multiLine) {
     return (

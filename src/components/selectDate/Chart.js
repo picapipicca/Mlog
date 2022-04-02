@@ -4,9 +4,9 @@ import styled from "styled-components";
 
 const Chart = (props) => {
   const valueArray = props.dataPlots.map((d) => d.value);
-  console.log(valueArray);
+  // console.log(valueArray);
   const totalMaximum = Math.max(...valueArray);
-  console.log(totalMaximum);
+  // console.log(totalMaximum);
   return (
     <ChartEl>
       {props.dataPlots.map((d) => (
@@ -24,13 +24,13 @@ const Chart = (props) => {
 const ChartEl = styled.div`
   margin: auto;
   margin-bottom: 20px;
-  width: 89vw;
+  width: 100%;
   padding: 1rem;
-  border-radius: 12px;
-  background-color: #f8dfff;
+  border:  1px solid #000;
   text-align: center;
   display: flex;
   justify-content: space-around;
   height: 10rem;
+  
 `;
 export default Chart;

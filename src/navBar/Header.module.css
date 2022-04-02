@@ -74,6 +74,8 @@
 }
 
 .wrap .header__nav ul {
+  
+  color: #000;
   margin: 0px 0px;
   padding-left: 0.1px;
   display: grid;
@@ -83,6 +85,7 @@
 }
 
 .wrap .header__nav ul li {
+  
   background-color: #fff;
   display: flex;
   justify-content: center;
@@ -91,6 +94,7 @@
 }
 
 .wrap .header__nav ul li:nth-child(1) {
+  
   display: grid;
   grid-template-columns: repeat(4,1fr);
   grid-template-rows: 40px;
@@ -115,7 +119,7 @@ grid-column: -1;
 } */
 a {
   text-decoration: none;
-  color: #000;
+  color: #000 !important;
   box-sizing: border-box;
   padding: 20px;
 }

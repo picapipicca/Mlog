@@ -1,7 +1,8 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { auth } from "../../shared/firebase";
-import firebase from "firebase/compat/app";
+import  firebase from "firebase/compat/app";
+import { firestore,storage } from "../../shared/firebase";
 
 //initialState = defaultProps
 const initialState = {
@@ -22,11 +23,16 @@ const user_initial = {
 const SET_USER = "SET_USER";
 const LOG_OUT = "LOG_OUT";
 const GET_USER = "GET_USER";
+const EDIT_USER = "EDIT_USER";
 
 //action creators
 const setUser = createAction(SET_USER, (user) => ({ user }));
 const logOut = createAction(LOG_OUT, (user) => ({ user }));
 const getUser = createAction(GET_USER, (user) => ({ user }));
+const editUser = createAction(EDIT_USER, (uid, user) => ({
+  uid,
+  user
+}));
 
 //middleware actions
 
@@ -51,11 +57,12 @@ const loginFirebase = (email, pwd) => {
             setUser({
               email: email,
               user_nick: user.user.displayName,
-              user_profile: "",
+              user_profile: user.user.photoURL,
               uid: user.user.uid,
             })
           );
           history.push("/");
+          
           // dispatch(setUser({
           //   //auth.currentUser에서 nick 가져오거나, then에 있는 user에서 가져와도됨
           //   email: email,
@@ -66,7 +73,9 @@ const loginFirebase = (email, pwd) => {
         .catch((error) => {
           var errorCode = error.code;
           var errorMessage = error.message;
-          email.length !== 0 && pwd.length !== 0 && window.alert('회원정보가 잘못되었습니다!')
+          email.length !== 0 &&
+            pwd.length !== 0 &&
+            window.alert("회원정보가 잘못되었습니다!");
           console.log(errorCode, errorMessage);
         });
     });
@@ -108,7 +117,7 @@ const signupFirebase = (email, pwd, user_nick) => {
 };
 
 //리덕스에서 새로고침해도 로그인안날아가고 유지시켜주는방법 -> app.js에서 useEffect로 적용시켜줌
-//처음에 딱 들어가면 app.js 에서 session 유무 체크-> session있으면 있네? 리덕스에 로그인체크 보내봐야겠다-> 해봤더니 여기 정보가 있네 이정보 넣어줄게 해준것! 
+//처음에 딱 들어가면 app.js 에서 session 유무 체크-> session있으면 있네? 리덕스에 로그인체크 보내봐야겠다-> 해봤더니 여기 정보가 있네 이정보 넣어줄게 해준것!
 const loginCheckFirebase = () => {
   return function (dispatch, getState, { history }) {
     auth.onAuthStateChanged((user) => {
@@ -116,7 +125,7 @@ const loginCheckFirebase = () => {
         dispatch(
           setUser({
             user_nick: user.displayName,
-            user_profile: "",//profile.photo.url이 들어감
+            user_profile: user.photoURL, //profile.photo.url이 들어감
             email: user.email,
             uid: user.uid,
           })
@@ -128,14 +137,53 @@ const loginCheckFirebase = () => {
   };
 };
 
-const logoutFirebase = ()=>{
-  return function( dispatch,getState,{history} ){
-    auth.signOut().then(()=>{
+const logoutFirebase = () => {
+  return function (dispatch, getState, { history }) {
+    auth.signOut().then(() => {
       dispatch(logOut());
-      history.replace('/');
-    })
-  }
-}
+      history.replace("/");
+    });
+  };
+};
+const editUserFirebase = (uid = null, user={}) => {
+  return function (dispatch, getState, { history }) {
+    if (!uid) {
+      console.log("사용자 정보가 없습니다");
+      return;
+    }
+    const user = firebase.auth().currentUser;
+    console.log(user);
+    const _profile = getState().user.user_profile
+    const _upload = storage
+      .ref(`profile/${uid}_${new Date().getTime()}`)
+      .put(_profile, "profile_url");
+    //upload
+    _upload.then((snapshot) => {
+      snapshot.ref
+        .getDownloadURL()
+        .then((url) => {
+          console.log(url);
+          return url;
+        })
+        .then((url) => {
+          user
+            .updateProfile({
+              displayName: user.user_nick,
+              photoURL: url,
+            })
+            .then(() => {
+            dispatch(editUser(uid,{...user,user_profile:url}));
+            history.replace('/log');
+            })
+            .catch((error) => {
+              window.alert("프로필 이미지 업로드에 문제가 있습니다!");
+            });
+        })
+    }).catch((err)=>{
+      console.log('마이페이지 수정에 실패했어요!',err);
+    });
+  };
+};
 //reducer
 export default handleActions(
   {
@@ -153,6 +201,15 @@ export default handleActions(
         draft.is_login = false;
       }),
     [GET_USER]: (state, action) => produce(state, (draft) => {}),
+
+    [EDIT_USER]: (state, action) =>
+      produce(state, (draft) => {
+        draft.user = {
+          ...draft.user,
+          ...action.payload.user,
+        };
+        console.log('user정보 들어갔음')
+      }),
   },
   initialState
 );
@@ -166,6 +223,8 @@ const actionCreators = {
   loginCheckFirebase,
   logoutFirebase,
   // loginActionCreator,
+  editUserFirebase,
+  editUser,
 };
 
 export { actionCreators };

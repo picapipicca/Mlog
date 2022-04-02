@@ -2,6 +2,8 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { firestore, storage } from "../../shared/firebase";
 import moment from "moment";
+import "moment/locale/ko";
+
 
 //action type
 const SET_POST = "SET_POST"; //목록 가지고와서 리덕스에 넣어주는애
@@ -36,7 +38,7 @@ const initialPost = {
   title: "내용",
   content: "제목",
   comment_count: 0,
-  insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
+  insert_dt: moment().format("YYYY-MM-DD a hh:mm "),
 };
 
 const editPostFirebase = (post_id = null, post = {}) => {
@@ -115,7 +117,7 @@ const addPostFirebase = (content = "", title = "", image_url = "") => {
       content: content,
       title: title,
       image_url: image_url,
-      insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
+      insert_dt: moment().format("YYYY-MM-DD a hh:mm"),
     };
 
     postDB

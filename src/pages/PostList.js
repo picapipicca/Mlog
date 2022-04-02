@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Button } from "../element/index";
+import { Grid, Button, Spinner } from "../element/index";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as logActions } from "../redux/modules/log";
 
@@ -10,6 +10,8 @@ import SelectDateFilter from "../components/selectDate/SelectDateFilter";
 import Post from "../components/Log/Post";
 import LogChart from "../components/selectDate/LogChart";
 import MonthSideBar from "../components/selectDate/MonthSideBar";
+import Masonry from "react-masonry-css";
+import moment from 'moment';
 
 const PostList = (props) => {
   const dispatch = useDispatch();
@@ -21,7 +23,7 @@ const PostList = (props) => {
   const paging = useSelector((state) => state.log.paging);
   const user_info = useSelector((state) => state.user.user);
 
-  const [yearFilter, setYearFilter] = React.useState("2022");
+  const [yearFilter, setYearFilter] = React.useState(moment().format('YYYY'));
   const selectYear = (selectedYear) => {
     setYearFilter(selectedYear);
   };
@@ -38,7 +40,12 @@ const PostList = (props) => {
   }, []);
 
   const filteredList = filteredYearList ? filteredYearList : post_list;
-
+  const breakpointColumnsObj = {
+    default: 4,
+    1100: 3,
+    900: 2,
+    425: 1,
+  };
   return (
     <>
       <Grid>
@@ -47,32 +54,33 @@ const PostList = (props) => {
           onSelectYearFilter={selectYear}
         />
       </Grid>
-
-      <section className={classes.wrap}>
-        <InfinityScroll
-          callNext={() => {
-            dispatch(logActions.getPostFirebase(paging.next));
-          }}
-          is_next={paging.next ? true : false}
-          loading={is_loading}
+      <InfinityScroll
+        callNext={() => {
+          dispatch(logActions.getPostFirebase(paging.next));
+        }}
+        is_next={paging.next ? true : false}
+        loading={is_loading}
+      >
+        <Masonry
+          breakpointCols={breakpointColumnsObj}
+          className={classes.my_masonry_grid}
+          columnClassName={classes.my_masonry_grid_column}
         >
-          <div className={classes.display}>
-            {filteredYearList.length === 0 ? (
-              <h2 className={classes.none}> 로그 기록이 없습니다! </h2>
-            ) : null}
-            {filteredList.map((p, idx) => {
-              if (p.user_info.user_id === user_info?.uid) {
-                return <Post key={p.id} {...p} its_me />;
-              } else {
-                return <Post key={p.id} {...p} />;
-              }
-            })}
-          </div>
-        </InfinityScroll>
-        {/* <div className={classes.stickybox}>
-            <MonthSideBar month={filteredYearList} />
-          </div> */}
-      </section>
+          {filteredYearList.length === 0 ? (
+            <div className={classes.nolog}>로그기록이 없습니다 ;(</div>
+          ) : null}
+
+          {/* TODO: spinner or lazyLoading */}
+
+          {filteredList.map((p, idx) => {
+            if (p.user_info.user_id === user_info?.uid) {
+              return <div className={classes.detail} key={p.id}><Post key={p.id} {...p} its_me /></div>;
+            } else {
+              return <Post key={p.id} {...p} />;
+            }
+          })}
+        </Masonry>
+      </InfinityScroll>
       <LogChart filtered={filteredYearList} />
     </>
   );

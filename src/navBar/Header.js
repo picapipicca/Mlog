@@ -13,6 +13,7 @@ import { history } from "../redux/configStore";
 import { apiKey } from "../shared/firebase";
 
 const Header = (props) => {
+  
   const dispatch = useDispatch();
   const is_login = useSelector((state) => state.user.is_login);
 
@@ -38,7 +39,7 @@ const Header = (props) => {
                   <a href="/">Home</a>
                 </li>
                 <li className={classes.fixed}>
-                  <a href="/log">Log</a>
+                  <a href="/list">Log</a>
                 </li>
                 <li className={classes.fixed}>
                   {" "}
@@ -76,7 +77,7 @@ else{
                   <a href="/login">LogIn</a>
                 </li>
                 <li className={classes.signup}>
-                  <a href="/signup">Signup</a>
+                  <a  href="/signup">Signup</a>
                 </li>
               </ul>
             </div>

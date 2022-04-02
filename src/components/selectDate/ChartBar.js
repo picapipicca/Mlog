@@ -30,7 +30,7 @@ const ChartBars = styled.div`
     width: 80%;
     border: 1px solid #313131;
     border-radius: 12px;
-    background-color: #c3b4f3;
+    background-color: aliceblue;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -38,7 +38,7 @@ const ChartBars = styled.div`
   }
 
   .chart-bar__fill {
-    background-color: #4826b9;
+    background-color: linear-gradient(#e66465, #9198e5);;
     width: 100%;
     transition: all 0.3s ease-out;
   }
