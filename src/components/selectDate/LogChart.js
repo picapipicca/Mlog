@@ -1,6 +1,6 @@
 import React from "react";
 import Chart from "./Chart";
-
+import { Grid } from '../../element/index';
 
 const LogChart = (props) => {
     
@@ -23,7 +23,7 @@ const LogChart = (props) => {
     const logMonth = filtered.insert_dt.split('-')[1]; // starting at 0 => January => 0
     chartDataPlots[logMonth-1].value += 1;
   }
-  return <Chart dataPlots={chartDataPlots} />;
+  return <Grid padding=' 0 45px 45px 45px'><Chart dataPlots={chartDataPlots} /></Grid>
 };
 
 export default LogChart;

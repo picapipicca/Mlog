@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=B612+Mono:wght@400;700&family=DM+Serif+Display&family=East+Sea+Dokdo&family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&family=Permanent+Marker&family=Playfair+Display:wght@400;500;700;900&display=swap");
+
 .wrap {
   font-family: "B612 Mono", monospace;
   padding: 10px 60px;
@@ -24,12 +25,10 @@ h2 {
 .image {
   padding: 30px 0;
   width: 80%;
-  border-top: 1px solid #cacaca;
-  margin-top: 20px;
+  margin-right: 20px;
   grid-row: span 2;
 }
 .user__info {
-  
   font-family: "B612 Mono", monospace;
   margin-top: 20px;
   padding: 30px 20px;
@@ -38,10 +37,21 @@ h2 {
   border-top: 1px solid #cacaca;
   grid-row: span 2;
   flex-wrap: wrap;
+  gap: 10px;
+  height: 40vh;
 }
+.nick{
+  font-family: "B612 Mono", monospace;
+  font-size: 15px;
+  text-decoration: none;
+  width: 60%;
+  line-height: 30px;
+}
+
 .btn__edit{
     width: 13vw;
     padding: 15px;
+    margin: 5px 5px;
     border: transparent;
     justify-self: end;
     cursor: pointer;
@@ -52,6 +62,10 @@ h2 {
 background-color: #CACACA;
 font-family: "B612 Mono", monospace;
 }
+.btn__space{
+  grid-row: span 1;
+  justify-self: end;
+}
 @media screen and (max-width: 720px) {
   .btn__edit{
     width: 100%;
@@ -59,7 +73,6 @@ font-family: "B612 Mono", monospace;
     border: transparent;
     justify-self: center;
     cursor: pointer;
-    
     border-radius: 5px;
   }
   .content {
@@ -70,7 +83,6 @@ font-family: "B612 Mono", monospace;
     justify-content: center;
   }
   .image {
-    width: 90%;
     border-top: 1px solid #cacaca;
     margin-top: 20px;
     grid-row: span 2;

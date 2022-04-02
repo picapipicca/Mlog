@@ -2,7 +2,7 @@ import React, { Fragment, useState, useRef } from "react";
 import { storage } from "../shared/firebase";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as logActions } from "../redux/modules/log";
-import image, { actionCreators as imageActions } from "../redux/modules/image";
+import { actionCreators as imageActions } from "../redux/modules/image";
 
 // TOAST UI Editor import
 import "@toast-ui/editor/dist/toastui-editor.css";
@@ -34,7 +34,7 @@ const PostWrite = (props) => {
   const { history } = props;
   const is_login = useSelector((state) => state.user.is_login);
   const post_list = useSelector((state) => state.log.post_list);
-  const image_url = useSelector((state)=> state.image.image_url);
+  const image_url = useSelector((state) => state.image.image_url);
   const dispatch = useDispatch();
 
   const post_id = props.match.params.id;
@@ -43,7 +43,7 @@ const PostWrite = (props) => {
   let _post = is_edit ? post_list.find((p) => p.id === post_id) : null;
 
   const [title, setTitle] = useState(_post ? _post.title : "없어");
-  const [content,setContent] = useState(_post ? _post.content : "");
+  const [content, setContent] = useState(_post ? _post.content : "");
   const date = new Date();
   const year = date.getFullYear();
   const month = date.toLocaleString("ko-KR", { month: "long" });
@@ -64,34 +64,38 @@ const PostWrite = (props) => {
   const uploadImage = (blob, callback) => {
     const fileName = blob?.name;
     dispatch(imageActions.uploadImageFirebase(fileName, blob, callback));
-    
   };
 
   const titleChangeHandler = (e) => {
     setTitle(e.target.value);
   };
 
-  const onSaveContenthandler=()=>{
+  const onSaveContenthandler = () => {
     const contentHTML = editorRef.current.getInstance().getHTML();
     setContent(contentHTML);
-  }
+  };
 
   const onAddPostHandler = () => {
-
-  const contentHTML = editorRef.current.getInstance().getHTML();
-  const content = editorRef.current.getInstance().getMarkdown();
-  // const image_url = contentHTML.split("=")[2]?.split('"')[1];
+    const contentHTML = editorRef.current.getInstance().getHTML();
+    const content = editorRef.current.getInstance().getMarkdown();
+    // const image_url = contentHTML.split("=")[2]?.split('"')[1];
     // const contentMarkdown = editorRef.current.getInstance().getMarkdown();
     // const content = contentMarkdown.replaceAll("#", "").split("!")[0];
     // const content = editorRef.current.getInstance().getHTML();
-    dispatch(logActions.addPostFirebase(content, title,image_url));
+    dispatch(logActions.addPostFirebase(content, title, image_url));
   };
   const onEditPostHandler = () => {
-  const contentHTML = editorRef.current.getInstance().getHTML();
-  const content = editorRef.current.getInstance().getMarkdown();
+    const contentHTML = editorRef.current.getInstance().getHTML();
+    const content = editorRef.current.getInstance().getMarkdown();
 
-  // const image_url = contentHTML.split("=")[1]?.split('"')[1];
-    dispatch(logActions.editPostFirebase(post_id,{title:title,content:content,image_url}))
+    // const image_url = contentHTML.split("=")[1]?.split('"')[1];
+    dispatch(
+      logActions.editPostFirebase(post_id, {
+        title: title,
+        content: content,
+        image_url,
+      })
+    );
   };
 
   if (!is_login) {
@@ -128,12 +132,13 @@ const PostWrite = (props) => {
       </section>
       <div className={classes["post-write__content"]}>
         <div className={classes.headline}>
-          <p className={classes.title}>제목</p>
+          
           <Input
             value={title}
             className={classes.input}
             _onChange={titleChangeHandler}
             bottomLined
+            margin='10px'
             placeholder="제목을 입력해주세요"
           />
         </div>
@@ -157,34 +162,43 @@ const PostWrite = (props) => {
           }}
         />
       </div>
-      {is_edit ? (
-        <Button
-          bgColor="#CACACA"
-          type="submit"
-          _onClick={onEditPostHandler}
-          className={classes.submitBtn}
-        >
-          수정하기
-        </Button>
-      ) : (
-        <Button
-          bgColor="#CACACA"
-          type="submit"
-          _onClick={onAddPostHandler}
-          className={classes.submitBtn}
-        >
-          작성하기
-        </Button>
-      )}
+      <div className={classes.btn}>
       <Button
-        bgColor="#CACACA"
-        className={classes.cancelBtn}
-        _onClick={() => {
-          history.goBack();
-        }}
-      >
-        취소하기
-      </Button>
+          bgColor="transparent"
+          padding='10px'
+          
+          className={classes.cancelBtn}
+          _onClick={() => {
+            history.goBack();
+          }}
+        >
+          CANCEL
+        </Button>
+        {is_edit ? (
+          <Button
+            bgColor="transparent"
+            type="submit"
+            padding='10px'
+            
+            _onClick={onEditPostHandler}
+            className={classes.submitBtn}
+          >
+            EDIT
+          </Button>
+        ) : (
+          <Button
+            bgColor="transparent"
+            type="submit"
+            padding='10px'
+            
+            _onClick={onAddPostHandler}
+            className={classes.submitBtn}
+          >
+            WRITE
+          </Button>
+        )}
+       
+      </div>
     </Fragment>
   );
 };

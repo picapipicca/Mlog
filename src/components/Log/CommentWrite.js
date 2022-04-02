@@ -18,9 +18,9 @@ const CommentWrite = (props) => {
 
   return (
     <Fragment>
-      <Grid padding="0 80px" is_flex>
+      <Grid padding='20px 50px' is_flex>
         <Input
-          width="70vw"
+          width="80vw"
           value={comment_txt}
           is_submit
           _onChange={saveCommentHandler}
