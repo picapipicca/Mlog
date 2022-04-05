@@ -100,12 +100,13 @@ const PostWrite = (props) => {
 
   if (!is_login) {
     return (
-      <Grid margin="100px 0px" padding="16px" center>
+      <Grid margin="auto" padding="80px" center>
         <p className={classes.headline}>앗 잠깐!</p>
         <p className={classes.explain}>로그인 후에만 글을 쓸 수 있어요!</p>
         <Button
-          width="80vw"
-          margin="auto"
+          width="30vw"
+          padding='10px'
+          margin="30px auto auto auto"
           text="로그인 하러가기"
           _onClick={() => {
             history.replace("/login");
@@ -132,13 +133,12 @@ const PostWrite = (props) => {
       </section>
       <div className={classes["post-write__content"]}>
         <div className={classes.headline}>
-          
           <Input
             value={title}
             className={classes.input}
             _onChange={titleChangeHandler}
             bottomLined
-            margin='10px'
+            margin="10px"
             placeholder="제목을 입력해주세요"
           />
         </div>
@@ -163,41 +163,31 @@ const PostWrite = (props) => {
         />
       </div>
       <div className={classes.btn}>
-      <Button
-          bgColor="transparent"
-          padding='10px'
-          
+        <button
           className={classes.cancelBtn}
-          _onClick={() => {
+          onClick={() => {
             history.goBack();
           }}
         >
           CANCEL
-        </Button>
+        </button>
         {is_edit ? (
-          <Button
-            bgColor="transparent"
+          <button
             type="submit"
-            padding='10px'
-            
-            _onClick={onEditPostHandler}
+            onClick={onEditPostHandler}
             className={classes.submitBtn}
           >
             EDIT
-          </Button>
+          </button>
         ) : (
-          <Button
-            bgColor="transparent"
+          <button
             type="submit"
-            padding='10px'
-            
-            _onClick={onAddPostHandler}
+            onClick={onAddPostHandler}
             className={classes.submitBtn}
           >
             WRITE
-          </Button>
+          </button>
         )}
-       
       </div>
     </Fragment>
   );

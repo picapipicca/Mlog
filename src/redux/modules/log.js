@@ -4,15 +4,20 @@ import { firestore, storage } from "../../shared/firebase";
 import moment from "moment";
 import "moment/locale/ko";
 
-
 //action type
 const SET_POST = "SET_POST"; //목록 가지고와서 리덕스에 넣어주는애
+const CUT_POST = "CUT_POST";
 const ADD_POST = "ADD_POST"; //이미있는 리덕스 데이터에 하나 추가하기
 const EDIT_POST = "EDIT_POST";
+const DELETE_POST = "DELETE_POST";
 const LOADING = "LOADING";
 
 //action creator
 const setPost = createAction(SET_POST, (post_list, paging) => ({
+  post_list,
+  paging,
+}));
+const cutPost = createAction(CUT_POST, (post_list, paging) => ({
   post_list,
   paging,
 }));
@@ -21,6 +26,7 @@ const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
   post,
 }));
+const deletePost = createAction(ADD_POST, (post_id) => ({ post_id }));
 const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 //initialState(기본상태값) : 배열 (포스트목록)
@@ -39,6 +45,24 @@ const initialPost = {
   content: "제목",
   comment_count: 0,
   insert_dt: moment().format("YYYY-MM-DD a hh:mm "),
+};
+
+const deletePostFirebase = (post_id) => {
+  return function (dispatch, getState, { history }) {
+    const postDB = firestore.collection("post");
+
+    postDB
+      .doc(post_id)
+      .delete()
+      .then(() => {
+        dispatch(deletePost(post_id));
+
+        history.replace("/list");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 };
 
 const editPostFirebase = (post_id = null, post = {}) => {
@@ -106,7 +130,7 @@ const addPostFirebase = (content = "", title = "", image_url = "") => {
 
     const _user = getState().user.user;
     const user_info = {
-      user_nick:_user.user_nick,
+      user_nick: _user.user_nick,
       user_email: _user.email,
       user_id: _user.uid,
       user_profile: _user.user_profile,
@@ -134,9 +158,8 @@ const addPostFirebase = (content = "", title = "", image_url = "") => {
 };
 
 //post가지고오기
-const getPostFirebase = (start = null, size = 9) => {
+const getPostFirebase = (start = null, size = 8) => {
   return function (dispatch, getState, { history }) {
-
     let _paging = getState().log.paging;
 
     if (_paging.start && !_paging.next) {
@@ -193,6 +216,63 @@ const getPostFirebase = (start = null, size = 9) => {
   };
 };
 
+const getRandomPostFirebase = (start = null, size = 4) => {
+  return function (dispatch, getState, { history }) {
+    let _paging = getState().log.paging;
+
+    if (_paging.start && !_paging.next) {
+      return;
+    }
+
+    dispatch(loading(true));
+    const postDB = firestore.collection("post");
+
+    let query = postDB.orderBy("insert_dt", "desc");
+
+    if (start) {
+      query = query.startAt(start);
+    }
+
+    query
+      .limit(size + 1)
+      .get()
+      .then((docs) => {
+        let post_list = [];
+
+        let paging = {
+          start: docs.docs[0],
+          next:
+            docs.docs.length === size + 1
+              ? docs.docs[docs.docs.length - 1]
+              : null,
+          size: size,
+        };
+
+        docs.forEach((d) => {
+          let all_data = d.data();
+
+          //['comment_count','contents', ..]
+          let post = Object.keys(all_data).reduce(
+            (acc, cur) => {
+              if (cur.indexOf("user_") !== -1) {
+                return {
+                  ...acc,
+                  user_info: { ...acc.user_info, [cur]: all_data[cur] },
+                };
+              }
+              return { ...acc, [cur]: all_data[cur] };
+            },
+            { id: d.id, user_info: {} }
+          );
+          post_list.push(post);
+        });
+        //4개 넘어 갔으니까 마지막꺼 하나 없애기
+        post_list.pop();
+
+        dispatch(cutPost(post_list, paging));
+      });
+  };
+};
 //post 1개 가지고오기
 const getOnePostFirebase = (id) => {
   return function (dispatch, getState, { history }) {
@@ -255,6 +335,29 @@ export default handleActions(
           ...action.payload.post,
         };
       }),
+    [DELETE_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.post_list = draft.post_list.filter(
+          (p) => p.id !== action.payload.post_id
+        );
+      }),
+    [CUT_POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.post_list = action.payload.post_list;
+
+        draft.post_list = draft.post_list.reduce((acc, cur) => {
+          if (acc.findIndex((a) => a.id === cur.id) === -1) {
+            return [...acc, cur];
+          } else {
+            acc[acc.findIndex((a) => a.id === cur.id)] = cur;
+            return acc;
+          }
+        }, []);
+
+        draft.is_loading = false;
+        draft.paging = action.payload.paging;
+      }),
+
     [LOADING]: (state, action) =>
       produce(state, (draft) => {
         draft.is_loading = action.payload.is_loading;
@@ -272,6 +375,8 @@ const actionCreators = {
   addPostFirebase,
   editPostFirebase,
   getOnePostFirebase,
+  getRandomPostFirebase,
+  deletePostFirebase,
 };
 
 export { actionCreators };

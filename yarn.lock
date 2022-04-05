@@ -1197,6 +1197,25 @@
   resolved "https://registry.yarnpkg.com/@ctrl/tinycolor/-/tinycolor-3.4.0.tgz#c3c5ae543c897caa9c2a68630bed355be5f9990f"
   integrity sha512-JZButFdZ1+/xAfpguQHoabIXkcqRRKpMrWKBkpEZZyxfY9C1DpADFB8PEqGSTeFr135SaTRfKqGKx5xSCLI7ZQ==
 
+"@egjs/component@^3.0.1":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@egjs/component/-/component-3.0.2.tgz#c56794fcf1b2cb2768d09b021444779e54d0de1b"
+  integrity sha512-Mze3mwEE19+dERrimg0JVLtpOHG4AC+LOuKqvF4qGZjn0k23ZbNI7b/gy1LFR63LigC2b8k70aDjy8xoT+WNPA==
+
+"@egjs/imready@~1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@egjs/imready/-/imready-1.3.0.tgz#76a7df9d1a77c008bcd33942d207d39d0ce2f6fa"
+  integrity sha512-h6qxQup/ZJxEJkDMuyR6yuJ9jsuVan7EyQ8Xa0WkTWAr3HtUYjtDHOCjJvhFg50Xv3C+TkfYj4Mxmkz7zNePSA==
+  dependencies:
+    "@egjs/component" "^3.0.1"
+
+"@egjs/react-imready@^1.3.0":
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/@egjs/react-imready/-/react-imready-1.3.0.tgz#5f33d1952fc020e2b40135facb888867314c8e2f"
+  integrity sha512-llcAYhfVnjWoXpMcdw5GjpseXmnNKJgNORu0nFgQ1ZMgpNLX1C5Sw+UdATGr4hapLZHV9J2SaLmE6oEPeEgrRg==
+  dependencies:
+    "@egjs/imready" "~1.3.0"
+
 "@emotion/babel-plugin@^11.7.1":
   version "11.7.2"
   resolved "https://registry.yarnpkg.com/@emotion/babel-plugin/-/babel-plugin-11.7.2.tgz#fec75f38a6ab5b304b0601c74e2a5e77c95e5fa0"

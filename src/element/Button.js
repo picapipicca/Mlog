@@ -16,7 +16,7 @@ const Button = (props) => {
     color,
     className,
     // smallBtn,
-    // floatBtn,
+    floatBtn,
   } = props;
 
   const styles = {
@@ -38,13 +38,13 @@ const Button = (props) => {
   //     </SmallBtn>
   //   );
   // }
-  // if (floatBtn) {
-  //   return (
-  //     <FloatButton {...styles} onClick={_onClick}>
-  //       {text ? text : children}
-  //     </FloatButton>
-  //   );
-  // }
+  if (floatBtn) {
+    return (
+      <FloatButton {...styles} onClick={_onClick}>
+        {text ? text : children}
+      </FloatButton>
+    );
+  }
 
   return (
     <React.Fragment>
@@ -56,8 +56,8 @@ const Button = (props) => {
 };
 
 Button.defaultProps = {
-  margin:false,
-  width: '100%',
+  margin: false,
+  width: "100%",
   children: null,
   _onClick: () => {},
   _disabled: false,
@@ -68,7 +68,7 @@ const ElButton = styled.button`
   box-sizing: border-box;
   border: none;
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
-  ${(props) => (props._disabled ? `background-color: #fc4e5d`: "")};
+  ${(props) => (props._disabled ? `background-color: #fc4e5d` : "")};
   position: ${(props) => (props.position ? `${props.position}` : "")};
   background-color: ${(props) => (props.bgColor ? `${props.bgColor}` : "")};
   color: ${(props) => (props.color ? `${props.color}` : "")};
@@ -76,8 +76,8 @@ const ElButton = styled.button`
   cursor: pointer;
   &:hover {
     opacity: 0.8;
-    cursor:pointer;
-    }
+    cursor: pointer;
+  }
 `;
 // const SmallBtn = styled.button`
 //   color: white;
@@ -89,18 +89,24 @@ const ElButton = styled.button`
 //   border-radius: 5px;
 // `;
 
-// const FloatButton = styled.button`
-//   font-size: 30px;
-//   width: 50px;
-//   height: 50px;
-//   background: orange;
-//   border: none;
-//   border-radius: 50%;
-//   &:hover {
-//     opacity: 0.9;
-//     cursor: pointer;
-//   }
-// `;
+const FloatButton = styled.button`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 30px;
+  width: 60px;
+  height: 60px;
+  background: orange;
+  opacity: 0.7;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-sizing: border-box;
 
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+`;
 
 export default Button;

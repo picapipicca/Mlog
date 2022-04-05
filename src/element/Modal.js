@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import ReactDOM from "react-dom";
 
-import { Button } from "./index";
 import styled from "styled-components";
 
 const Backdrop = (props) => {
@@ -18,7 +17,7 @@ const ModalOverlay = (props) => {
       </div>
       <div>{props.children}</div>
       <footer>
-        <Button _onClick={props.onCloseModal} text="알겠어요!"></Button>
+        <button onClick={props.onCloseModal}>알겠어요!</button>
       </footer>
     </ModalEl>
   );
@@ -60,12 +59,26 @@ const ModalEl = styled.div`
   position: fixed;
   top: 25vh;
   left: 10%;
-  width: 80%;
+  width: 60%;
+  height:25vh;
   z-index: 100;
   overflow: hidden;
+
+  button{
+    font-size:18px;
+    background-color:transparent;
+    width: 50%;
+    margin:auto;
+    cursor:pointer;
+    &:hover{
+      box-shadow: 5px 8px #888888;
+    }
+  }
+
   header {
-    background: #4f005f;
+    background: #14B885;
     padding: 1rem;
+    
   }
 
   header h2 {
@@ -73,7 +86,8 @@ const ModalEl = styled.div`
     color: white;
   }
 
-  content {
+  p {
+    margin: auto;
     padding: 1rem;
   }
   footer {

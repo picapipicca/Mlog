@@ -32,12 +32,12 @@ const Notification = (props) => {
  
   return (
     <Fragment>
-      <Grid padding="16px" bg="aliceblue" _onClick={() => {}}>
-        <p className={classes.header}>알림</p>
+      <p className={classes.header}>알림</p>
+      <div className={classes.noti_wrap}>
         {noti.map((n,index) => {
           return <Card {...n} key={`noti_${index}`} />;
         })}
-      </Grid>
+      </div>
     </Fragment>
   );
 };
