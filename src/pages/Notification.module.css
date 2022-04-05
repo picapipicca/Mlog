@@ -1,6 +1,19 @@
-.header{
-font-weight: 700;
-font-size: 30px;
-text-align: center;
-margin: 0;
+@import url("https://fonts.googleapis.com/css2?family=B612+Mono:wght@400;700&family=DM+Serif+Display&family=East+Sea+Dokdo&family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&family=Permanent+Marker&family=Playfair+Display:wght@400;500;700;900&display=swap");
+.header {
+  font-weight: 700;
+  font-size: 30px;
+  text-align: center;
+  margin: -70px 0 0 0;
+  font-family: "Gowun Batang", serif;
+}
+.noti_wrap {
+  font-size: 1rem;
+  font-family: "Gowun Batang", serif;
+  font-weight: 550;
+  padding: 20px 45px;
+  width: 60vw;
+  margin: auto;
+  background-color: transparent;
+  height: 65vh;
+  overflow: auto;
 }

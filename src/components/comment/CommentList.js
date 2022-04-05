@@ -2,8 +2,9 @@ import React, { Fragment } from "react";
 import { Grid } from "../../element/index";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentActions } from "../../redux/modules/comment";
-import Moment from 'react-moment';
-import 'moment/locale/ko';
+import Moment from "react-moment";
+import "moment/locale/ko";
+import { textAlign } from "@mui/system";
 
 const CommentList = (props) => {
   const { post_id } = props;
@@ -37,37 +38,22 @@ export default CommentList;
 
 export const CommentItem = (props) => {
   const { user_nick, user_profile, email, post_id, insert_dt, content } = props;
-  
-  //유저정보,게시물정보,코멘트내용,작성시간
-  // const displayCreatedAt = ({insert_dt}) => {
-    
-  //   let startTime = new Date(insert_dt);
-  //   let nowTime = Date.now();
-  //   if (parseInt(startTime - nowTime) > -60000) {
-  //     return <Moment format="방금 전">{startTime}</Moment>;
-  //   }
-  //   if (parseInt(startTime - nowTime) < -86400000) {
-  //     return <Moment format="MMM D일">{startTime}</Moment>;
-  //   }
-  //   if (parseInt(startTime - nowTime) > -86400000) {
-  //     return <Moment fromNow>{startTime}</Moment>;
-  //   }
-  //   console.log(startTime)
-  //   console.log(nowTime)
-  // };
 
   return (
-    <Grid is_flex >
-      <Grid is_flex width='auto'>
+    <Grid is_flex>
+      <Grid is_flex width="auto">
         <Grid circle>
           <img alt="" src={user_profile} />
         </Grid>
-        <p style={{ fontWeight: "700" }}>{user_nick}</p>
+        <Grid padding='5px'>
+          <p style={{ fontWeight: "700",margin:'3px 0 0 0'}}>{user_nick}</p>
+        </Grid>
       </Grid>
       <Grid is_flex margin="0px 15px">
         <p style={{ margin: "0" }}>{content}</p>
-        {/* <p style={{ margin: "0" }}>{displayCreatedAt}</p> */}
-        <Moment locale='ko' fromNow>{insert_dt}</Moment>
+        <Moment locale="ko" fromNow>
+          {insert_dt}
+        </Moment>
       </Grid>
     </Grid>
   );

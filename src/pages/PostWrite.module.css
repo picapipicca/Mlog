@@ -51,21 +51,27 @@ h1 {
   padding: 0 45px;
 }
 .submitBtn {
-  border: 1px solid #000;
+  width: 100%;
+  background-color: transparent;
+  padding:10px;
+  border: 2px solid #CACACA;
   font-size: large;
-  float: right;
   margin-right: 10px 50px;
   font-family: "Permanent Marker", cursive;
   margin-bottom: 40px;
   border-left: transparent;
 }
 .submitBtn:hover {
+  border: 1px solid #CACACA;
   background-color: #ede9e8;
 }
 .cancelBtn {
+  width: 100%;
+  background-color: transparent;
+  padding:10px;
   margin-bottom: 40px;
   margin-left: 10px 50px;
-  border: 1px solid #000;
+  border: 2px solid #CACACA;
   font-size: large;
   font-family: "Permanent Marker", cursive;
 }

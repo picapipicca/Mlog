@@ -9,27 +9,30 @@ import InfinityScroll from "../shared/InfinityScroll";
 import SelectDateFilter from "../components/selectDate/SelectDateFilter";
 import Post from "../components/Log/Post";
 import LogChart from "../components/selectDate/LogChart";
-import MonthSideBar from "../components/selectDate/MonthSideBar";
+// import MonthSideBar from "../components/selectDate/MonthSideBar";
 import Masonry from "react-masonry-css";
-import moment from 'moment';
+import moment from "moment";
 
 const PostList = (props) => {
   const dispatch = useDispatch();
-  const { history } = props;
+  // const { history } = props;
 
   // const { post_list, is_loading, paging } = useSelector((state) => state.log);
   const post_list = useSelector((state) => state.log.post_list);
   const is_loading = useSelector((state) => state.log.is_loading);
   const paging = useSelector((state) => state.log.paging);
   const user_info = useSelector((state) => state.user.user);
-
-  const [yearFilter, setYearFilter] = React.useState(moment().format('YYYY'));
+  
+  const post_mine = post_list?.filter(
+    (p) => p?.user_info.user_id === user_info?.uid
+  );
+  const [yearFilter, setYearFilter] = React.useState(moment().format("YYYY"));
   const selectYear = (selectedYear) => {
     setYearFilter(selectedYear);
   };
 
   //년도에 따라 필터
-  const filteredYearList = post_list.filter((p) => {
+  const filteredYearList = post_mine.filter((p) => {
     return p.insert_dt.split("-")[0] === yearFilter;
   });
 
@@ -58,7 +61,7 @@ const PostList = (props) => {
         callNext={() => {
           dispatch(logActions.getPostFirebase(paging.next));
         }}
-        is_next={paging.next ? true : false}
+        is_next={paging?.next ? true : false}
         loading={is_loading}
       >
         <Masonry
@@ -73,11 +76,11 @@ const PostList = (props) => {
           {/* TODO: spinner or lazyLoading */}
 
           {filteredList.map((p, idx) => {
-            if (p.user_info.user_id === user_info?.uid) {
-              return <div className={classes.detail} key={p.id}><Post key={p.id} {...p} its_me /></div>;
-            } else {
-              return <Post key={p.id} {...p} />;
-            }
+            return (
+              <div className={classes.detail} key={p.id}>
+                <Post key={p.id} {...p} its_me />
+              </div>
+            );
           })}
         </Masonry>
       </InfinityScroll>

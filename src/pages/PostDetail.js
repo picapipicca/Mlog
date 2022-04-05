@@ -8,10 +8,9 @@ import Collapse from "@mui/material/Collapse";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
-
-import CommentList from "../components/Log/CommentList";
-import CommentWrite from "../components/Log/CommentWrite";
-import Permit from "../shared/Permit";
+import { history } from "../redux/configStore";
+import CommentList from "../components/comment/CommentList";
+import CommentWrite from "../components/comment/CommentWrite";
 import { Viewer } from "@toast-ui/react-editor";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -29,22 +28,22 @@ const ExpandMore = styled((props) => {
 }));
 
 const PostDetail = (props) => {
-  const { history } = props;
-  const id = props.match.params.id;
   const dispatch = useDispatch();
 
   const user_info = useSelector((state) => state.user.user);
   const post_list = useSelector((state) => state.log.post_list);
-  const post_idx = post_list.findIndex((p) => p.id === id);
-  const post = post_list[post_idx];
+  const id = props.match.params.id;
+  const post = post_list.find((p)=>p?.id === id);
+  
+console.log(id);
+  
+  
+  // const post_idx = post_list.findIndex((p) => p.id === post_id);
+  // const post = post_list[post_idx];
   const [expanded, setExpanded] = React.useState(false);
   // const [post, setPost] = React.useState(post_data ? post_data : null);
 
   const its_me = post?.user_info.user_id === user_info?.uid ? true : false;
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
 
   React.useEffect(() => {
     if (post) {
@@ -53,6 +52,19 @@ const PostDetail = (props) => {
     dispatch(logActions.getOnePostFirebase(id));
   }, []);
 
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  const deletePosthandler = async function () {
+    if (
+      window.confirm(
+        "해당 로그를 삭제하시겠습니까?\n삭제된 로그는 복구할 수 없어요 ;( "
+      )
+    ) {
+      dispatch(logActions.deletePostFirebase(id));
+    }
+  };
   return (
     <Fragment>
       {!post && <Spinner size="200" is_dim type="page" />}
@@ -74,13 +86,17 @@ const PostDetail = (props) => {
                   <Button
                     padding="0"
                     bgColor="transparent"
-                    onClick={() => {
-                      history.push(`/write/${props.id}`);
+                    _onClick={() => {
+                      history.push(`/write/${post.id}`);
                     }}
                   >
                     수정
                   </Button>
-                  <Button padding="0" bgColor="transparent" onClick={() => {}}>
+                  <Button
+                    padding="0"
+                    bgColor="transparent"
+                    _onClick={deletePosthandler}
+                  >
                     삭제
                   </Button>
                 </div>
@@ -96,7 +112,7 @@ const PostDetail = (props) => {
             <Grid width="auto">
               <Grid is_flex>
                 <p style={{ margin: "15px 50px" }}>
-                   {post.comment_count} 개의 댓글
+                  {post.comment_count} 개의 댓글
                 </p>
                 <CardActions disableSpacing>
                   <ExpandMore

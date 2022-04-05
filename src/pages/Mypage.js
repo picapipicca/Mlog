@@ -3,19 +3,14 @@ import classes from "./Mypage.module.css";
 import Permit from "../shared/Permit";
 import { useSelector, useDispatch } from "react-redux";
 import { history } from "../redux/configStore";
-
 import { actionCreators as userActions } from "../redux/modules/user";
 
-import { Avatar } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
-import 'antd/dist/antd.css'
+import { Avatar } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import "antd/dist/antd.css";
 
 const Mypage = (props) => {
 
-  //TODO: post count 갯수 가지고오기 -> firebase에서
-  // const post_list = useSelector((state) => state.log.post_list);
-  // const post_count = post_list.length;
-  // console.log(post_count);
   //사용자 정보 새로고침해도 firebase 에서 가지고오기 (뒤로보냄 아님)
   const user_email = props.match.params.id;
   const one_user = useSelector((state) => state.user.user);
@@ -26,9 +21,7 @@ const Mypage = (props) => {
 
   const [nick, setNick] = React.useState(one_user ? one_user.user_nick : "");
   const [profile, setProfile] = React.useState(
-    one_user
-      ? one_user?.user_profile
-      : "/broken-image.jpg"
+    one_user ? one_user?.user_profile : "/broken-image.jpg"
   );
 
   //TODO: 시용자 정보없을시 처리 -> firebase에서 가지고오기
@@ -57,21 +50,26 @@ const Mypage = (props) => {
     };
     reader.readAsDataURL(e.target.files[0]);
   };
-// const uploadFirebase = ()=>{
-//   let profile_img = fileInput.current?.files[0];
-//   const _upload =storage.ref(`profile/${profile_img.name}`).put(profile_img);
-// //upload
-//   _upload.then((snapshot)=>{
-//     console.log(snapshot);
-// //url 가져오기
-// snapshot.ref.getDownloadURL().then((url)=>{
-//   console.log(url);
-// })
-//   })
-// }
-const onEditUserHandler=()=>{
-  dispatch(userActions.editUserFirebase(uid,{user_nick:nick,user_profile:profile}))
-}
+  // const uploadFirebase = ()=>{
+  //   let profile_img = fileInput.current?.files[0];
+  //   const _upload =storage.ref(`profile/${profile_img.name}`).put(profile_img);
+  // //upload
+  //   _upload.then((snapshot)=>{
+  //     console.log(snapshot);
+  // //url 가져오기
+  // snapshot.ref.getDownloadURL().then((url)=>{
+  //   console.log(url);
+  // })
+  //   })
+  // }
+  const onEditUserHandler = () => {
+    dispatch(
+      userActions.editUserFirebase(uid, {
+        user_nick: nick,
+        user_profile: profile,
+      })
+    );
+  };
   return (
     <div className={classes.wrap}>
       <div className={classes.content}>
@@ -81,11 +79,14 @@ const onEditUserHandler=()=>{
           {is_edit ? (
             <div>
               <Avatar
-                icon={<UserOutlined/>}
+                icon={<UserOutlined />}
                 src={profile}
-                style={{ cursor: "pointer" , backgroundColor:'#CACACA' }}
+                style={{ cursor: "pointer", backgroundColor: "#CACACA" }}
                 size={200}
-                onClick={()=>{fileInput.current.click()}}/>
+                onClick={() => {
+                  fileInput.current.click();
+                }}
+              />
 
               <input
                 type="file"
@@ -98,10 +99,7 @@ const onEditUserHandler=()=>{
             </div>
           ) : (
             <div>
-              <Avatar
-                icon={<UserOutlined/>}
-                src={profile}
-                size={200}/>
+              <Avatar icon={<UserOutlined />} src={profile} size={200} />
             </div>
           )}
         </div>
@@ -123,20 +121,26 @@ const onEditUserHandler=()=>{
           ) : (
             <div>nickname : {one_user?.user_nick}</div>
           )}
-          <div>나의 로그 : 10개</div>
+         
 
           <Permit>
             {is_edit ? (
-              <div className={classes.btn__space}><button className={classes.btn__edit}
-              onClick={() => {
-                history.goBack();
-              }}>CANCEL</button> 
-              <button
-                className={classes.btn__edit}
-                onClick={onEditUserHandler}>
-                DONE
-              </button></div>
-              
+              <div className={classes.btn__space}>
+                <button
+                  className={classes.btn__edit}
+                  onClick={() => {
+                    history.goBack();
+                  }}
+                >
+                  CANCEL
+                </button>
+                <button
+                  className={classes.btn__edit}
+                  onClick={onEditUserHandler}
+                >
+                  DONE
+                </button>
+              </div>
             ) : (
               <button
                 className={classes.btn__edit}

@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./Post.module.css";
-import { Grid } from "../../element/index";
+import { Grid,Button } from "../../element/index";
 import { history } from "../../redux/configStore";
 import { Viewer } from "@toast-ui/react-editor";
 
@@ -17,6 +17,7 @@ import IconButton from "@mui/material/IconButton";
 // import ShareIcon from "@mui/icons-material/Share";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { Menu } from "@mui/material";
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -31,24 +32,42 @@ const ExpandMore = styled((props) => {
 
 const Post = React.memo((props) => {
   const [expanded, setExpanded] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+  const handleClick = (e) => {
+    setAnchorEl(e.target.value);
+  };
+  const handleClose =()=>{
+    setAnchorEl(null);
+  }
+  const open = Boolean(anchorEl);
 
   return (
     <div className={classes.wrap}>
       <Card sx={{ maxWidth: 345, gridAutoRows: "auto" }}>
+      <Menu
+        anchorEl={anchorEl} 
+        keepMounted onClose={handleClose} 
+        open={open}>
+          <Button text='삭제' _onClick={handleClose}/>
+      </Menu>
         <CardHeader
-         
           action={
-            <IconButton aria-label="settings">
+            <IconButton 
+            aria-label="more"
+        onClick={handleClick}
+        aria-haspopup="true"
+        aria-controls="long-menu">
               <MoreVertIcon />
             </IconButton>
+            
           }
           titleTypographyProps={{
             fontSize: 18,
-            fontFamily: "Monospace",
+            fontFamily: "Monospace"
           }}
           subheaderTypographyProps={{
             fontSize: 13,
@@ -56,7 +75,7 @@ const Post = React.memo((props) => {
           title={props.title}
           subheader={props.insert_dt}
         />
-
+       
         {props.image_url ? (
           <>
           <Grid
