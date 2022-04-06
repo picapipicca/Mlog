@@ -1,9 +1,9 @@
 import React, { Fragment, useState, useEffect } from "react";
 import classes from "./Header.module.css";
-import { Grid, Button } from "../element/index";
-import HeaderAlarmButton from "./HeaderAlarmButton";
-import { licenseIcon, alarmIcon, mapIcon, mypageIcon } from "../assets/index";
-import Permit from "../shared/Permit";
+// import { Grid, Button } from "../element/index";
+// import HeaderAlarmButton from "./HeaderAlarmButton";
+// import { licenseIcon, alarmIcon, mapIcon, mypageIcon } from "../assets/index";
+// import Permit from "../shared/Permit";
 import NotiBadge from "./NotiBadge";
 import { RiLogoutCircleRLine } from "react-icons/ri";
 

@@ -190,7 +190,8 @@ export default handleActions(
     //produce로 원본값을 복사한값을 받아온게 draft
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
-        sessionStorage.setItem("is_login", "success");
+        const user = auth.currentUser;
+        sessionStorage.setItem("is_login",user.uid);
         draft.user = action.payload.user;
         draft.is_login = true;
       }),
