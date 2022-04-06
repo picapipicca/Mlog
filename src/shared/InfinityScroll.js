@@ -2,7 +2,7 @@ import React, { Fragment, useCallback, useEffect, useRef } from "react";
 import _ from "lodash";
 import styled from "styled-components";
 // import HashLoader from "react-spinners/HashLoader";
-import Loading from 'react-loading';
+import Loading from "react-loading";
 
 const InfinityScroll = (props) => {
   const { children, callNext, is_next, loading } = props;
@@ -12,7 +12,7 @@ const InfinityScroll = (props) => {
       return;
     }
     callNext();
-  }, 1000);
+  }, 300);
 
   const spinnerRef = useRef(null);
 
@@ -32,15 +32,14 @@ const InfinityScroll = (props) => {
       // return () => handleObserver && handleObserver.disconnect();
       spinnerRef.current && handleObserver.unobserve(spinnerRef.current);
     };
-  }, [is_next]);
+  }, [is_next, loading]);
   return (
     <Fragment>
       {children}
       {is_next && (
-        <h2>로딩</h2>
-        // <Loader ref={spinnerRef}>
-        //   <Loading type='spin' color='#A593E0'/>
-        // </Loader>
+        <Loader ref={spinnerRef}>
+          <Loading type="spin" color="#A593E0" />
+        </Loader>
       )}
     </Fragment>
   );
@@ -53,7 +52,7 @@ InfinityScroll.defaultProps = {
   loading: false,
 };
 const Loader = styled.div`
-   width: 100%;
+  width: 100%;
   height: 80%;
   display: flex;
   justify-content: center;

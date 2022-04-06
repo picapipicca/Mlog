@@ -20,7 +20,7 @@ const PostList = (props) => {
   const is_loading = useSelector((state) => state.log.is_loading);
   const paging = useSelector((state) => state.log.paging);
   
-  
+
   const [yearFilter, setYearFilter] = React.useState(moment().format("YYYY"));
   const selectYear = (selectedYear) => {
     setYearFilter(selectedYear);
@@ -32,7 +32,7 @@ const PostList = (props) => {
   });
 
   React.useEffect(() => {
-    if (post_list.length < 2) {
+    if (post_list.length < 1) {
       dispatch(logActions.getPostFirebase());
     }
   }, []);

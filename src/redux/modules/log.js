@@ -172,14 +172,6 @@ const getPostFirebase = (start = null, size = 8) => {
     }
     dispatch(loading(true));
 
-    console.log(_user);
-  
-    //   postDB.where().orderBy().get().then((querySnapshot) => {
-    //     querySnapshot.forEach((doc) => {
-
-    //         console.log(doc.id, " => ", doc.data());
-    //     });
-    // });
     let query = postDB
       .where("user_id",'==', _user)
       .orderBy("insert_dt", "desc");
@@ -221,7 +213,7 @@ const getPostFirebase = (start = null, size = 8) => {
           post_list.push(post);
         });
 
-        post_list.pop();
+        // post_list.pop();
 
         dispatch(setPost(post_list, paging));
       });
