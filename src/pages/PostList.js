@@ -42,7 +42,7 @@ const PostList = (props) => {
     }
   }, []);
 
-  const filteredList = filteredYearList ? filteredYearList : post_list;
+  const filteredList = filteredYearList ? filteredYearList : post_mine;
   const breakpointColumnsObj = {
     default: 4,
     1100: 3,

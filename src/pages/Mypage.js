@@ -26,7 +26,7 @@ const Mypage = (props) => {
 
   //TODO: 시용자 정보없을시 처리 -> firebase에서 가지고오기
   React.useEffect(() => {
-    console.log(one_user);
+
     if (is_edit && !one_user) {
       alert("사용자 정보가 없어요!");
       history.goBack();
@@ -50,18 +50,7 @@ const Mypage = (props) => {
     };
     reader.readAsDataURL(e.target.files[0]);
   };
-  // const uploadFirebase = ()=>{
-  //   let profile_img = fileInput.current?.files[0];
-  //   const _upload =storage.ref(`profile/${profile_img.name}`).put(profile_img);
-  // //upload
-  //   _upload.then((snapshot)=>{
-  //     console.log(snapshot);
-  // //url 가져오기
-  // snapshot.ref.getDownloadURL().then((url)=>{
-  //   console.log(url);
-  // })
-  //   })
-  // }
+
   const onEditUserHandler = () => {
     dispatch(
       userActions.editUserFirebase(uid, {
@@ -123,7 +112,7 @@ const Mypage = (props) => {
           )}
          
 
-          <Permit>
+          {/* <Permit>
             {is_edit ? (
               <div className={classes.btn__space}>
                 <button
@@ -151,7 +140,7 @@ const Mypage = (props) => {
                 EDIT
               </button>
             )}
-          </Permit>
+          </Permit> */}
         </div>
       </div>
     </div>

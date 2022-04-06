@@ -32,39 +32,39 @@ const ExpandMore = styled((props) => {
 
 const Post = React.memo((props) => {
   const [expanded, setExpanded] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  // const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  const handleClick = (e) => {
-    setAnchorEl(e.target.value);
-  };
-  const handleClose =()=>{
-    setAnchorEl(null);
-  }
-  const open = Boolean(anchorEl);
+  // const handleClick = (e) => {
+  //   setAnchorEl(e.target.value);
+  // };
+  // const handleClose =()=>{
+  //   setAnchorEl(null);
+  // }
+  // const open = Boolean(anchorEl);
 
   return (
     <div className={classes.wrap}>
       <Card sx={{ maxWidth: 345, gridAutoRows: "auto" }}>
-      <Menu
+      {/* <Menu
         anchorEl={anchorEl} 
         keepMounted onClose={handleClose} 
         open={open}>
           <Button text='삭제' _onClick={handleClose}/>
-      </Menu>
+      </Menu> */}
         <CardHeader
-          action={
-            <IconButton 
-            aria-label="more"
-        onClick={handleClick}
-        aria-haspopup="true"
-        aria-controls="long-menu">
-              <MoreVertIcon />
-            </IconButton>
+        //   action={
+        //     <IconButton 
+        //     aria-label="more"
+        // onClick={handleClick}
+        // aria-haspopup="true"
+        // aria-controls="long-menu">
+        //       <MoreVertIcon />
+        //     </IconButton>
             
-          }
+        //   }
           titleTypographyProps={{
             fontSize: 18,
             fontFamily: "Monospace"

@@ -22,7 +22,6 @@ const NotiBadge = (props) => {
 
     notiDB.on("value", (snapshot) => {
       //(바뀐값)=>{값이 바뀌었을때 무엇을 동작했으면 좋겠어?}
-      console.log(snapshot.val());
 
       setIsRead(snapshot.val()?.read);
     });

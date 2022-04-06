@@ -56,8 +56,8 @@ const deletePostFirebase = (post_id) => {
       .delete()
       .then(() => {
         dispatch(deletePost(post_id));
-
-        history.replace("/list");
+        alert('게시물이 삭제되었습니다!')
+        window.location.replace('/list');
       })
       .catch((err) => {
         console.log(err);
@@ -149,7 +149,8 @@ const addPostFirebase = (content = "", title = "", image_url = "") => {
       .then((doc) => {
         let post = { user_info, ..._post, id: doc.id };
         dispatch(addPost(post));
-        history.replace("/list");
+        window.location.replace('/list');
+        // history.replace("/list");
       })
       .catch((err) => {
         console.log("포스트 작성에 실패헸어요!", err);
@@ -158,7 +159,7 @@ const addPostFirebase = (content = "", title = "", image_url = "") => {
 };
 
 //post가지고오기
-const getPostFirebase = (start = null, size = 8) => {
+const getPostFirebase = (start = null, size = 6) => {
   return function (dispatch, getState, { history }) {
     let _paging = getState().log.paging;
 

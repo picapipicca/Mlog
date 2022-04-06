@@ -35,8 +35,6 @@ const PostDetail = (props) => {
   const id = props.match.params.id;
   const post = post_list.find((p)=>p?.id === id);
   
-console.log(id);
-  
   
   // const post_idx = post_list.findIndex((p) => p.id === post_id);
   // const post = post_list[post_idx];
