@@ -72,16 +72,12 @@
   background:transparent;
   float: left;
 }
-
-@media (max-width: 1100px) {
-  .my-masonry-grid {
-    margin-left: -15px; /* gutter size offset */
+/* 
+@media (max-width: 700px) {
+ 
+  .my_masonry_grid_column {
+    padding-left: 0px; gutter size
+    background-clip: padding-box;
+    
   }
-  .my-masonry-grid_column {
-    padding-left: 15px; /* gutter size offset */
-  }
-  .my-masonry-grid_column > div {
-    margin-bottom: 15px; /* space between items */
-  }
-  
-}
+} */

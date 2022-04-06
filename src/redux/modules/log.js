@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
-import { firestore, storage } from "../../shared/firebase";
+import { firestore, storage, auth } from "../../shared/firebase";
+
 import moment from "moment";
 import "moment/locale/ko";
 
@@ -56,8 +57,8 @@ const deletePostFirebase = (post_id) => {
       .delete()
       .then(() => {
         dispatch(deletePost(post_id));
-        alert('게시물이 삭제되었습니다!')
-        window.location.replace('/list');
+        alert("게시물이 삭제되었습니다!");
+        window.location.replace("/list");
       })
       .catch((err) => {
         console.log(err);
@@ -92,6 +93,7 @@ const editPostFirebase = (post_id = null, post = {}) => {
         });
     } else {
       const user_id = getState().user.user.uid;
+
       const _upload = storage
         .ref(`images/${user_id}_${new Date().getTime()}`)
         .put(_image, "data_url");
@@ -149,7 +151,7 @@ const addPostFirebase = (content = "", title = "", image_url = "") => {
       .then((doc) => {
         let post = { user_info, ..._post, id: doc.id };
         dispatch(addPost(post));
-        window.location.replace('/list');
+        window.location.replace("/list");
         // history.replace("/list");
       })
       .catch((err) => {
@@ -159,18 +161,28 @@ const addPostFirebase = (content = "", title = "", image_url = "") => {
 };
 
 //post가지고오기
-const getPostFirebase = (start = null, size = 6) => {
+const getPostFirebase = (start = null, size = 8) => {
   return function (dispatch, getState, { history }) {
     let _paging = getState().log.paging;
+    let _user = sessionStorage.getItem("is_login");
+    const postDB = firestore.collection("post");
 
     if (_paging.start && !_paging.next) {
       return;
     }
-
     dispatch(loading(true));
-    const postDB = firestore.collection("post");
 
-    let query = postDB.orderBy("insert_dt", "desc");
+    console.log(_user);
+  
+    //   postDB.where().orderBy().get().then((querySnapshot) => {
+    //     querySnapshot.forEach((doc) => {
+
+    //         console.log(doc.id, " => ", doc.data());
+    //     });
+    // });
+    let query = postDB
+      .where("user_id",'==', _user)
+      .orderBy("insert_dt", "desc");
 
     if (start) {
       query = query.startAt(start);
@@ -194,7 +206,6 @@ const getPostFirebase = (start = null, size = 6) => {
         docs.forEach((d) => {
           let all_data = d.data();
 
-          //['comment_count','contents', ..]
           let post = Object.keys(all_data).reduce(
             (acc, cur) => {
               if (cur.indexOf("user_") !== -1) {
@@ -209,7 +220,7 @@ const getPostFirebase = (start = null, size = 6) => {
           );
           post_list.push(post);
         });
-        //4개 넘어 갔으니까 마지막꺼 하나 없애기
+
         post_list.pop();
 
         dispatch(setPost(post_list, paging));
@@ -252,7 +263,6 @@ const getRandomPostFirebase = (start = null, size = 4) => {
         docs.forEach((d) => {
           let all_data = d.data();
 
-          //['comment_count','contents', ..]
           let post = Object.keys(all_data).reduce(
             (acc, cur) => {
               if (cur.indexOf("user_") !== -1) {
@@ -267,7 +277,7 @@ const getRandomPostFirebase = (start = null, size = 4) => {
           );
           post_list.push(post);
         });
-        //4개 넘어 갔으니까 마지막꺼 하나 없애기
+
         post_list.pop();
 
         dispatch(cutPost(post_list, paging));

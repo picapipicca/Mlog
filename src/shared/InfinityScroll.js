@@ -1,14 +1,18 @@
 import React, { Fragment, useCallback, useEffect, useRef } from "react";
 import _ from "lodash";
 import styled from "styled-components";
-import HashLoader from "react-spinners/HashLoader";
+// import HashLoader from "react-spinners/HashLoader";
+import Loading from 'react-loading';
 
 const InfinityScroll = (props) => {
   const { children, callNext, is_next, loading } = props;
 
   const handleCallNext = _.throttle(() => {
+    if (loading) {
+      return;
+    }
     callNext();
-  }, 300);
+  }, 1000);
 
   const spinnerRef = useRef(null);
 
@@ -19,19 +23,25 @@ const InfinityScroll = (props) => {
   });
 
   useEffect(() => {
-      if(!is_next)return;
-      if(!spinnerRef.current)return;
+    if (!is_next) return;
+    if (!spinnerRef.current) return;
 
-    handleObserver.observe(spinnerRef.current)
-   return ()=> {spinnerRef.current && handleObserver.unobserve(spinnerRef.current)} 
+    handleObserver.observe(spinnerRef.current);
+
+    return () => {
+      // return () => handleObserver && handleObserver.disconnect();
+      spinnerRef.current && handleObserver.unobserve(spinnerRef.current);
+    };
   }, [is_next]);
   return (
     <Fragment>
-        {children}
-        {is_next && 
-        <Spinner ref={spinnerRef}>
-            <HashLoader color="rgba(202, 142, 241, 100)" size={50}/>
-        </Spinner>}
+      {children}
+      {is_next && (
+        <h2>로딩</h2>
+        // <Loader ref={spinnerRef}>
+        //   <Loading type='spin' color='#A593E0'/>
+        // </Loader>
+      )}
     </Fragment>
   );
 };
@@ -42,8 +52,12 @@ InfinityScroll.defaultProps = {
   is_next: false,
   loading: false,
 };
-const Spinner = styled.div`
+const Loader = styled.div`
+   width: 100%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
   text-align: center;
-  padding: 20px 0 40px 0;
-`
+  align-items: center;
+`;
 export default InfinityScroll;

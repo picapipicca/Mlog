@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Button, Spinner } from "../element/index";
+import { Grid } from "../element/index";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as logActions } from "../redux/modules/log";
 
@@ -15,24 +15,19 @@ import moment from "moment";
 
 const PostList = (props) => {
   const dispatch = useDispatch();
-  // const { history } = props;
 
-  // const { post_list, is_loading, paging } = useSelector((state) => state.log);
   const post_list = useSelector((state) => state.log.post_list);
   const is_loading = useSelector((state) => state.log.is_loading);
   const paging = useSelector((state) => state.log.paging);
-  const user_info = useSelector((state) => state.user.user);
   
-  const post_mine = post_list?.filter(
-    (p) => p?.user_info.user_id === user_info?.uid
-  );
+  
   const [yearFilter, setYearFilter] = React.useState(moment().format("YYYY"));
   const selectYear = (selectedYear) => {
     setYearFilter(selectedYear);
   };
 
   //년도에 따라 필터
-  const filteredYearList = post_mine.filter((p) => {
+  const filteredYearList = post_list.filter((p) => {
     return p.insert_dt.split("-")[0] === yearFilter;
   });
 
@@ -42,11 +37,12 @@ const PostList = (props) => {
     }
   }, []);
 
-  const filteredList = filteredYearList ? filteredYearList : post_mine;
+  const filteredList = filteredYearList ? filteredYearList : post_list;
   const breakpointColumnsObj = {
     default: 4,
-    1100: 3,
-    900: 2,
+    1000: 4,
+    900: 3,
+    700: 2,
     425: 1,
   };
   return (
@@ -61,7 +57,7 @@ const PostList = (props) => {
         callNext={() => {
           dispatch(logActions.getPostFirebase(paging.next));
         }}
-        is_next={paging?.next ? true : false}
+        is_next={paging.next ? true : false}
         loading={is_loading}
       >
         <Masonry
@@ -72,8 +68,6 @@ const PostList = (props) => {
           {filteredYearList.length === 0 ? (
             <div className={classes.nolog}>로그기록이 없습니다 ;(</div>
           ) : null}
-
-          {/* TODO: spinner or lazyLoading */}
 
           {filteredList.map((p, idx) => {
             return (
