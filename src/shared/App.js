@@ -60,7 +60,7 @@ function App() {
           floatBtn
           text="+"
           _onClick={() => {
-            history.push("/write");
+            history.replace("/write");
           }}
         ></Button>
       </Permit>

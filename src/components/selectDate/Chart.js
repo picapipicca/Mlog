@@ -4,9 +4,9 @@ import styled from "styled-components";
 
 const Chart = (props) => {
   const valueArray = props.dataPlots.map((d) => d.value);
-  // console.log(valueArray);
+  
   const totalMaximum = Math.max(...valueArray);
-  // console.log(totalMaximum);
+  
   return (
     <ChartEl>
       {props.dataPlots.map((d) => (

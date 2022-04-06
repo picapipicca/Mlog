@@ -18,8 +18,6 @@ const Map = (props) => {
   const post_list = useSelector((state) => state.log.post_list);
   const paging = useSelector((state) => state.log.paging);
 
-  console.log(post_list);
-
   React.useEffect(() => {
     if (post_list.length < 2) {
       dispatch(logActions.getRandomPostFirebase());
@@ -31,7 +29,7 @@ const Map = (props) => {
     dispatch(logActions.getRandomPostFirebase(paging.next));
   };
   const is_next = paging.next ? true : false;
-  console.log("넥스트", is_next);
+
   return (
     <div className={classes.wrap}>
       <main>

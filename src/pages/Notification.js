@@ -24,7 +24,6 @@ const Notification = (props) => {
         let noti_list = Object.keys(_data).reverse().map(l => {
           return _data[l];
         })
-        console.log(noti_list);
         setNoti(noti_list);
       }
     });
