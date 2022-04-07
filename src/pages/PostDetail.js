@@ -42,11 +42,12 @@ const PostDetail = (props) => {
   // const [post, setPost] = React.useState(post_data ? post_data : null);
 
   const its_me = post?.user_info.user_id === user_info?.uid ? true : false;
-
+  
   React.useEffect(() => {
     if (post) {
       return;
     }
+    
     dispatch(logActions.getOnePostFirebase(id));
   }, []);
 

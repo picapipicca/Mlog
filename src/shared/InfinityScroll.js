@@ -58,5 +58,6 @@ const Loader = styled.div`
   justify-content: center;
   text-align: center;
   align-items: center;
+  margin-bottom:10px;
 `;
 export default InfinityScroll;

@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.6281a7ed.css",
-    "main.js": "/static/js/main.70019a0f.js",
+    "main.css": "/static/css/main.8a9d6592.css",
+    "main.js": "/static/js/main.b0fe9a5b.js",
     "static/media/3.jpeg": "/static/media/3.691d4a344c10689077ab.jpeg",
     "static/media/2.jpeg": "/static/media/2.019ed06044c913d9c0ac.jpeg",
     "static/media/5.jpeg": "/static/media/5.3a97bc888e25cf874a24.jpeg",
@@ -10,18 +10,14 @@
     "static/media/logo1.jpeg": "/static/media/logo1.8a67a466288600c9e7db.jpeg",
     "static/media/logo2.jpeg": "/static/media/logo2.8b983acd539487764d07.jpeg",
     "static/media/logo3.jpeg": "/static/media/logo3.5db0a657a3302161a2c1.jpeg",
-    "static/media/MypageIcon.svg": "/static/media/MypageIcon.33f92c253fd43e0a44737aafc5642ec5.svg",
     "static/media/github-60.svg": "/static/media/github-60.94d582f2915a5274b68035e4c6a54196.svg",
     "static/media/instagram.svg": "/static/media/instagram.e5adfa9ef0e2dd7ec2673eb17a078939.svg",
-    "static/media/AlarmIcon.svg": "/static/media/AlarmIcon.1ba8b5c0344a34019df86470968ea53c.svg",
-    "static/media/MapIcon.svg": "/static/media/MapIcon.5cb8949e48293d50ff8a34596981d7df.svg",
     "index.html": "/index.html",
-    "static/media/LicenseIcon.svg": "/static/media/LicenseIcon.7b31f5e44a007376873dc8a38ac61da2.svg",
-    "main.6281a7ed.css.map": "/static/css/main.6281a7ed.css.map",
-    "main.70019a0f.js.map": "/static/js/main.70019a0f.js.map"
+    "main.8a9d6592.css.map": "/static/css/main.8a9d6592.css.map",
+    "main.b0fe9a5b.js.map": "/static/js/main.b0fe9a5b.js.map"
   },
   "entrypoints": [
-    "static/css/main.6281a7ed.css",
-    "static/js/main.70019a0f.js"
+    "static/css/main.8a9d6592.css",
+    "static/js/main.b0fe9a5b.js"
   ]
 }
