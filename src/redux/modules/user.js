@@ -2,7 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import { produce } from "immer";
 import { auth } from "../../shared/firebase";
 import  firebase from "firebase/compat/app";
-import { firestore,storage } from "../../shared/firebase";
+import { storage } from "../../shared/firebase";
 
 //initialState = defaultProps
 const initialState = {
@@ -103,15 +103,17 @@ const signupFirebase = (email, pwd, user_nick) => {
             history.push("/");
           })
           .catch((error) => {
-            console.log(error);
+         
+        console.log('에러',error);
+           
           });
       })
       .catch((error) => {
+        window.alert('이미 사용중인 이메일입니다!');
         var errorCode = error.code;
         var errorMessage = error.message;
-
         console.log(errorCode, errorMessage);
-        // ..
+        
       });
   };
 };
