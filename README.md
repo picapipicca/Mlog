@@ -60,12 +60,16 @@ materi ui
 - FirebaseDB에서 데이터 받아올때 비동기방식으로 처리 -> Firebase version 호환성을 위해 promise로 비동기처리했지만 async await 키워드를 사용하여 처리했다면 코드가 간결해지고 에러확인이 더 쉬웠을것으로 예상.
 - 이슈 ) DB설계 미스로 전체 data list 중 로그인한 유저의 data만 보려면 불러온 전체 data를 클라이언트 단에서 filter해서 보여줌. 그렇기에 Inifinite Scroll을 사용하여 특정갯수만큼 페이징해서 보려한다면 일정하지않은 data 갯수가 화면에 출력됨. 수정후 redux 미들웨어에서 복합쿼리를 사용하여 Firestore에 저장되어있는 data list 에서 session에 저장되어있는 uid와 로그인한 유저의 uid가 같은 data만 출력하는 것으로 해결.
 
-> 알람 기능 : Firebase Realtime Database 를 사용하여 다른 사용자가 자신의 게시물에 댓글 작성시 헤더 알람표시
+> 알람 기능 
+- Firebase Realtime Database 를 사용하여 다른 사용자가 자신의 게시물에 댓글 작성시 헤더 알람표시
 
-> 메인페이지 랜덤 데이터 출력 : 버튼 클릭시 지정된 숫자만큼 다음 랜덤 data 불러옴. 불러올 data가 있는지 확인하는 로직을 작성하여 비동기 처리.
+> 메인페이지 랜덤 데이터 출력 
+- 버튼 클릭시 지정된 숫자만큼 다음 랜덤 data 불러옴. 불러올 data가 있는지 확인하는 로직을 작성하여 비동기 처리.
 
-> redux (React-redux,redux-thunk) 데이터 전역관리를 위하여 사용. Redux-thunk를 사용함으로써 미들웨어에서 비동기통신 처리해서 firebase DB에서 데이터 가져옴
+> redux (React-redux,redux-thunk) 
+- 데이터 전역관리를 위하여 사용. Redux-thunk를 사용함으로써 미들웨어에서 비동기통신 처리해서 firebase DB에서 데이터 가져옴
 
-> Web vitals를 사용해서 Firebase analytics service로 보냄. 실제 사용자가 사이트를 사용할때 성능이 어느정도 나오는지 확인할수있도록 firebase analytics 서비스로 성능지표를 보내 성능측정
+> Web vitals
+- 사용해서 Firebase analytics service로 보냄. 실제 사용자가 사이트를 사용할때 성능이 어느정도 나오는지 확인할수있도록 firebase analytics 서비스로 성능지표를 보내 성능측정
 
 
