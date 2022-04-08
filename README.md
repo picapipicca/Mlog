@@ -11,17 +11,17 @@
 
 ## 🛠 기술 스텍 및 라이브러리
 
-> 개발언어 : Javascript
-라이브러리 : React
-상태관리 :redux , redux-thunk , redux-logger , immer
+- 개발언어 : Javascript
+- 라이브러리 : React
+- 상태관리 :redux , redux-thunk , redux-logger , immer
 
-배포 : firebase distribution
+- 배포 : firebase distribution
 
-스타일
+- 스타일
 styled-component
 CSS Module
 
-라이브러리 & 패키지
+- 라이브러리 & 패키지
 antd
 react-swiper
 materi ui
@@ -31,9 +31,9 @@ materi ui
 
 ## 페이지 구성📖
 
-메인
-로그인
-마이페이지/프로필 수정
-로그/작성/수정
+- 메인
+- 로그인
+- 마이페이지/프로필 수정
+- 로그/작성/수정
 
 
