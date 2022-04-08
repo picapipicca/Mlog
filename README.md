@@ -24,7 +24,7 @@ CSS Module
 - 라이브러리 & 패키지
 antd , 
 react-swiper , 
-materi ui 
+material ui 
 
 
 
