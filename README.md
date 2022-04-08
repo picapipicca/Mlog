@@ -36,7 +36,7 @@ materi ui
 - 마이페이지/프로필 수정
 - 로그/작성/수정
 
-## ⛔️ Trouble Shooting
+## ⛔️ Trouble Shooting & Project Details
 
 
 > Firebase Auth / Firestore DB 등을 이용해서 회원관리
@@ -50,8 +50,11 @@ materi ui
 > 데이터 출력 및 글쓰기 수정 /삭제
 - 이슈 ) 수정시 사용자가 이미 있는 이미지 삭제 후 새이미지로 변경시 Storage에 이미 저장된 이미지를 삭제할수없음.  이미지를 비교하여 같은 이미지가 아닐경우 삭제하는 로직이 필요함
 
-> 레이아웃   figma를 통해 와이어프레임 작업 Masonry layout 으로 데이터를 화면에 출력 Swiper Custom을 통해 메인페이지 배너 작성
-Css 클래스 중첩을 방지하기위해 CSS Module을 주류로 사용. 재사용성이 높은 컴포넌트는 Styled-components로 사용. 추후 SCSS 로 전체 코드 바꿀까 검토했으나 클래스명 중복사용 방지와 css파일과 js파일 분리를 위해 css module로 유지
+> 레이아웃 
+- figma를 통해 와이어프레임 작업
+- Masonry layout 으로 데이터를 화면에 출력
+- Swiper Custom을 통해 메인페이지 배너 작성
+- Css 클래스 중첩을 방지하기위해 CSS Module을 주류로 사용. 재사용성이 높은 컴포넌트는 Styled-components로 사용. 추후 SCSS 로 전체 코드 바꿀까 검토했으나 클래스명 중복사용 방지와 css파일과 js파일 분리를 위해 css module로 유지
 
 > Intersection Observer를 통한 무한스크롤 구현
 - FirebaseDB에서 데이터 받아올때 비동기방식으로 처리 -> Firebase version 호환성을 위해 promise로 비동기처리했지만 async await 키워드를 사용하여 처리했다면 코드가 간결해지고 에러확인이 더 쉬웠을것으로 예상.
