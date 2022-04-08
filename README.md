@@ -18,13 +18,13 @@
 - 배포 : firebase distribution
 
 - 스타일
-styled-component
+styled-component ,
 CSS Module
 
 - 라이브러리 & 패키지
-antd
-react-swiper
-materi ui
+antd , 
+react-swiper , 
+materi ui 
 
 
 
