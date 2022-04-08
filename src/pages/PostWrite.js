@@ -145,7 +145,7 @@ const PostWrite = (props) => {
         <Editor
           height="80vh"
           previewStyle="vertical"
-          placeholder="내용을 입력해주세요"
+          placeholder="모두에게 노출되는 글입니다 민감한 개인정보 기록은 피해주세요!"
           initialEditType="markdown"
           onChange={onSaveContenthandler}
           initialValue={content}
