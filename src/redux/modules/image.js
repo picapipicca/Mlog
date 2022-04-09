@@ -58,9 +58,7 @@ export default handleActions(
       produce(state, (draft) => {
         draft.uploading = action.payload.uploading;
       }),
-    // [SET_PREVIEW]: (state,action) => produce(state,(draft)=>{
-    //     draft.preview = action.payload.preview;
-    // })
+    
   },
   initialState
 );
@@ -68,6 +66,6 @@ export default handleActions(
 const actionCreators = {
   uploadImage,
   uploadImageFirebase,
-  // setPreview,
+  
 };
 export { actionCreators };

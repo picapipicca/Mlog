@@ -5,7 +5,6 @@ import "firebase/compat/storage";
 import 'firebase/compat/database';
 import 'firebase/compat/analytics';
 
-//firebase config 변수 만들기
 
 const firebaseConfig = {
     apiKey: "AIzaSyAgDpkdfNlZ2JFPE20rRMGthWBneIkuA2k",

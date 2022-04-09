@@ -30,7 +30,6 @@ function App() {
   const is_session = sessionStorage.getItem(session_key_check) ? true : false;
 
   useEffect(() => {
-    //loginCheckFirebase 해주는조건 :session 에 key가 있나없나
     if (is_session) {
       dispatch(userActions.loginCheckFirebase());
     }

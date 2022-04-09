@@ -11,7 +11,6 @@ import "antd/dist/antd.css";
 
 const Mypage = (props) => {
 
-  //사용자 정보 새로고침해도 firebase 에서 가지고오기 (뒤로보냄 아님)
   const user_email = props.match.params.id;
   const one_user = useSelector((state) => state.user.user);
   const uid = one_user?.uid;
@@ -24,7 +23,6 @@ const Mypage = (props) => {
     one_user ? one_user?.user_profile : "/broken-image.jpg"
   );
 
-  //TODO: 시용자 정보없을시 처리 -> firebase에서 가지고오기
   React.useEffect(() => {
 
     if (is_edit && !one_user) {
