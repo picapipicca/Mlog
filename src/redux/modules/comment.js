@@ -128,7 +128,6 @@ export default handleActions(
   {
     [SET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        //let data = {[post_id]: comment_list,...}
         draft.list[action.payload.post_id] = action.payload.comment_list;
       }),
     [ADD_COMMENT]: (state, action) =>

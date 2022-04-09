@@ -35,12 +35,7 @@ const PostDetail = (props) => {
   const id = props.match.params.id;
   const post = post_list.find((p)=>p?.id === id);
   
-  
-  // const post_idx = post_list.findIndex((p) => p.id === post_id);
-  // const post = post_list[post_idx];
   const [expanded, setExpanded] = React.useState(false);
-  // const [post, setPost] = React.useState(post_data ? post_data : null);
-
   const its_me = post?.user_info.user_id === user_info?.uid ? true : false;
   
   React.useEffect(() => {
@@ -77,7 +72,7 @@ const PostDetail = (props) => {
             </div>
 
             <div className={classes["top-header"]}>
-              {/* <Image circle src={post.user_info.user_profile} /> */}
+        
               <p className={classes.nick}>{post.user_info.user_nick}</p>
               <p className={classes.time}>{post.insert_dt}</p>
               {its_me && (

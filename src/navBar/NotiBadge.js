@@ -16,12 +16,10 @@ const NotiBadge = (props) => {
   };
 
   //realtime database 구독 DB.on() / 구독해지 DB.off()
-  //함수형 컴포넌트에서 리스너 구독 : UseEffect
   React.useEffect(() => {
     const notiDB = realtime.ref(`noti/${user_id}`);
 
     notiDB.on("value", (snapshot) => {
-      //(바뀐값)=>{값이 바뀌었을때 무엇을 동작했으면 좋겠어?}
 
       setIsRead(snapshot.val()?.read);
     });

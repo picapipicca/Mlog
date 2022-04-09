@@ -4,9 +4,8 @@ import { auth } from "../../shared/firebase";
 import  firebase from "firebase/compat/app";
 import { storage } from "../../shared/firebase";
 
-//initialState = defaultProps
+//initialState 
 const initialState = {
-  //로그인하기전에는 일단 유저정보가 없어야하니까 null
   user: null,
   is_login: false,
 };
@@ -19,7 +18,7 @@ const user_initial = {
 };
 
 //action
-//login,signup = SET_USER
+
 const SET_USER = "SET_USER";
 const LOG_OUT = "LOG_OUT";
 const GET_USER = "GET_USER";
@@ -34,16 +33,6 @@ const editUser = createAction(EDIT_USER, (uid, user) => ({
   user
 }));
 
-//middleware actions
-
-// const loginActionCreator = (user) => {
-//   return function (dispatch, getState, { history }) {
-//     console.log(history);
-//     dispatch(setUser(user));
-//     history.push("/");
-//   };
-// };
-
 //받아오는값은 이메일,비밀번호,아이디
 const loginFirebase = (email, pwd) => {
   return function (dispatch, getState, { history }) {
@@ -51,7 +40,6 @@ const loginFirebase = (email, pwd) => {
       auth
         .signInWithEmailAndPassword(email, pwd)
         .then((user) => {
-          //로그인한다음에 뭘할거야?
           console.log(user);
           dispatch(
             setUser({
@@ -63,12 +51,7 @@ const loginFirebase = (email, pwd) => {
           );
           history.push("/");
           
-          // dispatch(setUser({
-          //   //auth.currentUser에서 nick 가져오거나, then에 있는 user에서 가져와도됨
-          //   email: email,
-          //   user_nick: user_nick,
-          //   user_profile: "",
-          // })
+    
         })
         .catch((error) => {
           var errorCode = error.code;
@@ -118,8 +101,6 @@ const signupFirebase = (email, pwd, user_nick) => {
   };
 };
 
-//리덕스에서 새로고침해도 로그인안날아가고 유지시켜주는방법 -> app.js에서 useEffect로 적용시켜줌
-//처음에 딱 들어가면 app.js 에서 session 유무 체크-> session있으면 있네? 리덕스에 로그인체크 보내봐야겠다-> 해봤더니 여기 정보가 있네 이정보 넣어줄게 해준것!
 const loginCheckFirebase = () => {
   return function (dispatch, getState, { history }) {
     auth.onAuthStateChanged((user) => {
@@ -189,7 +170,7 @@ const editUserFirebase = (uid = null, user={}) => {
 //reducer
 export default handleActions(
   {
-    //produce로 원본값을 복사한값을 받아온게 draft
+  
     [SET_USER]: (state, action) =>
       produce(state, (draft) => {
         const user = auth.currentUser;
@@ -225,7 +206,6 @@ const actionCreators = {
   loginFirebase,
   loginCheckFirebase,
   logoutFirebase,
-  // loginActionCreator,
   editUserFirebase,
   editUser,
 };

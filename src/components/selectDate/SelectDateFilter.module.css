@@ -10,7 +10,7 @@
     width: 100%;
     align-items: center;
     justify-content: space-between;
-    /* margin: 1rem 0; */
+    
   }
   
   .expenses-filter label {
@@ -23,6 +23,6 @@
     font-size: large;
     padding: 0.6rem 2.5rem;
     font-weight: bold;
-    /* border-radius: 6px; */
+
   }
   

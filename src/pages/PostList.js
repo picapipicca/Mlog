@@ -9,7 +9,6 @@ import InfinityScroll from "../shared/InfinityScroll";
 import SelectDateFilter from "../components/selectDate/SelectDateFilter";
 import Post from "../components/Log/Post";
 import LogChart from "../components/selectDate/LogChart";
-// import MonthSideBar from "../components/selectDate/MonthSideBar";
 import Masonry from "react-masonry-css";
 import moment from "moment";
 

@@ -1,7 +1,6 @@
 import React, { Fragment, useCallback, useEffect, useRef } from "react";
 import _ from "lodash";
 import styled from "styled-components";
-// import HashLoader from "react-spinners/HashLoader";
 import Loading from "react-loading";
 
 const InfinityScroll = (props) => {
@@ -29,7 +28,7 @@ const InfinityScroll = (props) => {
     handleObserver.observe(spinnerRef.current);
 
     return () => {
-      // return () => handleObserver && handleObserver.disconnect();
+    
       spinnerRef.current && handleObserver.unobserve(spinnerRef.current);
     };
   }, [is_next, loading]);

@@ -40,11 +40,9 @@ const MapSwiper = () => {
           // Override prevEl & nextEl now that refs are defined
           swiper.params.navigation.prevEl = buttonLeft.current
           swiper.params.navigation.nextEl = buttonRight.current
-
-          // Re-init navigation
-          // swiper.navigation.destroy()
+          
           swiper.navigation.init()
-          // swiper.navigation.update()
+          
         })
       }}
     >

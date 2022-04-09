@@ -78,17 +78,11 @@ const PostWrite = (props) => {
   const onAddPostHandler = () => {
     const contentHTML = editorRef.current.getInstance().getHTML();
     const content = editorRef.current.getInstance().getMarkdown();
-    // const image_url = contentHTML.split("=")[2]?.split('"')[1];
-    // const contentMarkdown = editorRef.current.getInstance().getMarkdown();
-    // const content = contentMarkdown.replaceAll("#", "").split("!")[0];
-    // const content = editorRef.current.getInstance().getHTML();
     dispatch(logActions.addPostFirebase(content, title, image_url));
   };
   const onEditPostHandler = () => {
     const contentHTML = editorRef.current.getInstance().getHTML();
     const content = editorRef.current.getInstance().getMarkdown();
-
-    // const image_url = contentHTML.split("=")[1]?.split('"')[1];
     dispatch(
       logActions.editPostFirebase(post_id, {
         title: title,

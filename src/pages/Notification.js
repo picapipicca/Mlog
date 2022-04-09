@@ -19,8 +19,7 @@ const Notification = (props) => {
     _noti.once("value", (snapshot) => {
       if (snapshot.exists()) {
         let _data = snapshot.val();
-        
-    // 댓글시간 역순으로 정렬
+      
         let noti_list = Object.keys(_data).reverse().map(l => {
           return _data[l];
         })
