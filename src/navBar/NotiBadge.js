@@ -18,9 +18,7 @@ const NotiBadge = (props) => {
   //realtime database 구독 DB.on() / 구독해지 DB.off()
   React.useEffect(() => {
     const notiDB = realtime.ref(`noti/${user_id}`);
-
     notiDB.on("value", (snapshot) => {
-
       setIsRead(snapshot.val()?.read);
     });
 
