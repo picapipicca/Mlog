@@ -4,37 +4,47 @@ import Permit from "../shared/Permit";
 import { useSelector, useDispatch } from "react-redux";
 import { history } from "../redux/configStore";
 import { actionCreators as userActions } from "../redux/modules/user";
+import { actionCreators as imageActions } from "../redux/modules/image";
 
 import { Avatar } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import "antd/dist/antd.css";
 
 const Mypage = (props) => {
-
   const user_email = props.match.params.id;
   const one_user = useSelector((state) => state.user.user);
-  const uid = one_user?.uid;
+  const uid = sessionStorage.getItem("is_login");
   const is_edit = user_email ? true : false;
   const dispatch = useDispatch();
   const fileInput = React.useRef(null);
 
-  const [nick, setNick] = React.useState(one_user ? one_user.user_nick : "");
+  const [nickMsg, setNickMsg] = React.useState("");
+  const [isNick, setIsNick] = React.useState(false);
+  const [nick, setNick] = React.useState("");
   const [profile, setProfile] = React.useState(
     one_user ? one_user?.user_profile : "/broken-image.jpg"
   );
 
   React.useEffect(() => {
-
     if (is_edit && !one_user) {
       alert("사용자 정보가 없어요!");
       history.goBack();
       return;
     }
   }, []);
+  console.log(one_user);
 
-  const changeNick = (e) => {
+  const changeNick = React.useCallback((e) => {
     setNick(e.target.value);
-  };
+
+      if (e.target.value.trim().length < 2 || e.target.value.trim().length > 10) {
+        setNickMsg("2글자 이상 9글자 미만으로 입력해주세요");
+        setIsNick(false);
+      } else {
+        setNickMsg("올바른 닉네임 형식입니다");
+        setIsNick(true);
+      }},[]);
+
   const selectFile = (e) => {
     if (e.target.files[0]) {
       setProfile(e.target.files[0]);
@@ -46,17 +56,23 @@ const Mypage = (props) => {
         setProfile(reader.result);
       }
     };
-    reader.readAsDataURL(e.target.files[0]);
+    const file = e.target.files[0];
+    reader.readAsDataURL(file);
+
+    reader.onloadend = () => {
+      console.log(reader.result);
+      dispatch(imageActions.setPreview(reader.result));
+    };
   };
 
-  const onEditUserHandler = () => {
+  const onSubmitHandler = () => {
     dispatch(
       userActions.editUserFirebase(uid, {
         user_nick: nick,
-        user_profile: profile,
       })
     );
   };
+
   return (
     <div className={classes.wrap}>
       <div className={classes.content}>
@@ -104,13 +120,22 @@ const Mypage = (props) => {
                 value={nick}
                 placeholder="변경할 닉네임을 입력해주세요"
               />
+                {nick.length > 0 && (
+            <div
+              className={`${classes.message} ${
+                isNick ? classes.success : classes.error
+              }`}
+            >
+              {nickMsg}
             </div>
+          )}
+            </div>
+            
           ) : (
             <div>nickname : {one_user?.user_nick}</div>
           )}
-         
 
-          {/* <Permit>
+          <Permit>
             {is_edit ? (
               <div className={classes.btn__space}>
                 <button
@@ -121,10 +146,7 @@ const Mypage = (props) => {
                 >
                   CANCEL
                 </button>
-                <button
-                  className={classes.btn__edit}
-                  onClick={onEditUserHandler}
-                >
+                <button className={classes.btn__edit} onClick={onSubmitHandler} disabled={!(isNick)}>
                   DONE
                 </button>
               </div>
@@ -138,7 +160,7 @@ const Mypage = (props) => {
                 EDIT
               </button>
             )}
-          </Permit> */}
+          </Permit>
         </div>
       </div>
     </div>

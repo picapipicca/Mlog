@@ -4,21 +4,20 @@ import produce from "immer";
 import { storage } from "../../shared/firebase";
 
 //actions
-//업로드 중인지 아닌지 판별
 const UPLOADING = "UPLOADING";
-//실제 업로드
 const UPLOAD_IMAGE = "UPLOAD_IMAGE";
-// const SET_PREVIEW = 'SET_PREVIEW';
+const SET_PREVIEW_IMAGE = 'SET_PREVIEW_IMAGE';
 
 //action creators
 const uploading = createAction(UPLOADING, (uploading) => ({ uploading }));
 const uploadImage = createAction(UPLOAD_IMAGE, (image_url) => ({ image_url }));
-// const setPreview = createAction(SET_PREVIEW,(preview)=>({preview}));
+const setPreview = createAction(SET_PREVIEW_IMAGE,(preview)=>({preview}));
 
 //initialState
 const initialState = {
   image_url: "",
   uploading: false,
+  preview:null,
 };
 
 //middleware
@@ -58,7 +57,9 @@ export default handleActions(
       produce(state, (draft) => {
         draft.uploading = action.payload.uploading;
       }),
-    
+    [SET_PREVIEW_IMAGE]:(state,action)=>produce(state,(draft)=>{
+      draft.preview = action.payload.preview;
+    }),
   },
   initialState
 );
@@ -66,6 +67,6 @@ export default handleActions(
 const actionCreators = {
   uploadImage,
   uploadImageFirebase,
-  
+  setPreview,
 };
 export { actionCreators };
