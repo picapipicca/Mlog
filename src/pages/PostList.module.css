@@ -1,12 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=B612+Mono:wght@400;700&family=DM+Serif+Display&family=East+Sea+Dokdo&family=Gowun+Batang:wght@400;700&family=Nanum+Pen+Script&family=Permanent+Marker&family=Playfair+Display:wght@400;500;700;900&display=swap");
-/* .wrap { */
-  /* display: grid; */
-  /* grid-template-columns: repeat(3,1fr) 60px; */
-  /* grid-template-rows: auto; */
-  /* padding: 0 45px 0 45.5px;
-  height: auto;
-  width: 100vw; */
-/* } */
+
 .nolog {
   font-weight: 700;
   font-family: "Gowun Batang", serif;
@@ -19,37 +12,7 @@
   color: #a7abb0;
   background-color: #fff;
 }
-/* .display {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(4, 1fr);
-  margin-bottom: 40px;
-} */
-/* .bus{
-    text-align: center;
-    margin: 0 30%;
-}
-.busframe{
-    height: 70vh;
-    border: 1px solid #000;
-} */
-/* .stickybox {
-  font-weight: 700;
-  font-size: large;
-  width: 3vw;
-  height: 100%;
-  border: 1px solid #000;
-  position: sticky;
-  top: 200px;
-}
-@media screen and (max-width: 1061px){
-  .display {
-    display: grid;
-    gap: 20px;
-    grid-template-columns: auto;
-    margin-bottom: 40px;
-  }
-} */
+
 
 .my_masonry_grid {
   padding: 0 45px 0 45px;
@@ -72,12 +35,8 @@
   background:transparent;
   float: left;
 }
-/* 
-@media (max-width: 700px) {
- 
-  .my_masonry_grid_column {
-    padding-left: 0px; gutter size
-    background-clip: padding-box;
-    
-  }
-} */
+.body_header{
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  text-align: center;
+}
