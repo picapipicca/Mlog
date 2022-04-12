@@ -13,6 +13,7 @@ import "antd/dist/antd.css";
 const Mypage = (props) => {
   const user_email = props.match.params.id;
   const one_user = useSelector((state) => state.user.user);
+  const _user_profile= useSelector((state)=> state.user.user?.user_profile);
   const uid = sessionStorage.getItem("is_login");
   const is_edit = user_email ? true : false;
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const Mypage = (props) => {
   const [isNick, setIsNick] = React.useState(false);
   const [nick, setNick] = React.useState("");
   const [profile, setProfile] = React.useState(
-    one_user ? one_user?.user_profile : "/broken-image.jpg"
+    _user_profile ? _user_profile : "/broken-image.jpg"
   );
 
   React.useEffect(() => {
@@ -31,6 +32,7 @@ const Mypage = (props) => {
       history.goBack();
       return;
     }
+    setProfile(one_user?.user_profile);
   }, []);
   console.log(one_user);
 

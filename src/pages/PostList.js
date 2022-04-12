@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from "../element/index";
+import { Grid,Image } from "../element/index";
 import { useSelector, useDispatch } from "react-redux";
 import { actionCreators as logActions } from "../redux/modules/log";
 
@@ -14,11 +14,10 @@ import moment from "moment";
 
 const PostList = (props) => {
   const dispatch = useDispatch();
-
+  const _user= useSelector((state)=> state.user.user);
   const post_list = useSelector((state) => state.log.post_list);
   const is_loading = useSelector((state) => state.log.is_loading);
   const paging = useSelector((state) => state.log.paging);
-  
 
   const [yearFilter, setYearFilter] = React.useState(moment().format("YYYY"));
   const selectYear = (selectedYear) => {
@@ -46,12 +45,13 @@ const PostList = (props) => {
   };
   return (
     <>
-      <Grid>
+      <div className={classes.body_header}>
         <SelectDateFilter
           selected={yearFilter}
           onSelectYearFilter={selectYear}
         />
-      </Grid>
+        <Image size='50' src={_user?.user_profile}/>
+      </div>
       <InfinityScroll
         callNext={() => {
           dispatch(logActions.getPostFirebase(paging.next));
