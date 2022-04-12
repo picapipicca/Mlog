@@ -32,7 +32,6 @@ const Mypage = (props) => {
       history.goBack();
       return;
     }
-    setProfile(one_user?.user_profile);
   }, []);
   console.log(one_user);
 
@@ -85,7 +84,7 @@ const Mypage = (props) => {
             <div>
               <Avatar
                 icon={<UserOutlined />}
-                src={profile}
+                src={one_user?.user_profile}
                 style={{ cursor: "pointer", backgroundColor: "#CACACA" }}
                 size={200}
                 onClick={() => {
@@ -104,7 +103,7 @@ const Mypage = (props) => {
             </div>
           ) : (
             <div>
-              <Avatar icon={<UserOutlined />} src={profile} size={200} />
+              <Avatar icon={<UserOutlined />} src={one_user?.user_profile} size={200} />
             </div>
           )}
         </div>
