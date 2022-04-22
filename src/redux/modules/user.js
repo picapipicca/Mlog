@@ -138,7 +138,7 @@ const editUserFirebase = (uid, user_nick) => {
       })
         .then((user) => {
           dispatch(editUser(uid, { ...user, user_nick: user_nick }));
-          history.replace("/mypage");
+          window.location.replace("/mypage");
         });
       return;
     } else {
@@ -168,7 +168,7 @@ const editUserFirebase = (uid, user_nick) => {
                       user_profile: url,
                     })
                   );
-                  history.replace("/mypage");
+                  window.location.replace("/mypage");
                 })
                 .catch((err) => {
                   window.alert("앗 프로필 이미지 업로드에 문제가 있어요");

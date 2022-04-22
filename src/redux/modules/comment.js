@@ -11,7 +11,7 @@ import { actionCreators as logActions } from "./log";
 //action type
 const SET_COMMENT = "SET_COMMENT";
 const ADD_COMMENT = "ADD_COMMENT";
-
+const DELETE_COMMENT = "DELETE_COMMENT";
 const LOADING = "LOADING";
 
 //action creator
@@ -23,7 +23,10 @@ const addComment = createAction(ADD_COMMENT, (post_id, comment) => ({
   post_id,
   comment,
 }));
-
+const deleteComment = createAction(DELETE_COMMENT, (post_id, comment) => ({
+  post_id,
+  comment,
+}));
 const loading = createAction(LOADING, (is_loading) => is_loading);
 
 //initialState
@@ -31,7 +34,15 @@ const initialState = {
   list: {},
   is_loading: false,
 };
+// const deleteCommentFirebase = (post_id,comment)=>{
+//   return function(dispatch,getState,{history}){
+//     const commentDB = firestore.collection('comment');
 
+//     commentDB.doc(post_id).delete().then(()=>{
+//       dispatch(deleteComment(commentDB.id))
+//     })
+//   }
+// }
 const getCommentFirebase = (post_id = null) => {
   return function (dispatch, getState, { history }) {
     if (!post_id) {
@@ -96,11 +107,13 @@ const addCommentFirebase = (post_id, content) => {
                 comment_count: parseInt(post.comment_count) + 1,
               })
             );
+            console.log('댓글갯수 수정완료!');
             const noti_item = realtime
               .ref(`noti/${post.user_info.user_id}/list`)
               .push();
             noti_item.set(
-              { post_title: post.title,
+              {
+                post_title: post.title,
                 post_id: post.id,
                 user_nick: comment.user_nick,
                 image_url: post.image_url,
@@ -109,14 +122,12 @@ const addCommentFirebase = (post_id, content) => {
               (err) => {
                 if (err) {
                   console.log("알림 저장에 실패했어요!");
-                }else{
-                  const notiDB = realtime.ref(`noti/${post.user_info.user_id}`)
-                  notiDB.update({read:false});
+                } else {
+                  const notiDB = realtime.ref(`noti/${post.user_info.user_id}`);
+                  notiDB.update({ read: false });
                 }
               }
             );
-
-            
           }
         });
     });

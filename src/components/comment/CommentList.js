@@ -1,10 +1,10 @@
 import React, { Fragment } from "react";
-import { Grid } from "../../element/index";
+import { Grid,Image } from "../../element/index";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as commentActions } from "../../redux/modules/comment";
 import Moment from "react-moment";
 import "moment/locale/ko";
-import { textAlign } from "@mui/system";
+
 
 const CommentList = (props) => {
   const { post_id } = props;
@@ -43,7 +43,7 @@ export const CommentItem = (props) => {
     <Grid is_flex>
       <Grid is_flex width="auto">
         <Grid circle>
-          <img alt="" src={user_profile} />
+          <Image circle size='26' alt="" src={user_profile} />
         </Grid>
         <Grid padding='5px'>
           <p style={{ fontWeight: "700",margin:'3px 0 0 0'}}>{user_nick}</p>

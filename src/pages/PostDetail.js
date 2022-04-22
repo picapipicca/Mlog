@@ -42,14 +42,13 @@ const PostDetail = (props) => {
     if (post) {
       return;
     }
-    
     dispatch(logActions.getOnePostFirebase(id));
   }, []);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
+console.log(post);
   const deletePosthandler = async function () {
     if (
       window.confirm(
@@ -98,7 +97,7 @@ const PostDetail = (props) => {
             </div>
             <div className={classes.body}>
               <div className={classes.viewer}>
-                <Viewer initialValue={post.content} height="auto" />
+                <Viewer initialValue={post.content} />
               </div>
             </div>
           </div>

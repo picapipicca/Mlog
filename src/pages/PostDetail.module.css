@@ -16,7 +16,7 @@
 
 .top-header {
   align-items:center;
-  margin: 5vh 40px;
+  margin: 5vh 40px 0 40px;
   display: grid;
   grid-template-columns: auto 1fr 1fr;
   grid-template-rows: 1fr;
