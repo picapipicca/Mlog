@@ -84,7 +84,7 @@ const Mypage = (props) => {
             <div>
               <Avatar
                 icon={<UserOutlined />}
-                src={one_user?.user_profile}
+                src={profile}
                 style={{ cursor: "pointer", backgroundColor: "#CACACA" }}
                 size={200}
                 onClick={() => {

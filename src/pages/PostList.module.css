@@ -38,5 +38,5 @@
 .body_header{
   display: grid;
   grid-template-columns: auto auto 1fr;
-  text-align: center;
+  
 }
